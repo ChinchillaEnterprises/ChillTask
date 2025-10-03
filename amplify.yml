@@ -1,0 +1,126 @@
+# 🎓 AMPLIFY BUILD CONFIGURATION - STUDENT LEARNING GUIDE
+# This file tells AWS Amplify HOW to build and deploy your app
+# Think of it as a recipe that Amplify follows every time you push code to GitHub
+
+# Version 1 is the current Amplify build spec format
+# This ensures compatibility with Amplify's build system
+version: 1
+
+# ==========================================
+# 🔧 BACKEND SECTION - Your Cloud Infrastructure
+# ==========================================
+# This builds your serverless backend (APIs, databases, auth, storage)
+# In Amplify Gen2, your backend is defined as TypeScript code in amplify/
+backend:
+  phases:
+    # PRE-BUILD: Setup before the actual build
+    preBuild:
+      commands:
+        # Use Node.js version 20 (required for Amplify Gen2)
+        # nvm = Node Version Manager, ensures consistent Node version
+        - nvm use 20
+    
+    # BUILD: Where the magic happens for your backend
+    build:
+      commands:
+        # Install backend dependencies with npm ci (faster than npm install)
+        # --cache .npm = reuse cached packages between builds (faster)
+        # --prefer-offline = use cached packages when possible (faster)
+        - npm ci --cache .npm --prefer-offline
+        
+        # 🚀 CRITICAL COMMAND: Deploy your backend infrastructure
+        # ampx = Amplify Gen2 CLI tool (replaced old 'amplify' CLI)
+        # pipeline-deploy = deploys backend resources to AWS
+        # $AWS_BRANCH = Git branch name (main, dev, etc.) - set by Amplify
+        # $AWS_APP_ID = Your unique Amplify app ID - set by Amplify
+        # This creates/updates: Cognito, AppSync, DynamoDB, Lambda, S3, etc.
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+
+# ==========================================
+# 🎨 FRONTEND SECTION - Your Next.js Application
+# ==========================================
+# This builds your React/Next.js code that users actually see
+frontend:
+  phases:
+    # PRE-BUILD: Prepare the environment
+    preBuild:
+      commands:
+        # Ensure Node.js 20 for frontend (must match backend)
+        - nvm use 20
+        
+        # Install all frontend packages from package.json
+        # This includes React, Next.js, Tailwind, and all your dependencies
+        - npm ci --cache .npm --prefer-offline
+    
+    # BUILD: Compile your Next.js app for production
+    build:
+      commands:
+        # 📝 ENVIRONMENT VARIABLES SETUP
+        # Capture all NEXT_PUBLIC_* variables and save to .env.production
+        # These become available to your React components in the browser
+        # The '|| true' prevents build failure if no variables exist
+        - env | grep -E '^NEXT_PUBLIC_' >> .env.production || true
+        
+        # Capture all AMPLIFY_* variables for internal Amplify use
+        # These help your app connect to the backend resources
+        - env | grep -E '^AMPLIFY_' >> .env.production || true
+        
+        # 🔑 CRITICAL COMMAND: Generate amplify_outputs.json
+        # This file contains all the config your frontend needs:
+        # - Cognito User Pool IDs for authentication
+        # - AppSync API endpoints for data
+        # - S3 bucket names for storage
+        # - Region information
+        # Without this, your frontend can't talk to your backend!
+        - npx ampx generate outputs --branch $AWS_BRANCH --app-id $AWS_APP_ID
+        
+        # Build your Next.js app (runs 'next build' from package.json)
+        # This creates optimized production bundles of your React code
+        - npm run build
+  
+  # ARTIFACTS: What files to deploy after building
+  artifacts:
+    # Next.js outputs everything to the .next folder
+    baseDirectory: .next
+    files:
+      # Deploy all files and folders from .next
+      # This includes HTML, CSS, JS, and all assets
+      - '**/*'
+  
+  # CACHE: Speed up future builds by saving these folders
+  # Amplify reuses these between builds to save time
+  cache:
+    paths:
+      # Next.js build cache (incremental compilation)
+      - .next/cache/**/*
+      # NPM package cache (avoid re-downloading packages)
+      - .npm/**/*
+      # All installed packages (biggest time saver!)
+      - node_modules/**/*
+
+# ==========================================
+# 💡 HOW IT ALL WORKS TOGETHER
+# ==========================================
+# 1. You push code to GitHub
+# 2. Amplify detects the push and starts a build
+# 3. Backend phase runs first:
+#    - Sets up Node 20
+#    - Installs dependencies
+#    - Deploys/updates all AWS resources (databases, auth, etc.)
+# 4. Frontend phase runs second:
+#    - Sets up Node 20
+#    - Installs dependencies
+#    - Gets backend configuration
+#    - Builds your Next.js app
+# 5. Amplify deploys your frontend to CloudFront CDN
+# 6. Your app is live! 🎉
+
+# ==========================================
+# 🎯 STUDENT TIPS
+# ==========================================
+# - Never edit $AWS_BRANCH or $AWS_APP_ID - Amplify sets these
+# - If build fails, check the Amplify Console logs
+# - The order matters: backend MUST build before frontend
+# - amplify_outputs.json is git-ignored but crucial at build time
+# - Cache makes subsequent builds 5-10x faster
+# - Always use Node 20+ for Amplify Gen2 compatibility

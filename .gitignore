@@ -1,0 +1,14 @@
+# amplify
+node_modules
+.amplify
+# amplify_outputs* - Now ignored for security
+# Generated file containing environment-specific configuration
+amplify_outputs*
+amplifyconfiguration*
+.next
+
+# Environment variables - never commit secrets!
+.env.local
+.env*.local
+
+logs/
