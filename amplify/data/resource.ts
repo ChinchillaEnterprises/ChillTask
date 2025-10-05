@@ -1,7 +1,10 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { getSlackChannels } from '../functions/get-slack-channels/resource';
+import { getGitHubRepos } from '../functions/get-github-repos/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
 const schema = a.schema({
+  // Data Models
   ChannelMapping: a
     .model({
       slackChannel: a.string().required(),
@@ -15,6 +18,33 @@ const schema = a.schema({
       messageCount: a.integer(),
     })
     .authorization((allow) => [allow.authenticated(), allow.groups(['ADMINS'])]),
+
+  // Custom Types for API responses
+  SlackChannel: a.customType({
+    id: a.string().required(),
+    name: a.string().required(),
+    isPrivate: a.boolean().required(),
+  }),
+
+  GitHubRepo: a.customType({
+    id: a.string().required(),
+    name: a.string().required(),
+    fullName: a.string().required(),
+    isPrivate: a.boolean().required(),
+  }),
+
+  // Custom Queries - Fetch dropdown data on-demand
+  getSlackChannels: a
+    .query()
+    .returns(a.ref('SlackChannel').array())
+    .handler(a.handler.function(getSlackChannels))
+    .authorization((allow) => [allow.authenticated()]),
+
+  getGitHubRepos: a
+    .query()
+    .returns(a.ref('GitHubRepo').array())
+    .handler(a.handler.function(getGitHubRepos))
+    .authorization((allow) => [allow.authenticated()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -34,6 +64,14 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 
 const client = generateClient<Schema>();
+
+// Fetch Slack channels for dropdown (on-demand, no DB storage)
+const { data: slackChannels } = await client.queries.getSlackChannels();
+// Returns: [{ id: "C123", name: "general", isPrivate: false }, ...]
+
+// Fetch GitHub repos for dropdown (on-demand, no DB storage)
+const { data: githubRepos } = await client.queries.getGitHubRepos();
+// Returns: [{ id: "123", name: "ChillTask", fullName: "ChinchillaEnterprises/ChillTask", isPrivate: false }, ...]
 
 // List all channel mappings
 const { data: mappings } = await client.models.ChannelMapping.list();

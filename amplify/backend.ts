@@ -1,9 +1,8 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource.js';
 import { data } from './data/resource.js';
-// Template functions removed - not needed for ChillTask
-// import { authUsers } from './functions/auth-users/resource.js';
-// import { authGroups } from './functions/auth-groups/resource.js';
+import { getSlackChannels } from './functions/get-slack-channels/resource.js';
+import { getGitHubRepos } from './functions/get-github-repos/resource.js';
 
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
@@ -11,6 +10,24 @@ import { data } from './data/resource.js';
 const backend = defineBackend({
   auth,
   data,
-  // authUsers,
-  // authGroups,
+  getSlackChannels,
+  getGitHubRepos,
 });
+
+// Grant Lambda functions permission to access Secrets Manager
+const slackChannelsFunction = backend.getSlackChannels.resources.lambda;
+const githubReposFunction = backend.getGitHubRepos.resources.lambda;
+
+slackChannelsFunction.addToRolePolicy(
+  new (await import('aws-cdk-lib/aws-iam')).PolicyStatement({
+    actions: ['secretsmanager:GetSecretValue'],
+    resources: ['arn:aws:secretsmanager:us-east-1:*:secret:chinchilla-ai-academy/slack-*'],
+  })
+);
+
+githubReposFunction.addToRolePolicy(
+  new (await import('aws-cdk-lib/aws-iam')).PolicyStatement({
+    actions: ['secretsmanager:GetSecretValue'],
+    resources: ['arn:aws:secretsmanager:us-east-1:*:secret:github-token-*'],
+  })
+);
