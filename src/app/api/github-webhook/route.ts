@@ -1,35 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebClient } from '@slack/web-api';
-import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import crypto from 'crypto';
 
-// Initialize AWS Secrets Manager client
-const secretsClient = new SecretsManagerClient({
-  region: process.env.AWS_REGION || 'us-east-1'
-});
-
-/**
- * Get Slack token from AWS Secrets Manager
- */
-async function getSlackToken(): Promise<string> {
-  try {
-    const command = new GetSecretValueCommand({
-      SecretId: 'Chinchilla-AI-Slack', // Adjust this name if needed
-    });
-
-    const response = await secretsClient.send(command);
-
-    if (response.SecretString) {
-      const secret = JSON.parse(response.SecretString);
-      return secret.token || secret.slack_token || secret.SLACK_TOKEN;
-    }
-
-    throw new Error('Slack token not found in secret');
-  } catch (error) {
-    console.error('Error fetching Slack token:', error);
-    throw error;
-  }
-}
+// Configuration from environment variables
+const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN!;
+const SLACK_CHANNEL_ID = process.env.SLACK_CHANNEL_ID!;
+const GITHUB_WEBHOOK_SECRET = process.env.GITHUB_WEBHOOK_SECRET!;
 
 /**
  * Verify GitHub webhook signature
@@ -78,16 +54,7 @@ export async function POST(request: NextRequest) {
     const event = request.headers.get('x-github-event');
 
     // Verify webhook signature
-    const webhookSecret = process.env.GITHUB_WEBHOOK_SECRET;
-    if (!webhookSecret) {
-      console.error('GITHUB_WEBHOOK_SECRET not configured');
-      return NextResponse.json(
-        { error: 'Webhook secret not configured' },
-        { status: 500 }
-      );
-    }
-
-    if (!signature || !verifyGitHubSignature(rawBody, signature, webhookSecret)) {
+    if (!signature || !verifyGitHubSignature(rawBody, signature, GITHUB_WEBHOOK_SECRET)) {
       console.error('Invalid webhook signature');
       return NextResponse.json(
         { error: 'Invalid signature' },
@@ -106,11 +73,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Get Slack token from Secrets Manager
-    const slackToken = await getSlackToken();
-
     // Initialize Slack client
-    const slack = new WebClient(slackToken);
+    const slack = new WebClient(SLACK_BOT_TOKEN);
 
     // Extract commit information
     const repoName = payload.repository.full_name;
@@ -134,11 +98,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Send message to Slack
-    // TODO: Configure the channel ID or get it from environment
-    const channelId = process.env.SLACK_CHANNEL_ID || 'general';
-
     const result = await slack.chat.postMessage({
-      channel: channelId,
+      channel: SLACK_CHANNEL_ID,
       text: message,
       mrkdwn: true,
     });
