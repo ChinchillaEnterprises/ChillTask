@@ -12,3 +12,7 @@ amplifyconfiguration*
 .env*.local
 
 logs/
+
+# Dev logger outputs
+resources/appserver/
+resources/sandbox/
