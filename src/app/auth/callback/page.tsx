@@ -36,7 +36,10 @@ export default function AuthCallback() {
         case 'signInWithRedirect_failure':
           console.log('❌ OAuth failed:', payload);
           setStatus('error');
-          setError(payload.data?.message || 'OAuth authentication failed');
+          const errorMessage = payload.data?.error?.message ||
+                              (payload.data as any)?.message ||
+                              'OAuth authentication failed';
+          setError(errorMessage);
           // Redirect to sign-in after showing error
           setTimeout(() => {
             router.push('/authentication/sign-in');
