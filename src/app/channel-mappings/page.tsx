@@ -15,6 +15,8 @@ import {
   FormControl,
   Autocomplete,
   CircularProgress,
+  Skeleton,
+  Alert,
 } from "@mui/material";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
@@ -36,15 +38,32 @@ interface GitHubRepo {
   fullName: string;
 }
 
+interface GitHubBranch {
+  name: string;
+  commitSha: string;
+  isProtected: boolean;
+}
+
 export default function ChannelMappings() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [editingMapping, setEditingMapping] = React.useState<Schema["ChannelMapping"]["type"] | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [loadingChannels, setLoadingChannels] = React.useState(false);
   const [loadingRepos, setLoadingRepos] = React.useState(false);
+  const [loadingBranches, setLoadingBranches] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [syncing, setSyncing] = React.useState<string | null>(null); // Track which mapping is syncing
+  const [syncMessage, setSyncMessage] = React.useState<{type: 'success' | 'error', text: string} | null>(null);
   const [slackChannels, setSlackChannels] = React.useState<SlackChannel[]>([]);
   const [githubRepos, setGithubRepos] = React.useState<GitHubRepo[]>([]);
+  const [githubBranches, setGithubBranches] = React.useState<GitHubBranch[]>([]);
   const [mappings, setMappings] = React.useState<Schema["ChannelMapping"]["type"][]>([]);
+  const [formErrors, setFormErrors] = React.useState({
+    slackChannel: "",
+    githubRepo: "",
+    githubBranch: "",
+    contextFolder: "",
+  });
 
   const [formData, setFormData] = React.useState({
     slackChannel: "",
@@ -55,64 +74,61 @@ export default function ChannelMappings() {
     contextFolder: "/context/",
   });
 
-  // Mock function to fetch Slack channels
+  // Fetch Slack channels from API
   const fetchSlackChannels = async () => {
     setLoadingChannels(true);
-
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Mock Slack channels data
-    const mockChannels: SlackChannel[] = [
-      { id: "C001", name: "Internal-Geico" },
-      { id: "C002", name: "Internal-Toyota" },
-      { id: "C003", name: "Internal-Tesla" },
-      { id: "C004", name: "Internal-Ford" },
-      { id: "C005", name: "Internal-BMW" },
-      { id: "C006", name: "Internal-Mercedes" },
-      { id: "C007", name: "Internal-Apple" },
-      { id: "C008", name: "Internal-Microsoft" },
-      { id: "C009", name: "Internal-Amazon" },
-      { id: "C010", name: "Internal-Google" },
-      { id: "C011", name: "team-engineering" },
-      { id: "C012", name: "team-design" },
-      { id: "C013", name: "team-marketing" },
-      { id: "C014", name: "random" },
-      { id: "C015", name: "general" },
-    ];
-
-    setSlackChannels(mockChannels);
-    setLoadingChannels(false);
+    try {
+      const { data, errors } = await client.queries.getSlackChannels();
+      if (errors) {
+        console.error("Failed to fetch Slack channels:", errors);
+      } else if (data) {
+        setSlackChannels(data as SlackChannel[]);
+      }
+    } catch (error) {
+      console.error("Unexpected error fetching Slack channels:", error);
+    } finally {
+      setLoadingChannels(false);
+    }
   };
 
-  // Mock function to fetch GitHub repos
+  // Fetch GitHub repos from API
   const fetchGitHubRepos = async () => {
     setLoadingRepos(true);
+    try {
+      const { data, errors } = await client.queries.getGitHubRepos();
+      if (errors) {
+        console.error("Failed to fetch GitHub repos:", errors);
+      } else if (data) {
+        setGithubRepos(data as GitHubRepo[]);
+      }
+    } catch (error) {
+      console.error("Unexpected error fetching GitHub repos:", error);
+    } finally {
+      setLoadingRepos(false);
+    }
+  };
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    // Mock GitHub repos data
-    const mockRepos: GitHubRepo[] = [
-      { id: "R001", name: "Geico-client", fullName: "github.com/ChinchillaEnterprises/Geico-client" },
-      { id: "R002", name: "Toyota-project", fullName: "github.com/ChinchillaEnterprises/Toyota-project" },
-      { id: "R003", name: "Tesla-app", fullName: "github.com/ChinchillaEnterprises/Tesla-app" },
-      { id: "R004", name: "Ford-platform", fullName: "github.com/ChinchillaEnterprises/Ford-platform" },
-      { id: "R005", name: "BMW-integration", fullName: "github.com/ChinchillaEnterprises/BMW-integration" },
-      { id: "R006", name: "Mercedes-dashboard", fullName: "github.com/ChinchillaEnterprises/Mercedes-dashboard" },
-      { id: "R007", name: "Apple-services", fullName: "github.com/ChinchillaEnterprises/Apple-services" },
-      { id: "R008", name: "Microsoft-connector", fullName: "github.com/ChinchillaEnterprises/Microsoft-connector" },
-      { id: "R009", name: "Amazon-backend", fullName: "github.com/ChinchillaEnterprises/Amazon-backend" },
-      { id: "R010", name: "Google-api", fullName: "github.com/ChinchillaEnterprises/Google-api" },
-      { id: "R011", name: "client-portal", fullName: "github.com/ChinchillaEnterprises/client-portal" },
-      { id: "R012", name: "admin-console", fullName: "github.com/ChinchillaEnterprises/admin-console" },
-      { id: "R013", name: "analytics-engine", fullName: "github.com/ChinchillaEnterprises/analytics-engine" },
-      { id: "R014", name: "mobile-app", fullName: "github.com/ChinchillaEnterprises/mobile-app" },
-      { id: "R015", name: "api-gateway", fullName: "github.com/ChinchillaEnterprises/api-gateway" },
-    ];
-
-    setGithubRepos(mockRepos);
-    setLoadingRepos(false);
+  // Fetch GitHub branches for selected repo
+  const fetchGitHubBranches = async (repoFullName: string) => {
+    setLoadingBranches(true);
+    setGithubBranches([]);
+    try {
+      const { data, errors } = await client.queries.getGitHubBranches({ repoFullName });
+      if (errors) {
+        console.error("Failed to fetch GitHub branches:", errors);
+      } else if (data) {
+        setGithubBranches(data as GitHubBranch[]);
+        // If main branch exists, auto-select it
+        const mainBranch = data.find((b: GitHubBranch) => b.name === 'main');
+        if (mainBranch) {
+          setFormData(prev => ({ ...prev, githubBranch: 'main' }));
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error fetching GitHub branches:", error);
+    } finally {
+      setLoadingBranches(false);
+    }
   };
 
   // Load initial channel mappings from Amplify
@@ -184,6 +200,10 @@ export default function ChannelMappings() {
         githubBranch: mapping.githubBranch,
         contextFolder: mapping.contextFolder,
       });
+      // Fetch branches for the selected repo
+      if (mapping.githubUrl) {
+        fetchGitHubBranches(mapping.githubUrl);
+      }
     } else {
       setEditingMapping(null);
       setFormData({
@@ -194,7 +214,14 @@ export default function ChannelMappings() {
         githubBranch: "main",
         contextFolder: "/context/",
       });
+      setGithubBranches([]);
     }
+    setFormErrors({
+      slackChannel: "",
+      githubRepo: "",
+      githubBranch: "",
+      contextFolder: "",
+    });
     setOpenDialog(true);
 
     // Fetch Slack channels and GitHub repos when dialog opens
@@ -213,10 +240,59 @@ export default function ChannelMappings() {
       githubBranch: "main",
       contextFolder: "/context/",
     });
+    setGithubBranches([]);
+    setFormErrors({
+      slackChannel: "",
+      githubRepo: "",
+      githubBranch: "",
+      contextFolder: "",
+    });
+  };
+
+  const validateForm = () => {
+    const errors = {
+      slackChannel: "",
+      githubRepo: "",
+      githubBranch: "",
+      contextFolder: "",
+    };
+    let isValid = true;
+
+    if (!formData.slackChannel) {
+      errors.slackChannel = "Slack channel is required";
+      isValid = false;
+    }
+
+    if (!formData.githubRepo) {
+      errors.githubRepo = "GitHub repository is required";
+      isValid = false;
+    }
+
+    if (!formData.githubBranch) {
+      errors.githubBranch = "GitHub branch is required";
+      isValid = false;
+    }
+
+    if (!formData.contextFolder) {
+      errors.contextFolder = "Context folder is required";
+      isValid = false;
+    } else if (!formData.contextFolder.startsWith('/')) {
+      errors.contextFolder = "Context folder must start with /";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
       if (editingMapping) {
@@ -249,6 +325,8 @@ export default function ChannelMappings() {
     } catch (error) {
       console.error("Unexpected error:", error);
       alert("An error occurred");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -283,16 +361,107 @@ export default function ChannelMappings() {
     }
   };
 
+  const handleSyncHistory = async (channelId: string, mappingId: string) => {
+    setSyncing(mappingId);
+    setSyncMessage(null);
+
+    try {
+      const { data, errors } = await client.mutations.syncSlackHistory({ channelId });
+
+      if (errors) {
+        console.error("Failed to sync Slack history:", errors);
+        setSyncMessage({ type: 'error', text: 'Failed to sync history' });
+      } else if (data) {
+        const result = data as any;
+        if (result.success) {
+          setSyncMessage({
+            type: 'success',
+            text: `Synced ${result.messagesSynced} messages in ${result.threadsProcessed} threads`
+          });
+        } else {
+          setSyncMessage({ type: 'error', text: result.message || 'Sync failed' });
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error syncing history:", error);
+      setSyncMessage({ type: 'error', text: 'An error occurred during sync' });
+    } finally {
+      setSyncing(null);
+      // Clear message after 5 seconds
+      setTimeout(() => setSyncMessage(null), 5000);
+    }
+  };
+
+  const formatTimestamp = (timestamp?: string | null) => {
+    if (!timestamp) return 'Never';
+    try {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffMs = now.getTime() - date.getTime();
+      const diffMins = Math.floor(diffMs / 60000);
+
+      if (diffMins < 1) return 'Just now';
+      if (diffMins < 60) return `${diffMins}m ago`;
+
+      const diffHours = Math.floor(diffMins / 60);
+      if (diffHours < 24) return `${diffHours}h ago`;
+
+      const diffDays = Math.floor(diffHours / 24);
+      if (diffDays < 7) return `${diffDays}d ago`;
+
+      return date.toLocaleDateString();
+    } catch {
+      return 'Invalid date';
+    }
+  };
+
   if (loading) {
     return (
-      <Box sx={{ p: 3, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
-        <CircularProgress size={60} />
+      <Box sx={{ p: 3 }}>
+        {/* Header Skeleton */}
+        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ flex: 1 }}>
+            <Skeleton variant="text" width="300px" height={50} />
+            <Skeleton variant="text" width="500px" height={30} />
+          </Box>
+          <Skeleton variant="rectangular" width={180} height={45} sx={{ borderRadius: 1 }} />
+        </Box>
+
+        {/* Mapping List Skeletons */}
+        {[1, 2, 3].map((i) => (
+          <Box key={i} sx={{ mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 3 }}>
+                <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
+                <Skeleton variant="circular" width={24} height={24} />
+                <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Skeleton variant="rounded" width={80} height={24} />
+                <Skeleton variant="circular" width={32} height={32} />
+                <Skeleton variant="circular" width={32} height={32} />
+              </Box>
+            </Box>
+            {i < 3 && <Box sx={{ height: '1px', backgroundColor: 'divider', mt: 3 }} />}
+          </Box>
+        ))}
       </Box>
     );
   }
 
   return (
     <Box sx={{ p: 3 }}>
+      {/* Sync Message Alert */}
+      {syncMessage && (
+        <Alert
+          severity={syncMessage.type}
+          sx={{ mb: 3 }}
+          onClose={() => setSyncMessage(null)}
+        >
+          {syncMessage.text}
+        </Alert>
+      )}
+
       {/* Header */}
       <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
@@ -388,6 +557,31 @@ export default function ChannelMappings() {
                       minWidth: 80,
                     }}
                   />
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    disabled={!mapping.isActive || syncing === mapping.id}
+                    onClick={() => handleSyncHistory(mapping.slackChannelId, mapping.id)}
+                    sx={{
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      borderRadius: 1,
+                      px: 2,
+                      minWidth: 100,
+                      '&:hover': {
+                        backgroundColor: 'primary.light',
+                      }
+                    }}
+                    startIcon={
+                      syncing === mapping.id ? (
+                        <CircularProgress size={16} />
+                      ) : (
+                        <i className="material-symbols-outlined" style={{ fontSize: '18px' }}>sync</i>
+                      )
+                    }
+                  >
+                    {syncing === mapping.id ? 'Syncing...' : 'Sync Now'}
+                  </Button>
                   <IconButton
                     size="small"
                     onClick={() => handleOpenDialog(mapping)}
@@ -416,14 +610,28 @@ export default function ChannelMappings() {
               </Box>
 
               {/* Activity Metadata */}
-              {(mapping.lastSync || mapping.messageCount !== undefined) && (
-                <Box sx={{ mt: 1.5, ml: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <i className="material-symbols-outlined" style={{ fontSize: '16px', color: '#f59e0b' }}>auto_awesome</i>
-                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                    Last sync: {mapping.lastSync || 'Never'} • {mapping.messageCount || 0} messages archived
+              <Box sx={{ mt: 2, ml: 3, display: 'flex', alignItems: 'center', gap: 3 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <i className="material-symbols-outlined" style={{ fontSize: '16px', color: '#10b981' }}>schedule</i>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                    Last sync: {formatTimestamp(mapping.lastSync)}
                   </Typography>
                 </Box>
-              )}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <i className="material-symbols-outlined" style={{ fontSize: '16px', color: '#3b82f6' }}>chat</i>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                    {mapping.messageCount || 0} messages archived
+                  </Typography>
+                </Box>
+                {mapping.githubBranch && (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <i className="material-symbols-outlined" style={{ fontSize: '16px', color: '#8b5cf6' }}>account_tree</i>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                      Branch: {mapping.githubBranch}
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
             </Box>
 
             {/* Divider */}
@@ -489,7 +697,7 @@ export default function ChannelMappings() {
           </DialogTitle>
           <DialogContent>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pt: 2 }}>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={!!formErrors.slackChannel}>
                 <Typography
                   component="label"
                   sx={{
@@ -512,6 +720,7 @@ export default function ChannelMappings() {
                       slackChannel: newValue?.name || '',
                       slackChannelId: newValue?.id || ''
                     });
+                    setFormErrors({ ...formErrors, slackChannel: '' });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -519,9 +728,11 @@ export default function ChannelMappings() {
                       placeholder="Select a Slack channel"
                       variant="filled"
                       required={!formData.slackChannel}
+                      error={!!formErrors.slackChannel}
+                      helperText={formErrors.slackChannel}
                       sx={{
                         '& .MuiInputBase-root': {
-                          border: '1px solid #D5D9E2',
+                          border: `1px solid ${formErrors.slackChannel ? '#d32f2f' : '#D5D9E2'}`,
                           backgroundColor: '#fff',
                           borderRadius: '7px',
                         },
@@ -553,7 +764,7 @@ export default function ChannelMappings() {
                 />
               </FormControl>
 
-              <FormControl fullWidth>
+              <FormControl fullWidth error={!!formErrors.githubRepo}>
                 <Typography
                   component="label"
                   sx={{
@@ -574,8 +785,16 @@ export default function ChannelMappings() {
                     setFormData({
                       ...formData,
                       githubRepo: newValue?.name || '',
-                      githubUrl: newValue?.fullName || ''
+                      githubUrl: newValue?.fullName || '',
+                      githubBranch: 'main', // Reset branch when repo changes
                     });
+                    setFormErrors({ ...formErrors, githubRepo: '' });
+                    // Fetch branches for newly selected repo
+                    if (newValue?.fullName) {
+                      fetchGitHubBranches(newValue.fullName);
+                    } else {
+                      setGithubBranches([]);
+                    }
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -583,9 +802,11 @@ export default function ChannelMappings() {
                       placeholder="Select a GitHub repository"
                       variant="filled"
                       required={!formData.githubRepo}
+                      error={!!formErrors.githubRepo}
+                      helperText={formErrors.githubRepo}
                       sx={{
                         '& .MuiInputBase-root': {
-                          border: '1px solid #D5D9E2',
+                          border: `1px solid ${formErrors.githubRepo ? '#d32f2f' : '#D5D9E2'}`,
                           backgroundColor: '#fff',
                           borderRadius: '7px',
                         },
@@ -629,7 +850,7 @@ export default function ChannelMappings() {
                 />
               </FormControl>
 
-              <FormControl fullWidth>
+              <FormControl fullWidth error={!!formErrors.githubBranch}>
                 <Typography
                   component="label"
                   sx={{
@@ -641,29 +862,100 @@ export default function ChannelMappings() {
                 >
                   GitHub Branch
                 </Typography>
-                <TextField
-                  placeholder="main"
-                  variant="filled"
-                  required
-                  value={formData.githubBranch}
-                  onChange={(e) => setFormData({ ...formData, githubBranch: e.target.value })}
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      border: '1px solid #D5D9E2',
-                      backgroundColor: '#fff',
-                      borderRadius: '7px',
-                    },
-                    '& .MuiInputBase-root::before': {
-                      border: 'none',
-                    },
-                    '& .MuiInputBase-root:hover::before': {
-                      border: 'none',
-                    },
-                  }}
-                />
+                {formData.githubUrl && githubBranches.length > 0 ? (
+                  <Autocomplete
+                    options={githubBranches}
+                    getOptionLabel={(option) => option.name}
+                    loading={loadingBranches}
+                    value={githubBranches.find(b => b.name === formData.githubBranch) || null}
+                    onChange={(event, newValue) => {
+                      setFormData({ ...formData, githubBranch: newValue?.name || 'main' });
+                      setFormErrors({ ...formErrors, githubBranch: '' });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder="Select a branch"
+                        variant="filled"
+                        required
+                        error={!!formErrors.githubBranch}
+                        helperText={formErrors.githubBranch}
+                        sx={{
+                          '& .MuiInputBase-root': {
+                            border: `1px solid ${formErrors.githubBranch ? '#d32f2f' : '#D5D9E2'}`,
+                            backgroundColor: '#fff',
+                            borderRadius: '7px',
+                          },
+                          '& .MuiInputBase-root::before': {
+                            border: 'none',
+                          },
+                          '& .MuiInputBase-root:hover::before': {
+                            border: 'none',
+                          },
+                        }}
+                        slotProps={{
+                          input: {
+                            ...params.InputProps,
+                            endAdornment: (
+                              <>
+                                {loadingBranches ? <CircularProgress color="inherit" size={20} /> : null}
+                                {params.InputProps.endAdornment}
+                              </>
+                            ),
+                          },
+                        }}
+                      />
+                    )}
+                    renderOption={(props, option) => (
+                      <li {...props} key={option.commitSha}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <i className="material-symbols-outlined" style={{ fontSize: '18px', color: '#8b5cf6' }}>account_tree</i>
+                          <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                            {option.name}
+                          </Typography>
+                          {option.isProtected && (
+                            <Chip label="Protected" size="small" color="warning" sx={{ height: 20, fontSize: '10px' }} />
+                          )}
+                        </Box>
+                      </li>
+                    )}
+                    sx={{
+                      '& .MuiAutocomplete-popupIndicator': {
+                        color: '#2563eb',
+                      },
+                    }}
+                  />
+                ) : (
+                  <TextField
+                    placeholder="main"
+                    variant="filled"
+                    required
+                    value={formData.githubBranch}
+                    onChange={(e) => {
+                      setFormData({ ...formData, githubBranch: e.target.value });
+                      setFormErrors({ ...formErrors, githubBranch: '' });
+                    }}
+                    error={!!formErrors.githubBranch}
+                    helperText={formErrors.githubBranch || (formData.githubUrl ? "Loading branches..." : "Select a repository first")}
+                    disabled={!formData.githubUrl || loadingBranches}
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        border: `1px solid ${formErrors.githubBranch ? '#d32f2f' : '#D5D9E2'}`,
+                        backgroundColor: '#fff',
+                        borderRadius: '7px',
+                      },
+                      '& .MuiInputBase-root::before': {
+                        border: 'none',
+                      },
+                      '& .MuiInputBase-root:hover::before': {
+                        border: 'none',
+                      },
+                    }}
+                  />
+                )}
               </FormControl>
 
-              <FormControl fullWidth>
+              <FormControl fullWidth error={!!formErrors.contextFolder}>
                 <Typography
                   component="label"
                   sx={{
@@ -680,10 +972,15 @@ export default function ChannelMappings() {
                   variant="filled"
                   required
                   value={formData.contextFolder}
-                  onChange={(e) => setFormData({ ...formData, contextFolder: e.target.value })}
+                  onChange={(e) => {
+                    setFormData({ ...formData, contextFolder: e.target.value });
+                    setFormErrors({ ...formErrors, contextFolder: '' });
+                  }}
+                  error={!!formErrors.contextFolder}
+                  helperText={formErrors.contextFolder || "Path must start with /"}
                   sx={{
                     '& .MuiInputBase-root': {
-                      border: '1px solid #D5D9E2',
+                      border: `1px solid ${formErrors.contextFolder ? '#d32f2f' : '#D5D9E2'}`,
                       backgroundColor: '#fff',
                       borderRadius: '7px',
                     },
@@ -701,6 +998,7 @@ export default function ChannelMappings() {
           <DialogActions sx={{ p: 3, pt: 2 }}>
             <Button
               onClick={handleCloseDialog}
+              disabled={submitting}
               sx={{ textTransform: 'none', fontWeight: 600 }}
             >
               Cancel
@@ -708,17 +1006,37 @@ export default function ChannelMappings() {
             <Button
               type="submit"
               variant="contained"
+              disabled={submitting || !formData.slackChannel || !formData.githubRepo || !formData.githubBranch || !formData.contextFolder}
               sx={{
                 textTransform: 'none',
                 fontWeight: 600,
                 px: 3,
+                minWidth: 160,
               }}
             >
-              {editingMapping ? 'Update Mapping' : 'Create Mapping'}
+              {submitting ? (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CircularProgress size={20} color="inherit" />
+                  <span>{editingMapping ? 'Updating...' : 'Creating...'}</span>
+                </Box>
+              ) : (
+                editingMapping ? 'Update Mapping' : 'Create Mapping'
+              )}
             </Button>
           </DialogActions>
         </form>
       </Dialog>
+
+      {/* Sync Message Alert */}
+      {syncMessage && (
+        <Alert
+          severity={syncMessage.type}
+          sx={{ position: 'fixed', bottom: 24, right: 24, minWidth: 300 }}
+          onClose={() => setSyncMessage(null)}
+        >
+          {syncMessage.text}
+        </Alert>
+      )}
     </Box>
   );
 }
