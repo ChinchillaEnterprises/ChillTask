@@ -1,0 +1,1 @@
+/Users/ricardo/.config/claude/CLAUDE.md
