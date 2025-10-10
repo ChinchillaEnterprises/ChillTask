@@ -27,8 +27,8 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 
 export const metadata = {
-  title: "Chill Components - AI-Powered Component Library",
-  description: "A comprehensive React component library built with Material-UI and AWS Amplify",
+  title: "ChillTask - Slack to GitHub Context Archiver",
+  description: "Automated Slack message archiving to GitHub context folders for AI-powered development workflows",
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {

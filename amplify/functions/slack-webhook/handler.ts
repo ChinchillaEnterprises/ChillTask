@@ -1,9 +1,9 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, ScanCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { Amplify } from 'aws-amplify';
+import { generateClient } from 'aws-amplify/data';
+import { getAmplifyDataClientConfig } from '@aws-amplify/backend/function/runtime';
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+import type { Schema } from '../../data/resource';
 
-const dynamoClient = new DynamoDBClient({ region: 'us-east-1' });
-const docClient = DynamoDBDocumentClient.from(dynamoClient);
 const secretsClient = new SecretsManagerClient({ region: 'us-east-1' });
 
 interface SlackEvent {
@@ -106,20 +106,22 @@ async function processSlackMessage(event: any) {
 }
 
 async function findMappingByChannel(channelId: string) {
-  const tableName = process.env.AMPLIFY_DATA_DYNAMODB_TABLE_NAME || 'ChannelMapping';
+  // Initialize Amplify Data client
+  const env = process.env as any;
+  const { resourceConfig, libraryOptions } = await getAmplifyDataClientConfig(env);
+  Amplify.configure(resourceConfig, libraryOptions);
 
-  const result = await docClient.send(
-    new ScanCommand({
-      TableName: tableName,
-      FilterExpression: 'slackChannelId = :channelId AND isActive = :active',
-      ExpressionAttributeValues: {
-        ':channelId': channelId,
-        ':active': true,
-      },
-    })
-  );
+  const client = generateClient<Schema>({ authMode: 'iam' });
 
-  return result.Items?.[0];
+  // Query with filter
+  const { data: mappings } = await client.models.ChannelMapping.list({
+    filter: {
+      slackChannelId: { eq: channelId },
+      isActive: { eq: true }
+    }
+  });
+
+  return mappings[0] || null;
 }
 
 async function getSecrets() {
@@ -291,18 +293,23 @@ async function getGitHubFile(token: string, repoFullName: string, branch: string
 }
 
 async function updateMappingStats(mappingId: string) {
-  const tableName = process.env.AMPLIFY_DATA_DYNAMODB_TABLE_NAME || 'ChannelMapping';
+  // Initialize Amplify Data client
+  const env = process.env as any;
+  const { resourceConfig, libraryOptions } = await getAmplifyDataClientConfig(env);
+  Amplify.configure(resourceConfig, libraryOptions);
 
-  await docClient.send(
-    new UpdateCommand({
-      TableName: tableName,
-      Key: { id: mappingId },
-      UpdateExpression: 'SET lastSync = :now, messageCount = if_not_exists(messageCount, :zero) + :one',
-      ExpressionAttributeValues: {
-        ':now': new Date().toISOString(),
-        ':zero': 0,
-        ':one': 1,
-      },
-    })
-  );
+  const client = generateClient<Schema>({ authMode: 'iam' });
+
+  // First get the current mapping to read the current messageCount
+  const { data: mapping } = await client.models.ChannelMapping.get({ id: mappingId });
+
+  if (mapping) {
+    const currentCount = mapping.messageCount || 0;
+
+    await client.models.ChannelMapping.update({
+      id: mappingId,
+      lastSync: new Date().toISOString(),
+      messageCount: currentCount + 1
+    });
+  }
 }

@@ -1,6 +1,7 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 import { getSlackChannels } from '../functions/get-slack-channels/resource';
 import { getGitHubRepos } from '../functions/get-github-repos/resource';
+import { slackWebhook } from '../functions/slack-webhook/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
 const schema = a.schema({
@@ -17,7 +18,11 @@ const schema = a.schema({
       lastSync: a.string(),
       messageCount: a.integer(),
     })
-    .authorization((allow) => [allow.authenticated(), allow.groups(['ADMINS'])]),
+    .authorization((allow) => [
+      allow.authenticated(),
+      allow.groups(['ADMINS']),
+      allow.resource(slackWebhook)
+    ]),
 
   // Custom Types for API responses
   SlackChannel: a.customType({
@@ -52,7 +57,8 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool'
+    defaultAuthorizationMode: 'userPool',
+    iamAuthorizationMode: 'ALLOW' // Allow Lambda functions to access via IAM
   },
 });
 
