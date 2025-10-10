@@ -6,6 +6,16 @@ import type { Schema } from '../../data/resource';
 
 const secretsClient = new SecretsManagerClient({ region: 'us-east-1' });
 
+// ==========================================
+// CONSTANTS & CONFIGURATION
+// ==========================================
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY_MS = 1000;
+const REQUEST_TIMEOUT_MS = 25000; // Lambda timeout is 30s, leave 5s buffer
+
+// ==========================================
+// TYPE DEFINITIONS
+// ==========================================
 interface SlackEvent {
   type: string;
   event: {
@@ -19,67 +29,302 @@ interface SlackEvent {
   challenge?: string;
 }
 
-export const handler = async (event: any) => {
-  console.log('Received Slack event:', JSON.stringify(event, null, 2));
+interface ErrorContext {
+  functionName: string;
+  eventType?: string;
+  channelId?: string;
+  userId?: string;
+  timestamp?: string;
+  errorType: string;
+  errorMessage: string;
+  stack?: string;
+  [key: string]: any;
+}
 
-  const body: SlackEvent = JSON.parse(event.body || '{}');
+// ==========================================
+// UTILITY: STRUCTURED LOGGING
+// ==========================================
+const logger = {
+  info: (message: string, context?: object) => {
+    console.log(JSON.stringify({
+      level: 'INFO',
+      timestamp: new Date().toISOString(),
+      message,
+      ...context
+    }));
+  },
 
-  // Handle Slack URL verification challenge
-  if (body.type === 'url_verification') {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ challenge: body.challenge }),
-    };
+  warn: (message: string, context?: object) => {
+    console.warn(JSON.stringify({
+      level: 'WARN',
+      timestamp: new Date().toISOString(),
+      message,
+      ...context
+    }));
+  },
+
+  error: (message: string, error: Error, context?: ErrorContext) => {
+    console.error(JSON.stringify({
+      level: 'ERROR',
+      timestamp: new Date().toISOString(),
+      message,
+      error: error.message,
+      errorType: error.name,
+      stack: error.stack,
+      ...context
+    }));
   }
+};
 
-  // Handle message events
-  if (body.type === 'event_callback' && body.event.type === 'message') {
+// ==========================================
+// UTILITY: RETRY WITH EXPONENTIAL BACKOFF
+// ==========================================
+async function retryWithBackoff<T>(
+  operation: () => Promise<T>,
+  operationName: string,
+  maxRetries: number = MAX_RETRIES
+): Promise<T> {
+  let lastError: Error;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      await processSlackMessage(body.event);
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ ok: true }),
-      };
+      logger.info(`Executing ${operationName}`, { attempt: attempt + 1, maxRetries: maxRetries + 1 });
+      return await operation();
     } catch (error: any) {
-      console.error('Error processing Slack message:', error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: error.message }),
-      };
+      lastError = error;
+
+      // Don't retry on validation errors or non-retryable errors
+      if (error.name === 'ValidationError' || error.statusCode === 400 || error.statusCode === 401) {
+        logger.warn(`Non-retryable error in ${operationName}`, {
+          errorType: error.name,
+          statusCode: error.statusCode
+        });
+        throw error;
+      }
+
+      if (attempt < maxRetries) {
+        const delay = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt);
+        logger.warn(`${operationName} failed, retrying...`, {
+          attempt: attempt + 1,
+          delay,
+          error: error.message
+        });
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
     }
   }
 
-  // Ignore other events
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ ok: true }),
-  };
+  logger.error(`${operationName} failed after ${maxRetries + 1} attempts`, lastError!);
+  throw lastError!;
+}
+
+// ==========================================
+// UTILITY: TIMEOUT WRAPPER
+// ==========================================
+async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  operationName: string
+): Promise<T> {
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    setTimeout(() => reject(new Error(`${operationName} timed out after ${timeoutMs}ms`)), timeoutMs);
+  });
+
+  return Promise.race([promise, timeoutPromise]);
+}
+
+// ==========================================
+// UTILITY: INPUT VALIDATION
+// ==========================================
+function validateSlackEvent(body: any): body is SlackEvent {
+  if (!body || typeof body !== 'object') {
+    throw new Error('Invalid request body: must be an object');
+  }
+
+  if (!body.type || typeof body.type !== 'string') {
+    throw new Error('Invalid request body: missing or invalid "type" field');
+  }
+
+  if (body.type === 'event_callback') {
+    if (!body.event || typeof body.event !== 'object') {
+      throw new Error('Invalid event_callback: missing event object');
+    }
+
+    const event = body.event;
+    if (event.type === 'message') {
+      if (!event.channel || !event.user || !event.text || !event.ts) {
+        throw new Error('Invalid message event: missing required fields (channel, user, text, ts)');
+      }
+    }
+  }
+
+  return true;
+}
+
+// ==========================================
+// MAIN HANDLER
+// ==========================================
+export const handler = async (event: any) => {
+  const startTime = Date.now();
+
+  logger.info('Slack webhook invoked', {
+    requestId: event.requestContext?.requestId,
+    httpMethod: event.httpMethod,
+    path: event.path,
+    hasBody: !!event.body
+  });
+
+  try {
+    // Parse and validate input
+    let body: SlackEvent;
+    try {
+      body = JSON.parse(event.body || '{}');
+      validateSlackEvent(body);
+    } catch (parseError: any) {
+      logger.error('Failed to parse or validate request body', parseError, {
+        functionName: 'slack-webhook-handler',
+        errorType: 'ValidationError',
+        errorMessage: parseError.message,
+        bodyPreview: event.body?.substring(0, 200)
+      });
+
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: 'Invalid request',
+          message: parseError.message
+        }),
+      };
+    }
+
+    // Handle Slack URL verification challenge
+    if (body.type === 'url_verification') {
+      logger.info('Handling URL verification challenge');
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ challenge: body.challenge }),
+      };
+    }
+
+    // Handle message events with timeout
+    if (body.type === 'event_callback' && body.event.type === 'message') {
+      try {
+        await withTimeout(
+          processSlackMessage(body.event),
+          REQUEST_TIMEOUT_MS,
+          'processSlackMessage'
+        );
+
+        const processingTime = Date.now() - startTime;
+        logger.info('Message processed successfully', {
+          channelId: body.event.channel,
+          processingTimeMs: processingTime
+        });
+
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ ok: true }),
+        };
+      } catch (error: any) {
+        const processingTime = Date.now() - startTime;
+
+        logger.error('Error processing Slack message', error, {
+          functionName: 'slack-webhook-handler',
+          eventType: body.event.type,
+          channelId: body.event.channel,
+          userId: body.event.user,
+          timestamp: body.event.ts,
+          errorType: error.name,
+          errorMessage: error.message,
+          processingTimeMs: processingTime
+        });
+
+        // Return 500 for retryable errors, 200 for non-retryable to prevent spam
+        const isRetryable = !error.name?.includes('Validation') && error.statusCode !== 400;
+
+        return {
+          statusCode: isRetryable ? 500 : 200,
+          body: JSON.stringify({
+            error: 'Processing failed',
+            // Don't expose internal error details to Slack
+            message: isRetryable ? 'Temporary error, please retry' : 'Invalid event data'
+          }),
+        };
+      }
+    }
+
+    // Ignore other events
+    logger.info('Ignoring non-message event', { eventType: body.type });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ ok: true }),
+    };
+
+  } catch (error: any) {
+    const processingTime = Date.now() - startTime;
+
+    logger.error('Unhandled error in webhook handler', error, {
+      functionName: 'slack-webhook-handler',
+      errorType: error.name,
+      errorMessage: error.message,
+      processingTimeMs: processingTime
+    });
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: 'Internal server error',
+        message: 'An unexpected error occurred'
+      }),
+    };
+  }
 };
 
 async function processSlackMessage(event: any) {
   const { channel, user, text, ts, thread_ts } = event;
 
-  console.log(`Processing message from channel ${channel}`);
+  logger.info('Processing Slack message', {
+    channelId: channel,
+    userId: user,
+    hasThread: !!thread_ts
+  });
 
-  // Find active mapping for this channel
-  const mapping = await findMappingByChannel(channel);
+  // Find active mapping for this channel with retry
+  const mapping = await retryWithBackoff(
+    () => findMappingByChannel(channel),
+    'findMappingByChannel'
+  );
 
   if (!mapping) {
-    console.log(`No active mapping found for channel ${channel}`);
+    logger.info('No active mapping found for channel', { channelId: channel });
     return;
   }
 
-  console.log(`Found mapping:`, mapping);
+  logger.info('Found channel mapping', {
+    mappingId: mapping.id,
+    githubRepo: mapping.githubUrl,
+    branch: mapping.githubBranch
+  });
 
-  // Get Slack and GitHub secrets
-  const secrets = await getSecrets();
+  // Get Slack and GitHub secrets with retry
+  const secrets = await retryWithBackoff(
+    () => getSecrets(),
+    'getSecrets'
+  );
 
-  // Fetch user info from Slack
-  const userName = await fetchSlackUserName(secrets.slackToken, user);
+  // Fetch user info from Slack with retry
+  const userName = await retryWithBackoff(
+    () => fetchSlackUserName(secrets.slackToken, user),
+    'fetchSlackUserName'
+  );
 
-  // Fetch thread messages if this is part of a thread
-  const threadMessages = thread_ts ? await fetchThreadMessages(secrets.slackToken, channel, thread_ts) : [];
+  // Fetch thread messages if this is part of a thread with retry
+  const threadMessages = thread_ts
+    ? await retryWithBackoff(
+        () => fetchThreadMessages(secrets.slackToken, channel, thread_ts),
+        'fetchThreadMessages'
+      )
+    : [];
 
   // Format message as Markdown
   const markdown = formatMessageAsMarkdown({
@@ -89,20 +334,30 @@ async function processSlackMessage(event: any) {
     threadMessages,
   });
 
-  // Commit to GitHub
-  await commitToGitHub({
-    githubToken: secrets.githubToken,
-    repoFullName: mapping.githubUrl,
-    branch: mapping.githubBranch,
-    filePath: `context/slackconversation/${generateFileName(event)}`,
-    content: markdown,
-    commitMessage: `Add Slack conversation from ${userName}`,
+  // Commit to GitHub with retry
+  await retryWithBackoff(
+    () => commitToGitHub({
+      githubToken: secrets.githubToken,
+      repoFullName: mapping.githubUrl,
+      branch: mapping.githubBranch,
+      filePath: `context/slackconversation/${generateFileName(event)}`,
+      content: markdown,
+      commitMessage: `Add Slack conversation from ${userName}`,
+    }),
+    'commitToGitHub'
+  );
+
+  // Update mapping stats with retry
+  await retryWithBackoff(
+    () => updateMappingStats(mapping.id),
+    'updateMappingStats'
+  );
+
+  logger.info('Message successfully archived to GitHub', {
+    channelId: channel,
+    userName,
+    githubRepo: mapping.githubUrl
   });
-
-  // Update mapping stats
-  await updateMappingStats(mapping.id);
-
-  console.log('Message successfully archived to GitHub');
 }
 
 async function findMappingByChannel(channelId: string) {
@@ -147,28 +402,65 @@ async function getSecrets() {
 }
 
 async function fetchSlackUserName(token: string, userId: string): Promise<string> {
-  const response = await fetch(`https://slack.com/api/users.info?user=${userId}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  });
-
-  const data = await response.json();
-  return data.user?.real_name || data.user?.name || 'Unknown User';
-}
-
-async function fetchThreadMessages(token: string, channel: string, threadTs: string): Promise<any[]> {
-  const response = await fetch(
-    `https://slack.com/api/conversations.replies?channel=${channel}&ts=${threadTs}`,
-    {
+  try {
+    const response = await fetch(`https://slack.com/api/users.info?user=${userId}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
-    }
-  );
+      signal: AbortSignal.timeout(10000), // 10 second timeout
+    });
 
-  const data = await response.json();
-  return data.messages || [];
+    if (!response.ok) {
+      throw new Error(`Slack API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.ok) {
+      throw new Error(`Slack API returned error: ${data.error}`);
+    }
+
+    return data.user?.real_name || data.user?.name || 'Unknown User';
+  } catch (error: any) {
+    logger.warn('Failed to fetch Slack user name, using fallback', {
+      userId,
+      error: error.message
+    });
+    return `User ${userId}`;
+  }
+}
+
+async function fetchThreadMessages(token: string, channel: string, threadTs: string): Promise<any[]> {
+  try {
+    const response = await fetch(
+      `https://slack.com/api/conversations.replies?channel=${channel}&ts=${threadTs}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Slack API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.ok) {
+      throw new Error(`Slack API returned error: ${data.error}`);
+    }
+
+    return data.messages || [];
+  } catch (error: any) {
+    logger.warn('Failed to fetch thread messages, continuing without thread', {
+      channel,
+      threadTs,
+      error: error.message
+    });
+    return [];
+  }
 }
 
 function formatMessageAsMarkdown(params: {
@@ -233,63 +525,102 @@ async function commitToGitHub(params: {
 }) {
   const { githubToken, repoFullName, branch, filePath, content, commitMessage } = params;
 
-  // Check if file exists
-  const existingFile = await getGitHubFile(githubToken, repoFullName, branch, filePath);
+  try {
+    // Check if file exists
+    const existingFile = await getGitHubFile(githubToken, repoFullName, branch, filePath);
 
-  let newContent = content;
-  let sha: string | undefined;
+    let newContent = content;
+    let sha: string | undefined;
 
-  if (existingFile) {
-    // File exists, append to it
-    const existingContent = Buffer.from(existingFile.content, 'base64').toString('utf-8');
-    newContent = existingContent + '\n\n---\n\n' + content;
-    sha = existingFile.sha;
-  }
+    if (existingFile) {
+      // File exists, append to it
+      const existingContent = Buffer.from(existingFile.content, 'base64').toString('utf-8');
+      newContent = existingContent + '\n\n---\n\n' + content;
+      sha = existingFile.sha;
 
-  // Create or update file
-  const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}`;
-  const response = await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${githubToken}`,
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-    body: JSON.stringify({
-      message: commitMessage,
-      content: Buffer.from(newContent).toString('base64'),
+      logger.info('Appending to existing file', {
+        filePath,
+        existingSize: existingContent.length,
+        newSize: newContent.length
+      });
+    } else {
+      logger.info('Creating new file', { filePath });
+    }
+
+    // Create or update file
+    const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}`;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${githubToken}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+      body: JSON.stringify({
+        message: commitMessage,
+        content: Buffer.from(newContent).toString('base64'),
+        branch,
+        ...(sha && { sha }),
+      }),
+      signal: AbortSignal.timeout(15000), // 15 second timeout
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      const error = new Error(`GitHub API error: ${response.status} - ${errorText}`);
+      (error as any).statusCode = response.status;
+      throw error;
+    }
+
+    const result = await response.json();
+    logger.info('Successfully committed to GitHub', {
+      filePath,
+      commitSha: result.commit?.sha
+    });
+
+    return result;
+  } catch (error: any) {
+    logger.error('Failed to commit to GitHub', error, {
+      functionName: 'commitToGitHub',
+      repo: repoFullName,
       branch,
-      ...(sha && { sha }),
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`GitHub API error: ${response.status} - ${error}`);
+      filePath,
+      errorType: error.name,
+      errorMessage: error.message
+    });
+    throw error;
   }
-
-  return await response.json();
 }
 
 async function getGitHubFile(token: string, repoFullName: string, branch: string, filePath: string) {
-  const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}?ref=${branch}`;
+  try {
+    const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}?ref=${branch}`;
 
-  const response = await fetch(url, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github+json',
-    },
-  });
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+      },
+      signal: AbortSignal.timeout(10000), // 10 second timeout
+    });
 
-  if (response.status === 404) {
-    return null; // File doesn't exist
+    if (response.status === 404) {
+      return null; // File doesn't exist
+    }
+
+    if (!response.ok) {
+      const error = new Error(`GitHub API error: ${response.status}`);
+      (error as any).statusCode = response.status;
+      throw error;
+    }
+
+    return await response.json();
+  } catch (error: any) {
+    if (error.message?.includes('404')) {
+      return null;
+    }
+    throw error;
   }
-
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status}`);
-  }
-
-  return await response.json();
 }
 
 async function updateMappingStats(mappingId: string) {
