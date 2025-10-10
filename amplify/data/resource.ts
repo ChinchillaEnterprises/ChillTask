@@ -1,7 +1,9 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 import { getSlackChannels } from '../functions/get-slack-channels/resource';
 import { getGitHubRepos } from '../functions/get-github-repos/resource';
+import { getGitHubBranches } from '../functions/get-github-branches/resource';
 import { slackWebhook } from '../functions/slack-webhook/resource';
+import { syncSlackHistory } from '../functions/sync-slack-history/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
 const schema = a.schema({
@@ -20,8 +22,7 @@ const schema = a.schema({
     })
     .authorization((allow) => [
       allow.authenticated(),
-      allow.groups(['ADMINS']),
-      allow.resource(slackWebhook)
+      allow.groups(['ADMINS'])
     ]),
 
   // Custom Types for API responses
@@ -38,6 +39,12 @@ const schema = a.schema({
     isPrivate: a.boolean().required(),
   }),
 
+  GitHubBranch: a.customType({
+    name: a.string().required(),
+    commitSha: a.string().required(),
+    isProtected: a.boolean().required(),
+  }),
+
   // Custom Queries - Fetch dropdown data on-demand
   getSlackChannels: a
     .query()
@@ -50,6 +57,23 @@ const schema = a.schema({
     .returns(a.ref('GitHubRepo').array())
     .handler(a.handler.function(getGitHubRepos))
     .authorization((allow) => [allow.authenticated()]),
+
+  getGitHubBranches: a
+    .query()
+    .arguments({
+      repoFullName: a.string().required(),
+    })
+    .returns(a.ref('GitHubBranch').array())
+    .handler(a.handler.function(getGitHubBranches))
+    .authorization((allow) => [allow.authenticated()]),
+
+  // Custom Mutations - User-triggered actions
+  syncSlackHistory: a
+    .mutation()
+    .arguments({ channelId: a.string().required() })
+    .returns(a.json())
+    .handler(a.handler.function(syncSlackHistory))
+    .authorization((allow) => [allow.authenticated()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -57,8 +81,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
-    iamAuthorizationMode: 'ALLOW' // Allow Lambda functions to access via IAM
+    defaultAuthorizationMode: 'userPool'
   },
 });
 
