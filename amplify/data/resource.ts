@@ -3,6 +3,7 @@ import { getSlackChannels } from '../functions/get-slack-channels/resource';
 import { getGitHubRepos } from '../functions/get-github-repos/resource';
 import { getGitHubBranches } from '../functions/get-github-branches/resource';
 import { syncSlackHistory } from '../functions/sync-slack-history/resource';
+import { syncSlackToGitHub } from '../functions/sync-slack-to-github/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
 const schema = a.schema({
@@ -14,6 +15,7 @@ const schema = a.schema({
       githubRepo: a.string().required(),
       githubUrl: a.string().required(),
       githubBranch: a.string().required(),
+      githubOwner: a.string(),  // GitHub owner (org or user)
       contextFolder: a.string().required(),
       isActive: a.boolean().required(),
       lastSync: a.string(),
@@ -21,7 +23,7 @@ const schema = a.schema({
     })
     .authorization((allow) => [
       allow.authenticated(),
-      allow.groups(['ADMINS'])
+      allow.groups(['ADMINS']),
     ]),
 
   // Temporary storage for raw Slack events (30 min TTL)
@@ -39,7 +41,7 @@ const schema = a.schema({
     })
     .authorization((allow) => [
       allow.publicApiKey(),  // Allow public writes from webhook
-      allow.authenticated().to(['read', 'update'])  // Allow sync function to read/update
+      allow.authenticated().to(['read', 'update']),  // Allow authenticated users
     ]),
 
   // Custom Types for API responses
