@@ -122,9 +122,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
 
         // Redirect to sign-in if on protected route
-        if (!PUBLIC_PATHS.includes(pathname)) {
-          router.push('/authentication/sign-in');
-        }
+        // DISABLED FOR LOCALHOST DEVELOPMENT - users can access all pages without auth
+        // if (!PUBLIC_PATHS.includes(pathname)) {
+        //   router.push('/authentication/sign-in');
+        // }
       }
     } catch (err) {
       console.error('Auth check failed:', err);

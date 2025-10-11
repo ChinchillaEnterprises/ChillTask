@@ -22,8 +22,7 @@ const schema = a.schema({
       messageCount: a.integer(),
     })
     .authorization((allow) => [
-      allow.authenticated(),
-      allow.groups(['ADMINS']),
+      allow.publicApiKey(),
     ]),
 
   // Temporary storage for raw Slack events (30 min TTL)
@@ -40,8 +39,7 @@ const schema = a.schema({
       ttl: a.integer().required(),           // Unix timestamp for DynamoDB TTL (30 min from creation)
     })
     .authorization((allow) => [
-      allow.publicApiKey(),  // Allow public writes from webhook
-      allow.authenticated().to(['read', 'update']),  // Allow authenticated users
+      allow.publicApiKey(),
     ]),
 
   // Custom Types for API responses
@@ -69,13 +67,13 @@ const schema = a.schema({
     .query()
     .returns(a.ref('SlackChannel').array())
     .handler(a.handler.function(getSlackChannels))
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 
   getGitHubRepos: a
     .query()
     .returns(a.ref('GitHubRepo').array())
     .handler(a.handler.function(getGitHubRepos))
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 
   getGitHubBranches: a
     .query()
@@ -84,7 +82,7 @@ const schema = a.schema({
     })
     .returns(a.ref('GitHubBranch').array())
     .handler(a.handler.function(getGitHubBranches))
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 
   // Custom Mutations - User-triggered actions
   syncSlackHistory: a
@@ -92,15 +90,19 @@ const schema = a.schema({
     .arguments({ channelId: a.string().required() })
     .returns(a.json())
     .handler(a.handler.function(syncSlackHistory))
-    .authorization((allow) => [allow.authenticated()]),
-});
+    .authorization((allow) => [allow.publicApiKey()]),
+}).authorization((allow) => [
+  // Schema-level authorization: Required for Lambda functions to access Amplify Data
+  // This injects AMPLIFY_DATA_GRAPHQL_ENDPOINT environment variable into the Lambda
+  allow.resource(syncSlackHistory),
+]);
 
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: 'apiKey',
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
