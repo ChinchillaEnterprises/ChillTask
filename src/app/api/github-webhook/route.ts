@@ -189,19 +189,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Format message for Slack
-    let message = `🔔 *New push to \`${repoName}\`* on branch \`${branch}\`\n`;
-    message += `👤 Pushed by: *${pusher}*\n\n`;
-
-    if (commits.length > 0) {
-      message += `📝 *${commits.length} commit${commits.length > 1 ? 's' : ''}:*\n`;
-      commits.forEach((commit: any) => {
-        message += `• ${formatCommitMessage(commit, repoName, branch)}\n`;
-      });
-      message += `\n<${compareUrl}|View changes>`;
-    } else {
-      message += `No commits in this push.`;
-    }
+    // Format message for Slack (simple 2-line format)
+    const message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: *${pusher}*`;
 
     logger.info('Sending notification to Slack', {
       requestId,
