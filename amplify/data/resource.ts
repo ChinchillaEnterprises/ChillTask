@@ -96,6 +96,7 @@ const schema = a.schema({
   // Schema-level authorization: Required for Lambda functions to access Amplify Data
   // This injects AMPLIFY_DATA_GRAPHQL_ENDPOINT environment variable into the Lambda
   allow.resource(syncSlackHistory),
+  allow.resource(syncSlackToGitHub),  // CRITICAL: Enables scheduled Lambda to access DynamoDB
 ]);
 
 export type Schema = ClientSchema<typeof schema>;

@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         messageText: event.text,
         timestamp: event.ts,
         threadTs: event.thread_ts,
-        files: event.files ? event.files : undefined,
+        files: event.files ? JSON.stringify(event.files) : undefined,
         // rawEvent: JSON.parse(JSON.stringify(body)),  // TODO: Fix AppSync JSON type
         processed: false,
         ttl: ttl,
