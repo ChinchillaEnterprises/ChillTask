@@ -466,7 +466,7 @@ Each sync creates commits with messages like:
 
 - [ ] Thread support (preserve reply threading)
 - [ ] Emoji reactions in markdown
-- [ ] File attachments (images, PDFs)
+- [x] File attachments (images, PDFs) - Completed 2025-10-11
 - [ ] Search interface for archived messages
 - [ ] Analytics dashboard (messages per day/channel)
 - [ ] Multiple Slack workspaces
