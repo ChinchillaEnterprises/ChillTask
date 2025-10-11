@@ -3,6 +3,10 @@ import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import { getAmplifyDataClientConfig } from '@aws-amplify/backend/function/runtime';
 import type { Schema } from '../../data/resource';
+import {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+} from '@aws-sdk/client-secrets-manager';
 
 /**
  * Sync Slack Messages to GitHub
@@ -10,6 +14,130 @@ import type { Schema } from '../../data/resource';
  * Scheduled Lambda that processes unprocessed Slack messages from DynamoDB
  * and syncs them to GitHub repositories.
  */
+
+// GitHub API types
+interface GitHubFile {
+  name: string;
+  path: string;
+  sha: string;
+  content: string;
+}
+
+interface GitHubFileResponse {
+  sha: string;
+  content: GitHubFile;
+}
+
+// Secrets Manager client
+const secretsClient = new SecretsManagerClient({ region: 'us-east-1' });
+
+/**
+ * Get GitHub token from Secrets Manager
+ */
+async function getGitHubToken(): Promise<string> {
+  const command = new GetSecretValueCommand({
+    SecretId: 'github-token',
+  });
+
+  const response = await secretsClient.send(command);
+  if (!response.SecretString) {
+    throw new Error('GitHub token not found in Secrets Manager');
+  }
+
+  const secret = JSON.parse(response.SecretString);
+  return secret.token;
+}
+
+/**
+ * Get file from GitHub repo
+ */
+async function getGitHubFile(
+  owner: string,
+  repo: string,
+  path: string,
+  branch: string,
+  token: string
+): Promise<GitHubFile | null> {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+  });
+
+  if (response.status === 404) {
+    return null; // File doesn't exist
+  }
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+  }
+
+  return await response.json();
+}
+
+/**
+ * Create or update file in GitHub repo
+ */
+async function createOrUpdateGitHubFile(
+  owner: string,
+  repo: string,
+  path: string,
+  content: string,
+  message: string,
+  branch: string,
+  token: string,
+  sha?: string
+): Promise<void> {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+  const body: any = {
+    message,
+    content: Buffer.from(content).toString('base64'),
+    branch,
+  };
+
+  if (sha) {
+    body.sha = sha; // Required for updates
+  }
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`GitHub API error: ${response.status} ${response.statusText} - ${errorBody}`);
+  }
+}
+
+/**
+ * Format Slack timestamp to readable time
+ */
+function formatTime(timestamp: string): string {
+  const date = new Date(parseFloat(timestamp) * 1000);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
+
+/**
+ * Format Slack timestamp to date string (YYYY-MM-DD)
+ */
+function formatDate(timestamp: string): string {
+  const date = new Date(parseFloat(timestamp) * 1000);
+  return date.toISOString().split('T')[0];
+}
 
 export const handler = async (event: EventBridgeEvent<string, any>) => {
   const startTime = Date.now();
@@ -27,6 +155,11 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
 
     const client = generateClient<Schema>({ authMode: 'iam' });
     console.log('✅ Amplify client initialized');
+
+    // STEP 1b: Get GitHub token
+    console.log('🔑 Fetching GitHub token...');
+    const githubToken = await getGitHubToken();
+    console.log('✅ GitHub token retrieved');
 
     // STEP 2: Query unprocessed Slack messages
     console.log('📬 Querying unprocessed Slack messages...');
@@ -97,19 +230,91 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
         const mapping = mappings[0];
         console.log(`   Mapped to: ${mapping.githubOwner}/${mapping.githubRepo}/${mapping.githubBranch}`);
 
-        // STEP 3b: TODO - Create/update file in GitHub
-        // For now, just log what we would do
-        console.log(`   TODO: Write to GitHub repo`);
-        console.log(`   File path: messages/${message.timestamp}.md`);
+        // STEP 3b: Sync message to GitHub
+        if (!message.timestamp) {
+          console.warn(`⚠️  Message ${message.id} has no timestamp`);
+          await client.models.SlackEvent.update({
+            id: message.id,
+            processed: true,
+          });
+          failureCount++;
+          continue;
+        }
 
-        // STEP 3c: Mark as processed
-        await client.models.SlackEvent.update({
-          id: message.id,
-          processed: true,
-        });
+        // Build file path: context/communications/slack/{channel}/{date}.md
+        const dateStr = formatDate(message.timestamp);
+        const filePath = `context/communications/slack/${mapping.slackChannel}/${dateStr}.md`;
 
-        console.log(`✅ Message ${message.id} processed successfully`);
-        successCount++;
+        console.log(`   📄 File path: ${filePath}`);
+
+        try {
+          // Get existing file (if exists)
+          const existingFile = await getGitHubFile(
+            mapping.githubOwner || '',
+            mapping.githubRepo,
+            filePath,
+            mapping.githubBranch,
+            githubToken
+          );
+
+          let newContent: string;
+          let commitMessage: string;
+
+          if (existingFile) {
+            // File exists - decode and append
+            console.log(`   📝 Appending to existing file (SHA: ${existingFile.sha.substring(0, 7)})`);
+            const currentContent = Buffer.from(existingFile.content, 'base64').toString('utf-8');
+            const timeStr = formatTime(message.timestamp);
+            const messageEntry = `\n### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+
+            newContent = currentContent + messageEntry;
+            commitMessage = `Add message from @${message.userId || 'unknown'} at ${timeStr}`;
+
+            // Update file with SHA
+            await createOrUpdateGitHubFile(
+              mapping.githubOwner || '',
+              mapping.githubRepo,
+              filePath,
+              newContent,
+              commitMessage,
+              mapping.githubBranch,
+              githubToken,
+              existingFile.sha
+            );
+          } else {
+            // File doesn't exist - create new
+            console.log(`   ✨ Creating new file`);
+            const timeStr = formatTime(message.timestamp);
+            newContent = `# ${dateStr} - ${mapping.slackChannel}\n\n### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+            commitMessage = `Create daily log for ${mapping.slackChannel} on ${dateStr}`;
+
+            // Create new file (no SHA needed)
+            await createOrUpdateGitHubFile(
+              mapping.githubOwner || '',
+              mapping.githubRepo,
+              filePath,
+              newContent,
+              commitMessage,
+              mapping.githubBranch,
+              githubToken
+            );
+          }
+
+          console.log(`   ✅ Synced to GitHub`);
+
+          // STEP 3c: Mark as processed
+          await client.models.SlackEvent.update({
+            id: message.id,
+            processed: true,
+          });
+
+          console.log(`✅ Message ${message.id} processed successfully`);
+          successCount++;
+        } catch (githubError: any) {
+          console.error(`   ❌ GitHub API error:`, githubError.message);
+          // Don't mark as processed - will retry on next run
+          failureCount++;
+        }
       } catch (error: any) {
         console.error(`❌ Failed to process message ${message.id}:`, error.message);
         failureCount++;
