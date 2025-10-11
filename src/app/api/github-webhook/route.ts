@@ -81,7 +81,7 @@ function formatCommitMessage(commit: any, repoName: string, branch: string): str
  * GitHub Webhook Handler
  * POST /api/github-webhook
  *
- * Last tested: 2025-10-11
+ * Last tested: 2025-10-11 16:37 CST
  */
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
