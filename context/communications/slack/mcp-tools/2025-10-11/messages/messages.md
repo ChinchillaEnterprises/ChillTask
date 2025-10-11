@@ -26,3 +26,6 @@ Hi, What are you up to <@U072PCVTS00>?
 
 ### 17:49 - @U072PCVTS00
 lol
+
+### 18:00 - @U072PCVTS00
+Let me know if you need any help, like with the architecture or the vision for that.
