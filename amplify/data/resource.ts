@@ -2,7 +2,6 @@ import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 import { getSlackChannels } from '../functions/get-slack-channels/resource';
 import { getGitHubRepos } from '../functions/get-github-repos/resource';
 import { getGitHubBranches } from '../functions/get-github-branches/resource';
-import { slackWebhook } from '../functions/slack-webhook/resource';
 import { syncSlackHistory } from '../functions/sync-slack-history/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
@@ -23,6 +22,24 @@ const schema = a.schema({
     .authorization((allow) => [
       allow.authenticated(),
       allow.groups(['ADMINS'])
+    ]),
+
+  // Temporary storage for raw Slack events (30 min TTL)
+  SlackEvent: a
+    .model({
+      eventType: a.string().required(),      // 'message', 'url_verification', etc.
+      channelId: a.string(),                 // Slack channel ID
+      userId: a.string(),                    // Slack user ID
+      messageText: a.string(),               // Message content
+      timestamp: a.string(),                 // Slack event timestamp
+      threadTs: a.string(),                  // Thread timestamp if reply
+      rawEvent: a.json().required(),         // Full Slack event payload
+      processed: a.boolean().default(false), // Whether sync has processed this
+      ttl: a.integer().required(),           // Unix timestamp for DynamoDB TTL (30 min from creation)
+    })
+    .authorization((allow) => [
+      allow.publicApiKey(),  // Allow public writes from webhook
+      allow.authenticated().to(['read', 'update'])  // Allow sync function to read/update
     ]),
 
   // Custom Types for API responses
@@ -81,7 +98,10 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool'
+    defaultAuthorizationMode: 'userPool',
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
 

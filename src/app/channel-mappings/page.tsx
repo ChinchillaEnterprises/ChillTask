@@ -119,7 +119,7 @@ export default function ChannelMappings() {
       } else if (data) {
         setGithubBranches(data as GitHubBranch[]);
         // If main branch exists, auto-select it
-        const mainBranch = data.find((b: GitHubBranch) => b.name === 'main');
+        const mainBranch = data.find((b) => b?.name === 'main');
         if (mainBranch) {
           setFormData(prev => ({ ...prev, githubBranch: 'main' }));
         }

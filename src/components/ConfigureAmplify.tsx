@@ -12,10 +12,7 @@ export default function ConfigureAmplifyClientSide() {
     if (typeof window !== 'undefined' && outputs) {
       console.log('📱 Configuring Amplify with outputs:', {
         hasAuth: !!outputs.auth,
-        hasOAuth: !!outputs.auth?.oauth,
-        oauthDomain: outputs.auth?.oauth?.domain,
-        identityProviders: outputs.auth?.oauth?.identity_providers,
-        redirectSignIn: outputs.auth?.oauth?.redirect_sign_in_uri
+        hasData: !!outputs.data
       });
 
       try {
@@ -24,7 +21,7 @@ export default function ConfigureAmplifyClientSide() {
 
         // Store in window for other components to check
         window.amplifyConfig = outputs;
-        console.log('✅ Window.amplifyConfig set with OAuth domain:', outputs.auth?.oauth?.domain);
+        console.log('✅ Window.amplifyConfig set successfully');
       } catch (err) {
         console.error('❌ Error configuring Amplify:', err);
       }
