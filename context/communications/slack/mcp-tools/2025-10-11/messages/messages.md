@@ -11,3 +11,6 @@ I'm building an integration that anytime a message pops up in Slack, it gets add
 
 ### 17:59 - @U072PCVTS00
 <@U07HM3QV7N1> How is the app runner coming along or the MCPs on HTTPS?
+
+### 17:49 - @U072PCVTS00
+<@U07HM3QV7N1> building integration ChillTask
