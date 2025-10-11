@@ -11,17 +11,13 @@ export default function ConfigureAmplifyClientSide() {
     // Configure Amplify on mount with the outputs file
     if (typeof window !== 'undefined' && outputs) {
       console.log('📱 Configuring Amplify with outputs:', {
-        hasAuth: !!outputs.auth,
         hasData: !!outputs.data
       });
 
       try {
+        // AUTH REMOVED - Configure without auth
         Amplify.configure(outputs, { ssr: true });
-        console.log('✅ Amplify configured successfully in ConfigureAmplify component');
-
-        // Store in window for other components to check
-        window.amplifyConfig = outputs;
-        console.log('✅ Window.amplifyConfig set successfully');
+        console.log('✅ Amplify configured successfully (auth disabled)');
       } catch (err) {
         console.error('❌ Error configuring Amplify:', err);
       }

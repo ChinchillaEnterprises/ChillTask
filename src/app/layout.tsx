@@ -23,7 +23,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
 import LayoutProvider from "@/providers/LayoutProvider";
-import { AuthProvider } from "@/providers/AuthProvider";
+// AUTH REMOVED - Authentication disabled for public access
+// import { AuthProvider } from "@/providers/AuthProvider";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 
 export const metadata = {
@@ -49,9 +50,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             {/* Configure Amplify on client side */}
             <ConfigureAmplifyClientSide />
 
-            <AuthProvider>
-              <LayoutProvider>{props.children}</LayoutProvider>
-            </AuthProvider>
+            {/* AUTH REMOVED - No authentication wrapper needed */}
+            <LayoutProvider>{props.children}</LayoutProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

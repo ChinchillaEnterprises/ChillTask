@@ -26,5 +26,5 @@
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "resources", "context", "src_original", "src/warehouse", "amplify/functions/**/*"]
+  "exclude": ["node_modules", "resources", "context", "src_original", "src/warehouse", "amplify/functions/**/*", "_archive", "handbook"]
 }

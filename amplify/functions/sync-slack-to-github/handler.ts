@@ -49,6 +49,23 @@ async function getGitHubToken(): Promise<string> {
 }
 
 /**
+ * Get Slack bot token from Secrets Manager
+ */
+async function getSlackToken(): Promise<string> {
+  const command = new GetSecretValueCommand({
+    SecretId: 'slack-bot-token',
+  });
+
+  const response = await secretsClient.send(command);
+  if (!response.SecretString) {
+    throw new Error('Slack bot token not found in Secrets Manager');
+  }
+
+  const secret = JSON.parse(response.SecretString);
+  return secret.token;
+}
+
+/**
  * Get file from GitHub repo
  */
 async function getGitHubFile(
@@ -122,6 +139,65 @@ async function createOrUpdateGitHubFile(
 }
 
 /**
+ * Download file from Slack
+ */
+async function downloadSlackFile(
+  url: string,
+  slackToken: string
+): Promise<ArrayBuffer> {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${slackToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to download file from Slack: ${response.status} ${response.statusText}`);
+  }
+
+  return await response.arrayBuffer();
+}
+
+/**
+ * Upload binary file to GitHub
+ */
+async function uploadBinaryFileToGitHub(
+  owner: string,
+  repo: string,
+  path: string,
+  content: ArrayBuffer,
+  message: string,
+  branch: string,
+  token: string
+): Promise<void> {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+  const base64Content = Buffer.from(content).toString('base64');
+
+  const body = {
+    message,
+    content: base64Content,
+    branch,
+  };
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`GitHub API error: ${response.status} ${response.statusText} - ${errorBody}`);
+  }
+}
+
+/**
  * Format Slack timestamp to readable time
  */
 function formatTime(timestamp: string): string {
@@ -156,10 +232,11 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
     const client = generateClient<Schema>({ authMode: 'iam' });
     console.log('✅ Amplify client initialized');
 
-    // STEP 1b: Get GitHub token
-    console.log('🔑 Fetching GitHub token...');
+    // STEP 1b: Get GitHub and Slack tokens
+    console.log('🔑 Fetching GitHub and Slack tokens...');
     const githubToken = await getGitHubToken();
-    console.log('✅ GitHub token retrieved');
+    const slackToken = await getSlackToken();
+    console.log('✅ Tokens retrieved');
 
     // STEP 2: Query unprocessed Slack messages
     console.log('📬 Querying unprocessed Slack messages...');
@@ -241,9 +318,9 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
           continue;
         }
 
-        // Build file path: context/communications/slack/{channel}/{date}.md
+        // Build file path: context/communications/slack/{channel}/{date}/messages/messages.md
         const dateStr = formatDate(message.timestamp);
-        const filePath = `context/communications/slack/${mapping.slackChannel}/${dateStr}.md`;
+        const filePath = `context/communications/slack/${mapping.slackChannel}/${dateStr}/messages/messages.md`;
 
         console.log(`   📄 File path: ${filePath}`);
 
@@ -265,7 +342,24 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
             console.log(`   📝 Appending to existing file (SHA: ${existingFile.sha.substring(0, 7)})`);
             const currentContent = Buffer.from(existingFile.content, 'base64').toString('utf-8');
             const timeStr = formatTime(message.timestamp);
-            const messageEntry = `\n### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+
+            // Build message entry with optional file attachments
+            let messageEntry = `\n### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+
+            // Add file attachments section if files exist
+            if (message.files) {
+              try {
+                const files = JSON.parse(message.files as string);
+                if (Array.isArray(files) && files.length > 0) {
+                  messageEntry += '\n**Attachments:**\n';
+                  for (const file of files) {
+                    messageEntry += `- [${file.name}](../attachments/${file.name}) (${file.filetype}, ${Math.round(file.size / 1024)}KB)\n`;
+                  }
+                }
+              } catch (e) {
+                // Ignore parse errors
+              }
+            }
 
             newContent = currentContent + messageEntry;
             commitMessage = `Add message from @${message.userId || 'unknown'} at ${timeStr}`;
@@ -285,7 +379,26 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
             // File doesn't exist - create new
             console.log(`   ✨ Creating new file`);
             const timeStr = formatTime(message.timestamp);
-            newContent = `# ${dateStr} - ${mapping.slackChannel}\n\n### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+
+            // Build initial content with optional file attachments
+            let messageEntry = `### ${timeStr} - @${message.userId || 'unknown'}\n${message.messageText || '(no text)'}\n`;
+
+            // Add file attachments section if files exist
+            if (message.files) {
+              try {
+                const files = JSON.parse(message.files as string);
+                if (Array.isArray(files) && files.length > 0) {
+                  messageEntry += '\n**Attachments:**\n';
+                  for (const file of files) {
+                    messageEntry += `- [${file.name}](../attachments/${file.name}) (${file.filetype}, ${Math.round(file.size / 1024)}KB)\n`;
+                  }
+                }
+              } catch (e) {
+                // Ignore parse errors
+              }
+            }
+
+            newContent = `# ${dateStr} - ${mapping.slackChannel}\n\n${messageEntry}`;
             commitMessage = `Create daily log for ${mapping.slackChannel} on ${dateStr}`;
 
             // Create new file (no SHA needed)
@@ -302,7 +415,48 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
 
           console.log(`   ✅ Synced to GitHub`);
 
-          // STEP 3c: Mark as processed
+          // STEP 3c: Process file attachments (if any)
+          if (message.files) {
+            try {
+              const files = JSON.parse(message.files as string);
+              if (Array.isArray(files) && files.length > 0) {
+                console.log(`   📎 Processing ${files.length} file attachment(s)...`);
+
+                for (const file of files) {
+                  try {
+                    console.log(`      📥 Downloading ${file.name} (${file.filetype})...`);
+
+                    // Download file from Slack
+                    const fileContent = await downloadSlackFile(
+                      file.url_private_download,
+                      slackToken
+                    );
+
+                    // Upload to GitHub attachments folder
+                    const attachmentPath = `context/communications/slack/${mapping.slackChannel}/${dateStr}/attachments/${file.name}`;
+                    await uploadBinaryFileToGitHub(
+                      mapping.githubOwner || '',
+                      mapping.githubRepo,
+                      attachmentPath,
+                      fileContent,
+                      `Add attachment: ${file.name}`,
+                      mapping.githubBranch,
+                      githubToken
+                    );
+
+                    console.log(`      ✅ Uploaded ${file.name} to GitHub`);
+                  } catch (fileError: any) {
+                    console.error(`      ❌ Failed to process file ${file.name}:`, fileError.message);
+                    // Continue with other files even if one fails
+                  }
+                }
+              }
+            } catch (parseError: any) {
+              console.error(`   ⚠️  Failed to parse files JSON:`, parseError.message);
+            }
+          }
+
+          // STEP 3d: Mark as processed
           await client.models.SlackEvent.update({
             id: message.id,
             processed: true,

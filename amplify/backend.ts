@@ -1,5 +1,6 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource.js';
+// AUTH REMOVED - Authentication disabled for public access
+// import { auth } from './auth/resource.js';
 import { data } from './data/resource.js';
 import { getSlackChannels } from './functions/get-slack-channels/resource.js';
 import { getGitHubRepos } from './functions/get-github-repos/resource.js';
@@ -15,7 +16,7 @@ import { Duration } from 'aws-cdk-lib';
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
 const backend = defineBackend({
-  auth,
+  // auth, // REMOVED - No authentication required
   data,
   getSlackChannels,
   getGitHubRepos,
@@ -71,7 +72,10 @@ const syncSlackToGitHubFunction = backend.syncSlackToGitHub.resources.lambda;
 syncSlackToGitHubFunction.addToRolePolicy(
   new PolicyStatement({
     actions: ['secretsmanager:GetSecretValue'],
-    resources: ['arn:aws:secretsmanager:us-east-1:*:secret:github-token-*'],
+    resources: [
+      'arn:aws:secretsmanager:us-east-1:*:secret:github-token-*',
+      'arn:aws:secretsmanager:us-east-1:*:secret:slack-bot-token-*',
+    ],
   })
 );
 

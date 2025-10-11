@@ -19,30 +19,18 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     setActive(!active);
   };
 
-  const isAuthPage = [
-    "/authentication/sign-in",
-    "/authentication/sign-in/",
-    "/auth",
-    "/auth/",
-    "/auth/callback",
-    "/auth/callback/",
-  ].includes(pathname);
+  // AUTH REMOVED - No auth pages to check for anymore, always show layout
+  // const isAuthPage = [...].includes(pathname);
 
   return (
     <>
       <div className={`main-wrapper-content ${active ? "active" : ""}`}>
-        {!isAuthPage && (
-          <>
-            <TopNavbar toggleActive={toggleActive} />
-
-            <LeftSidebarMenu toggleActive={toggleActive} isCollapsed={active} />
-          </>
-        )}
+        <TopNavbar toggleActive={toggleActive} />
+        <LeftSidebarMenu toggleActive={toggleActive} isCollapsed={active} />
 
         <div className="main-content">
           {children}
-
-          {!isAuthPage && <Footer />}
+          <Footer />
         </div>
       </div>
 

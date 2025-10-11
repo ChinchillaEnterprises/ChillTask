@@ -15,6 +15,16 @@ const TTL_MINUTES = 10;
 // ==========================================
 // TYPE DEFINITIONS
 // ==========================================
+interface SlackFile {
+  id: string;
+  name: string;
+  mimetype: string;
+  filetype: string;
+  size: number;
+  url_private: string;
+  url_private_download: string;
+}
+
 interface SlackEvent {
   type: string;
   event?: {
@@ -24,6 +34,7 @@ interface SlackEvent {
     text: string;
     ts: string;
     thread_ts?: string;
+    files?: SlackFile[];
   };
   challenge?: string;
 }
@@ -66,7 +77,7 @@ export async function POST(request: NextRequest) {
         authMode: 'apiKey',
       });
 
-      // Save event to DynamoDB (skip rawEvent for now due to AppSync JSON type issues)
+      // Save event to DynamoDB with file attachments
       const result = await client.models.SlackEvent.create({
         eventType: event.type,
         channelId: event.channel,
@@ -74,6 +85,7 @@ export async function POST(request: NextRequest) {
         messageText: event.text,
         timestamp: event.ts,
         threadTs: event.thread_ts,
+        files: event.files ? event.files : undefined,
         // rawEvent: JSON.parse(JSON.stringify(body)),  // TODO: Fix AppSync JSON type
         processed: false,
         ttl: ttl,
