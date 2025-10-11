@@ -8,3 +8,6 @@
 
 ### 17:49 - @U072PCVTS00
 I'm building an integration that anytime a message pops up in Slack, it gets added to the GitHub repo.
+
+### 17:59 - @U072PCVTS00
+<@U07HM3QV7N1> How is the app runner coming along or the MCPs on HTTPS?
