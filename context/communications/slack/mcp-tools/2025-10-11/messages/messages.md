@@ -14,3 +14,6 @@ I'm building an integration that anytime a message pops up in Slack, it gets add
 
 ### 17:49 - @U072PCVTS00
 <@U07HM3QV7N1> building integration ChillTask
+
+### 17:56 - @U072PCVTS00
+tell your claude to read it everytime befroe hes going to write code for amplify folder
