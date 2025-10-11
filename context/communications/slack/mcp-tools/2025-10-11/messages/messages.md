@@ -29,3 +29,6 @@ lol
 
 ### 18:00 - @U072PCVTS00
 Let me know if you need any help, like with the architecture or the vision for that.
+
+### 17:55 - @U072PCVTS00
+<@U08DPLNNEGJ> I added a folder called handbook in chilltask
