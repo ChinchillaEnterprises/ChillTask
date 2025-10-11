@@ -66,21 +66,25 @@ export async function POST(request: NextRequest) {
         authMode: 'apiKey',
       });
 
-      // Save raw event to DynamoDB
-      await client.models.SlackEvent.create({
+      // Save event to DynamoDB (skip rawEvent for now due to AppSync JSON type issues)
+      const result = await client.models.SlackEvent.create({
         eventType: event.type,
         channelId: event.channel,
         userId: event.user,
         messageText: event.text,
         timestamp: event.ts,
         threadTs: event.thread_ts,
-        rawEvent: body as any,  // Store full event for later processing
+        // rawEvent: JSON.parse(JSON.stringify(body)),  // TODO: Fix AppSync JSON type
         processed: false,
         ttl: ttl,
       });
 
       const duration = Date.now() - startTime;
-      console.log('[Slack Webhook] Event saved successfully', { durationMs: duration });
+      console.log('[Slack Webhook] Event saved successfully', {
+        durationMs: duration,
+        resultId: result.data?.id,
+        errors: result.errors
+      });
 
       // Return 200 immediately (within Slack's 3-second timeout)
       return NextResponse.json({ ok: true });

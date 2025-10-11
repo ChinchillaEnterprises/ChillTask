@@ -33,7 +33,7 @@ const schema = a.schema({
       messageText: a.string(),               // Message content
       timestamp: a.string(),                 // Slack event timestamp
       threadTs: a.string(),                  // Thread timestamp if reply
-      rawEvent: a.json().required(),         // Full Slack event payload
+      rawEvent: a.json(),                    // Full Slack event payload (optional for now)
       processed: a.boolean().default(false), // Whether sync has processed this
       ttl: a.integer().required(),           // Unix timestamp for DynamoDB TTL (30 min from creation)
     })
