@@ -16,3 +16,6 @@ logs/
 # Dev logger outputs
 resources/appserver/
 resources/sandbox/
+
+# TypeScript build cache
+*.tsbuildinfo
