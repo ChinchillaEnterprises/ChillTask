@@ -119,8 +119,52 @@ const LeftSidebarMenu: React.FC<LeftSidebarProps> = ({ toggleActive, isCollapsed
                 </Link>
               </Box>
 
+              {/* Webhook Monitor Menu Item */}
+              <Box className="sidebar-single-menu" sx={{ mb: 1 }}>
+                <Link
+                  href="/webhook-monitor"
+                  className={`sidemenu-link ${pathname === "/webhook-monitor" ? "active" : ""}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: (isCollapsed || isCompact) ? "center" : "flex-start",
+                    padding: "12px 16px",
+                    textDecoration: "none",
+                    color: pathname === "/webhook-monitor" ? "#2563eb" : isDarkMode ? "#ffffff" : "#64748b",
+                    background: pathname === "/webhook-monitor"
+                      ? "rgba(37, 99, 235, 0.08)"
+                      : "transparent",
+                    borderRadius: "8px",
+                    transition: "all 0.2s ease",
+                    position: "relative",
+                    overflow: "hidden",
+                    boxShadow: "none"
+                  }}
+                >
+                  <i
+                    className="material-symbols-outlined menu-icon"
+                    style={{
+                      marginRight: (isCollapsed || isCompact) ? "0" : "12px",
+                      fontSize: "20px"
+                    }}
+                  >
+                    bar_chart
+                  </i>
+                  <Typography
+                    component="span"
+                    className="menu-text"
+                    sx={{
+                      fontWeight: pathname === "/webhook-monitor" ? 600 : 400,
+                      display: (isCollapsed || isCompact) ? 'none' : 'inline-block'
+                    }}
+                  >
+                    Webhook Monitor
+                  </Typography>
+                </Link>
+              </Box>
+
               {/* Future menu items will be added here by AI as features are built */}
-              
+
             </Box>
           </Box>
         </Box>

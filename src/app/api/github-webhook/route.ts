@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebClient } from '@slack/web-api';
 import crypto from 'crypto';
+import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/data';
+import { cookies } from 'next/headers';
+import type { Schema } from '@/amplify/data/resource';
+import outputs from '@/amplify_outputs.json';
 
 // Configuration from environment variables
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN!;
@@ -245,6 +249,33 @@ export async function POST(request: NextRequest) {
       processingDurationMs: totalDuration - slackDuration
     });
 
+    // Save webhook event to DynamoDB for dashboard
+    try {
+      const client = generateServerClientUsingCookies<Schema>({
+        config: outputs,
+        cookies,
+      });
+
+      await client.models.WebhookEvent.create({
+        requestId,
+        deliveryId: deliveryId || '',
+        eventType: event || 'push',
+        repoName,
+        branch,
+        commitSha: commits[0]?.id || '',
+        commitMessage: commits[0]?.message.split('\n')[0] || '',
+        pusher,
+        success: true,
+        processingTimeMs: totalDuration,
+        slackMessageId: result.ts,
+        timestamp: new Date().toISOString(),
+        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
+      });
+    } catch (dbError) {
+      // Don't fail webhook if DB save fails
+      logger.warn('Failed to save webhook event to DynamoDB', { requestId, error: dbError });
+    }
+
     logger.info('=== GitHub Webhook Request Completed ===', {
       requestId,
       success: true,
@@ -270,6 +301,27 @@ export async function POST(request: NextRequest) {
       SLACK_BOT_TOKEN_CONFIGURED: !!SLACK_BOT_TOKEN,
       GITHUB_WEBHOOK_SECRET_CONFIGURED: !!GITHUB_WEBHOOK_SECRET
     });
+
+    // Save failed webhook event to DynamoDB for dashboard
+    try {
+      const client = generateServerClientUsingCookies<Schema>({
+        config: outputs,
+        cookies,
+      });
+
+      await client.models.WebhookEvent.create({
+        requestId,
+        deliveryId: '',
+        eventType: 'push',
+        success: false,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        processingTimeMs: totalDuration,
+        timestamp: new Date().toISOString(),
+        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
+      });
+    } catch (dbError) {
+      logger.warn('Failed to save failed webhook event to DynamoDB', { requestId, error: dbError });
+    }
 
     logger.error('=== GitHub Webhook Request Failed ===', error, {
       requestId,

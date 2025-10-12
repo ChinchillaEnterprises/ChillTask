@@ -43,6 +43,28 @@ const schema = a.schema({
       allow.publicApiKey(),
     ]),
 
+  // GitHub webhook event history
+  WebhookEvent: a
+    .model({
+      requestId: a.string().required(),      // Unique request ID from webhook handler
+      deliveryId: a.string(),                // GitHub delivery ID
+      eventType: a.string().required(),      // 'push', 'pull_request', etc.
+      repoName: a.string(),                  // Repository full name
+      branch: a.string(),                    // Branch name
+      commitSha: a.string(),                 // Commit SHA
+      commitMessage: a.string(),             // Commit message
+      pusher: a.string(),                    // GitHub username
+      success: a.boolean().required(),       // Whether webhook processed successfully
+      errorMessage: a.string(),              // Error message if failed
+      processingTimeMs: a.integer(),         // Total processing time
+      slackMessageId: a.string(),            // Slack message timestamp if sent
+      timestamp: a.string().required(),      // ISO timestamp
+      ttl: a.integer().required(),           // Unix timestamp for DynamoDB TTL (7 days)
+    })
+    .authorization((allow) => [
+      allow.publicApiKey(),
+    ]),
+
   // Custom Types for API responses
   SlackChannel: a.customType({
     id: a.string().required(),
