@@ -70,6 +70,22 @@ function verifyGitHubSignature(
 }
 
 /**
+ * User emoji mapping for team members
+ */
+const USER_EMOJIS: Record<string, string> = {
+  'feathars91': '🪶',
+  'Ricardothe3rd': '🎯',
+  'soroush911': '🚀'
+};
+
+/**
+ * Get emoji for a GitHub username
+ */
+function getUserEmoji(username: string): string {
+  return USER_EMOJIS[username] || '👤';
+}
+
+/**
  * Format commit message for Slack
  */
 function formatCommitMessage(commit: any, repoName: string, branch: string): string {
@@ -212,7 +228,8 @@ export async function POST(request: NextRequest) {
     }
 
     // STEP 5: Format message and send notification to Slack
-    const message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: *${pusher}*`;
+    const pusherEmoji = getUserEmoji(pusher);
+    const message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: ${pusherEmoji} *${pusher}*`;
 
     logger.info('[Step 5/6] Sending notification to Slack', {
       requestId,
