@@ -1,33 +1,138 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import * as React from 'react';
+import { Box, Container, Typography, Link, Divider } from '@mui/material';
+import {
+  GitHub as GitHubIcon,
+  Twitter as TwitterIcon,
+  LinkedIn as LinkedInIcon,
+} from '@mui/icons-material';
 
-const Footer: React.FC = () => {
+export default function Footer() {
   return (
-    <>
-      <Box
-        className="footer-area"
-        sx={{
-          textAlign: "center",
-          background: "#1e293b",
-          borderTop: "1px solid #334155",
-          padding: "20px 25px",
-          position: "relative",
-        }}
-      >
-        <Typography
+    <Box
+      component="footer"
+      sx={{
+        py: 4,
+        px: 2,
+        mt: 'auto',
+        bgcolor: 'background.paper',
+        borderTop: '1px solid',
+        borderColor: 'divider',
+      }}
+    >
+      <Container maxWidth="xl">
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 4 }}>
+          <Box>
+            <Typography variant="h6" gutterBottom fontWeight={600}>
+              ChillTask
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Slack to GitHub Context Archiver
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+              Product
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Link href="#" color="text.secondary" underline="hover">
+                Features
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Pricing
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Documentation
+              </Link>
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+              Company
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Link href="#" color="text.secondary" underline="hover">
+                About
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Blog
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Contact
+              </Link>
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+              Legal
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Link href="#" color="text.secondary" underline="hover">
+                Privacy Policy
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Terms of Service
+              </Link>
+              <Link href="#" color="text.secondary" underline="hover">
+                Cookie Policy
+              </Link>
+            </Box>
+          </Box>
+        </Box>
+        <Divider sx={{ my: 3 }} />
+        <Box
           sx={{
-            color: "#94a3b8",
-            fontWeight: 500,
-            fontSize: "14px",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
           }}
         >
-          © 2025 <span style={{ fontWeight: 600, color: "#e2e8f0" }}>Chinchilla AI</span> • Building Tomorrow's Intelligence
-        </Typography>
-      </Box>
-    </>
+          <Typography variant="body2" color="text.secondary">
+            © {new Date().getFullYear()} ChillTask. All rights reserved.
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Link
+              href="https://github.com"
+              target="_blank"
+              rel="noopener"
+              color="text.secondary"
+              sx={{
+                '&:hover': { color: 'primary.main' },
+                transition: 'color 0.2s',
+              }}
+            >
+              <GitHubIcon />
+            </Link>
+            <Link
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener"
+              color="text.secondary"
+              sx={{
+                '&:hover': { color: 'primary.main' },
+                transition: 'color 0.2s',
+              }}
+            >
+              <TwitterIcon />
+            </Link>
+            <Link
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener"
+              color="text.secondary"
+              sx={{
+                '&:hover': { color: 'primary.main' },
+                transition: 'color 0.2s',
+              }}
+            >
+              <LinkedInIcon />
+            </Link>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
-};
-
-export default Footer;
+}

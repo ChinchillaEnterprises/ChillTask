@@ -18,14 +18,9 @@ import {
   Skeleton,
   Alert,
 } from "@mui/material";
-import { Amplify } from "aws-amplify";
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@amplify/data/resource";
-import outputs from "../../../amplify_outputs.json";
-
-Amplify.configure(outputs, { ssr: true });
-
-const client = generateClient<Schema>();
+import { client } from "@/lib/amplify-client";
+import type { Schema } from "@/amplify/data/schema";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 interface SlackChannel {
   id: string;
@@ -417,40 +412,43 @@ export default function ChannelMappings() {
 
   if (loading) {
     return (
-      <Box sx={{ p: 3 }}>
-        {/* Header Skeleton */}
-        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box sx={{ flex: 1 }}>
-            <Skeleton variant="text" width="300px" height={50} />
-            <Skeleton variant="text" width="500px" height={30} />
-          </Box>
-          <Skeleton variant="rectangular" width={180} height={45} sx={{ borderRadius: 1 }} />
-        </Box>
-
-        {/* Mapping List Skeletons */}
-        {[1, 2, 3].map((i) => (
-          <Box key={i} sx={{ mb: 3 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 3 }}>
-                <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
-                <Skeleton variant="circular" width={24} height={24} />
-                <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Skeleton variant="rounded" width={80} height={24} />
-                <Skeleton variant="circular" width={32} height={32} />
-                <Skeleton variant="circular" width={32} height={32} />
-              </Box>
+      <DashboardLayout>
+        <Box sx={{ p: 3 }}>
+          {/* Header Skeleton */}
+          <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box sx={{ flex: 1 }}>
+              <Skeleton variant="text" width="300px" height={50} />
+              <Skeleton variant="text" width="500px" height={30} />
             </Box>
-            {i < 3 && <Box sx={{ height: '1px', backgroundColor: 'divider', mt: 3 }} />}
+            <Skeleton variant="rectangular" width={180} height={45} sx={{ borderRadius: 1 }} />
           </Box>
-        ))}
-      </Box>
+
+          {/* Mapping List Skeletons */}
+          {[1, 2, 3].map((i) => (
+            <Box key={i} sx={{ mb: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 3 }}>
+                  <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
+                  <Skeleton variant="circular" width={24} height={24} />
+                  <Skeleton variant="rectangular" width={220} height={60} sx={{ borderRadius: 1 }} />
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Skeleton variant="rounded" width={80} height={24} />
+                  <Skeleton variant="circular" width={32} height={32} />
+                  <Skeleton variant="circular" width={32} height={32} />
+                </Box>
+              </Box>
+              {i < 3 && <Box sx={{ height: '1px', backgroundColor: 'divider', mt: 3 }} />}
+            </Box>
+          ))}
+        </Box>
+      </DashboardLayout>
     );
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <DashboardLayout>
+      <Box sx={{ p: 3 }}>
       {/* Sync Message Alert */}
       {syncMessage && (
         <Alert
@@ -1037,6 +1035,7 @@ export default function ChannelMappings() {
           {syncMessage.text}
         </Alert>
       )}
-    </Box>
+      </Box>
+    </DashboardLayout>
   );
 }

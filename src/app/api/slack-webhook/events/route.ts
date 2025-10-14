@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Amplify } from 'aws-amplify';
-import { generateClient } from 'aws-amplify/data';
-import outputs from '@/../../amplify_outputs.json';
-import type { Schema } from '@/../../amplify/data/resource';
-
-// Configure Amplify for API routes
-Amplify.configure(outputs, { ssr: true });
+import { dataClient, calculateTTL } from '@/lib/amplify-data-client';
 
 // ==========================================
 // CONSTANTS & CONFIGURATION
@@ -69,16 +63,11 @@ export async function POST(request: NextRequest) {
         user: event.user,
       });
 
-      // Calculate TTL (30 minutes from now in Unix seconds)
-      const ttl = Math.floor(Date.now() / 1000) + (TTL_MINUTES * 60);
+      // Calculate TTL (10 minutes from now)
+      const ttl = calculateTTL(TTL_MINUTES);
 
-      // Create Amplify Data client with API key auth (public access)
-      const client = generateClient<Schema>({
-        authMode: 'apiKey',
-      });
-
-      // Save event to DynamoDB with file attachments
-      const result = await client.models.SlackEvent.create({
+      // Save event to DynamoDB with file attachments using shared dataClient
+      const result = await dataClient.models.SlackEvent.create({
         eventType: event.type,
         channelId: event.channel,
         userId: event.user,

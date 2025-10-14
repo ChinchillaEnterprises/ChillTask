@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebClient } from '@slack/web-api';
 import crypto from 'crypto';
-import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/data';
-import { cookies } from 'next/headers';
-import type { Schema } from '@/amplify/data/resource';
-import outputs from '@/amplify_outputs.json';
+import { dataClient, calculateTTL } from '@/lib/amplify-data-client';
 
 // Configuration from environment variables
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN!;
@@ -268,12 +265,7 @@ export async function POST(request: NextRequest) {
 
     // Save webhook event to DynamoDB for dashboard
     try {
-      const client = generateServerClientUsingCookies<Schema>({
-        config: outputs,
-        cookies,
-      });
-
-      await client.models.WebhookEvent.create({
+      await dataClient.models.WebhookEvent.create({
         requestId,
         deliveryId: deliveryId || '',
         eventType: event || 'push',
@@ -286,7 +278,7 @@ export async function POST(request: NextRequest) {
         processingTimeMs: totalDuration,
         slackMessageId: result.ts,
         timestamp: new Date().toISOString(),
-        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
+        ttl: calculateTTL(7 * 24 * 60), // 7 days
       });
     } catch (dbError) {
       // Don't fail webhook if DB save fails
@@ -321,12 +313,7 @@ export async function POST(request: NextRequest) {
 
     // Save failed webhook event to DynamoDB for dashboard
     try {
-      const client = generateServerClientUsingCookies<Schema>({
-        config: outputs,
-        cookies,
-      });
-
-      await client.models.WebhookEvent.create({
+      await dataClient.models.WebhookEvent.create({
         requestId,
         deliveryId: '',
         eventType: 'push',
@@ -334,7 +321,7 @@ export async function POST(request: NextRequest) {
         errorMessage: error instanceof Error ? error.message : 'Unknown error',
         processingTimeMs: totalDuration,
         timestamp: new Date().toISOString(),
-        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
+        ttl: calculateTTL(7 * 24 * 60), // 7 days
       });
     } catch (dbError) {
       logger.warn('Failed to save failed webhook event to DynamoDB', { requestId, error: dbError });

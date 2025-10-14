@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
 import { useRouter } from "next/navigation";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function Home() {
   const router = useRouter();
@@ -31,7 +32,8 @@ export default function Home() {
   ];
 
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', p: 4 }}>
+    <DashboardLayout>
+      <Box sx={{ maxWidth: 1200, mx: 'auto', p: 4 }}>
       {/* Hero Section */}
       <Box sx={{ textAlign: 'center', mb: 8, mt: 4 }}>
         <Typography variant="h2" sx={{ fontWeight: 700, mb: 2 }}>
@@ -231,6 +233,7 @@ export default function Home() {
           Next.js · AWS Amplify Gen 2 · DynamoDB · Lambda · AppSync · Slack API · GitHub API
         </Typography>
       </Box>
-    </Box>
+      </Box>
+    </DashboardLayout>
   );
 }

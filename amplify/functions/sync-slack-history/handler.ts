@@ -203,7 +203,7 @@ async function getSecrets() {
   const githubSecrets = JSON.parse(githubSecretResponse.SecretString || '{}');
 
   return {
-    slackToken: slackSecrets.bot_token || slackSecrets.SLACK_BOT_TOKEN,
+    slackToken: slackSecrets.bot_token || slackSecrets.SLACK_BOT_TOKEN || slackSecrets.token,
     githubToken: githubSecrets.GITHUB_TOKEN || githubSecrets.token,
   };
 }

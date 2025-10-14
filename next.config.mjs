@@ -5,10 +5,6 @@ const nextConfig = {
       bodySizeLimit: '5mb',
     },
   },
-  // Increase max header size for large Cognito tokens
-  serverRuntimeConfig: {
-    maxHeaderSize: 32768, // 32KB
-  },
   // Expose server-side environment variables for API routes
   env: {
     GITHUB_WEBHOOK_SECRET: process.env.GITHUB_WEBHOOK_SECRET,
@@ -16,6 +12,14 @@ const nextConfig = {
     SLACK_CHANNEL_ID: process.env.SLACK_CHANNEL_ID,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  },
+  // Exclude backup folders from build
+  webpack: (config, { isServer }) => {
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/backup/**', '**/node_modules/**'],
+    };
+    return config;
   },
 };
 

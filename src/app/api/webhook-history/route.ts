@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/data';
-import { cookies } from 'next/headers';
-import type { Schema } from '@/amplify/data/resource';
-import outputs from '@/amplify_outputs.json';
+import { dataClient } from '@/lib/amplify-data-client';
 
 /**
  * Webhook History API
@@ -12,13 +9,8 @@ import outputs from '@/amplify_outputs.json';
  */
 export async function GET(request: NextRequest) {
   try {
-    const client = generateServerClientUsingCookies<Schema>({
-      config: outputs,
-      cookies,
-    });
-
     // Fetch recent webhook events (sorted by timestamp descending)
-    const { data: events, errors } = await client.models.WebhookEvent.list({
+    const { data: events, errors } = await dataClient.models.WebhookEvent.list({
       limit: 20,
     });
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import DashboardLayout from '@/components/layout/DashboardLayout';
 
 interface WebhookEvent {
   id: string;
@@ -69,26 +70,31 @@ export default function WebhookMonitorPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-gray-600">Loading...</div>
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 p-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-gray-600">Loading...</div>
+          </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-red-600">Error: {error}</div>
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 p-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-red-600">Error: {error}</div>
+          </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -191,6 +197,7 @@ export default function WebhookMonitorPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

@@ -6,7 +6,7 @@ export const syncSlackHistory = defineFunction({
   timeoutSeconds: 300, // 5 minutes for batch processing
   resourceGroupName: 'data', // Critical: Gives Lambda access to Amplify Data client
   environment: {
-    SLACK_SECRET_NAME: 'chinchilla-ai-academy/slack',
+    SLACK_SECRET_NAME: 'slack-bot-token',
     GITHUB_SECRET_NAME: 'github-token',
   },
 });

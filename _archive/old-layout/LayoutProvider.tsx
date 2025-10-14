@@ -2,10 +2,10 @@
 
 import React, { useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import LeftSidebarMenu from "@/components/Layout/LeftSidebarMenu";
-import TopNavbar from "./../components/Layout/TopNavbar/index";
-import Footer from "@/components/Layout/Footer";
-import ControlPanel from "@/components/Layout/ControlPanel";
+import LeftSidebarMenu from "@/components/layout/LeftSidebarMenu";
+import TopNavbar from "./../components/layout/TopNavbar/index";
+import Footer from "@/components/layout/Footer";
+import ControlPanel from "@/components/layout/ControlPanel";
 
 interface LayoutProviderProps {
   children: ReactNode;
