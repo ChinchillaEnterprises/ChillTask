@@ -18,4 +18,7 @@ resources/appserver/
 resources/sandbox/
 
 # TypeScript build cache
-*.tsbuildinfoset-oauth-secrets.sh
+*.tsbuildinfo
+
+# OAuth secrets (never commit)
+set-oauth-secrets.sh
