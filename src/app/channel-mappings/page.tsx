@@ -21,6 +21,7 @@ import {
 import { client } from "@/lib/amplify-client";
 import type { Schema } from "@/amplify/data/schema";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface SlackChannel {
   id: string;
@@ -40,6 +41,7 @@ interface GitHubBranch {
 }
 
 export default function ChannelMappings() {
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
   const [openDialog, setOpenDialog] = React.useState(false);
   const [editingMapping, setEditingMapping] = React.useState<Schema["ChannelMapping"]["type"] | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -128,6 +130,8 @@ export default function ChannelMappings() {
 
   // Load initial channel mappings from Amplify
   React.useEffect(() => {
+    if (!isAuthenticated || authLoading) return;
+
     async function loadMappings() {
       try {
         const { data, errors } = await client.models.ChannelMapping.list();
@@ -144,7 +148,7 @@ export default function ChannelMappings() {
     }
 
     loadMappings();
-  }, []);
+  }, [isAuthenticated, authLoading]);
 
   // Set up real-time subscriptions
   React.useEffect(() => {
@@ -461,28 +465,50 @@ export default function ChannelMappings() {
       )}
 
       {/* Header */}
-      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
-            🔗 Channel Mappings
-          </Typography>
-          <Typography variant="h6" sx={{ color: 'text.secondary' }}>
-            Map Slack channels to GitHub repositories for automatic context archiving
-          </Typography>
-        </Box>
+      <Box sx={{ mb: 6, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 600,
+            mb: 2,
+            fontSize: { xs: '28px', sm: '36px', md: '42px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
+          Channel Mappings
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#666',
+            fontWeight: 400,
+            fontSize: { xs: '16px', sm: '18px' },
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            mx: 'auto',
+            mb: 4,
+          }}
+        >
+          Map Slack channels to GitHub repositories for automatic context archiving
+        </Typography>
+
+        {/* Add New Mapping Button */}
         <Button
           variant="contained"
           size="large"
           onClick={() => handleOpenDialog()}
           sx={{
-            backgroundColor: 'primary.main',
-            borderRadius: 1,
+            backgroundColor: '#1a1a1a',
+            borderRadius: '12px',
             textTransform: 'none',
             fontWeight: 600,
-            px: 3,
-            py: 1.2,
+            px: 4,
+            py: 1.5,
+            boxShadow: 'none',
             '&:hover': {
-              backgroundColor: 'primary.dark',
+              backgroundColor: '#333',
+              boxShadow: 'none',
             }
           }}
         >

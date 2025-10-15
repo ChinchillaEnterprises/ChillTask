@@ -35,16 +35,32 @@ export default function Home() {
     <DashboardLayout>
       <Box sx={{ maxWidth: 1200, mx: 'auto', p: 4 }}>
       {/* Hero Section */}
-      <Box sx={{ textAlign: 'center', mb: 8, mt: 4 }}>
-        <Typography variant="h2" sx={{ fontWeight: 700, mb: 2 }}>
+      <Box sx={{ mb: 8, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 600,
+            mb: 2,
+            fontSize: { xs: '28px', sm: '36px', md: '42px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
           ChillTask
         </Typography>
-        <Typography variant="h5" sx={{ color: 'text.secondary', mb: 1, fontWeight: 400 }}>
-          Slack to GitHub Context Archiver
-        </Typography>
-        <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 700, mx: 'auto', mb: 4 }}>
-          Bridge your team communication with your codebase. ChillTask automatically archives Slack conversations
-          to GitHub, creating rich context for AI assistants and documentation workflows.
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#666',
+            fontWeight: 400,
+            fontSize: { xs: '16px', sm: '18px' },
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            mx: 'auto',
+            mb: 4,
+          }}
+        >
+          Bridge your team communication with your codebase. Automatically archive Slack conversations to GitHub for AI assistants and documentation workflows.
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -53,8 +69,8 @@ export default function Home() {
             size="large"
             onClick={() => router.push('/channel-mappings')}
             sx={{
-              backgroundColor: '#2563eb',
-              borderRadius: '8px',
+              backgroundColor: '#1a1a1a',
+              borderRadius: '12px',
               textTransform: 'none',
               fontWeight: 600,
               px: 4,
@@ -62,7 +78,7 @@ export default function Home() {
               fontSize: '1.1rem',
               boxShadow: 'none',
               '&:hover': {
-                backgroundColor: '#1d4ed8',
+                backgroundColor: '#333',
                 boxShadow: 'none',
               }
             }}
@@ -74,18 +90,19 @@ export default function Home() {
             size="large"
             onClick={() => router.push('/webhook-monitor')}
             sx={{
-              borderColor: '#2563eb',
-              color: '#2563eb',
-              borderRadius: '8px',
+              borderColor: '#e0e0e0',
+              color: '#1a1a1a',
+              borderRadius: '12px',
               textTransform: 'none',
               fontWeight: 600,
               px: 4,
               py: 1.5,
               fontSize: '1.1rem',
+              border: '1px solid #e0e0e0',
               boxShadow: 'none',
               '&:hover': {
-                borderColor: '#1d4ed8',
-                backgroundColor: 'rgba(37, 99, 235, 0.04)',
+                borderColor: '#1a1a1a',
+                backgroundColor: '#f7f7f8',
                 boxShadow: 'none',
               }
             }}
@@ -97,7 +114,17 @@ export default function Home() {
 
       {/* Features Grid */}
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 4, textAlign: 'center' }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 600,
+            mb: 4,
+            textAlign: 'center',
+            fontSize: { xs: '24px', md: '28px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
           Key Features
         </Typography>
         <Box sx={{
@@ -110,9 +137,8 @@ export default function Home() {
               key={index}
               sx={{
                 boxShadow: 'none',
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2
+                border: '1px solid #e0e0e0',
+                borderRadius: '12px',
               }}
             >
               <CardContent sx={{ p: 3 }}>
@@ -143,7 +169,17 @@ export default function Home() {
 
       {/* How It Works */}
       <Box sx={{ mb: 6 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 4, textAlign: 'center' }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 600,
+            mb: 4,
+            textAlign: 'center',
+            fontSize: { xs: '24px', md: '28px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
           How It Works
         </Typography>
         <Box sx={{
@@ -223,13 +259,23 @@ export default function Home() {
       <Box sx={{
         textAlign: 'center',
         p: 4,
-        backgroundColor: 'rgba(37, 99, 235, 0.04)',
-        borderRadius: 2
+        backgroundColor: '#f7f7f8',
+        borderRadius: '12px',
+        border: '1px solid #e0e0e0',
       }}>
-        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: 600,
+            mb: 2,
+            fontSize: { xs: '20px', md: '24px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
           Built With
         </Typography>
-        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body1" sx={{ color: '#666' }}>
           Next.js · AWS Amplify Gen 2 · DynamoDB · Lambda · AppSync · Slack API · GitHub API
         </Typography>
       </Box>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import { dataClient } from '@/lib/amplify-data-client';
+import { useAuth } from '@/providers/AuthProvider';
 
 interface WebhookEvent {
   id: string;
@@ -31,18 +33,30 @@ interface WebhookHistoryResponse {
 }
 
 export default function WebhookMonitorPage() {
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
   const [data, setData] = useState<WebhookHistoryResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchWebhookHistory = async () => {
     try {
-      const response = await fetch('/api/webhook-history');
-      if (!response.ok) {
+      // Call GraphQL query instead of REST API
+      const { data: result, errors } = await dataClient.queries.getWebhookHistory();
+
+      if (errors && errors.length > 0) {
         throw new Error('Failed to fetch webhook history');
       }
-      const json = await response.json();
-      setData(json);
+
+      if (!result) {
+        throw new Error('No data returned');
+      }
+
+      // Events come as array from GraphQL (no parsing needed)
+      setData({
+        events: result.events,
+        stats: result.stats,
+        status: result.status,
+      });
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
@@ -52,12 +66,14 @@ export default function WebhookMonitorPage() {
   };
 
   useEffect(() => {
+    if (!isAuthenticated || authLoading) return;
+
     fetchWebhookHistory();
 
     // Auto-refresh every 30 seconds
     const interval = setInterval(fetchWebhookHistory, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated, authLoading]);
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -71,9 +87,9 @@ export default function WebhookMonitorPage() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen bg-white p-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-gray-600">Loading...</div>
+            <div style={{ color: '#666' }}>Loading...</div>
           </div>
         </div>
       </DashboardLayout>
@@ -83,9 +99,9 @@ export default function WebhookMonitorPage() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen bg-white p-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-red-600">Error: {error}</div>
+            <div style={{ color: '#d32f2f' }}>Error: {error}</div>
           </div>
         </div>
       </DashboardLayout>
@@ -94,14 +110,34 @@ export default function WebhookMonitorPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50 p-8">
+      <div className="min-h-screen bg-white p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-light text-gray-900">
-            GitHub Webhook Monitor
+        <div className="text-center mb-6">
+          <h1
+            style={{
+              fontWeight: 600,
+              marginBottom: '16px',
+              fontSize: '42px',
+              letterSpacing: '-0.02em',
+              color: '#1a1a1a',
+            }}
+          >
+            Webhook Monitor
           </h1>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <p
+            style={{
+              color: '#666',
+              fontWeight: 400,
+              fontSize: '18px',
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              margin: '0 auto',
+            }}
+          >
+            Monitor GitHub webhook events and deployment activity in real-time
+          </p>
+          <div className="flex items-center justify-center gap-2 text-sm mt-4" style={{ color: '#666' }}>
             <span className="w-2 h-2 bg-green-500 rounded-full"></span>
             {data?.status || 'Unknown'}
           </div>
