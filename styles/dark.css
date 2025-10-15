@@ -48,33 +48,8 @@
 .dark-theme ::-moz-placeholder {
   color: var(--darkBodyColor);
 }
-.dark-theme a, .dark-theme p, .dark-theme q, .dark-theme tspan, .dark-theme li, .dark-theme tbody, .dark-theme tfoot, .dark-theme thead, .dark-theme th, .dark-theme td, .dark-theme canvas, .dark-theme ::placeholder, .dark-theme abbr, .dark-theme address, .dark-theme blockquote, .dark-theme caption, .dark-theme cite, .dark-theme code, .dark-theme dd, .dark-theme dl, .dark-theme mark, .dark-theme option, .dark-theme pre, .dark-theme time, .dark-theme del, .dark-theme .MuiTypography-p, .dark-theme .MuiDataGrid-cellContent, .dark-theme .MuiTabPanel-root, .dark-theme .MuiTypography-body1, .dark-theme .MuiTypography-body2, .dark-theme .MuiStepLabel-label, .dark-theme .MuiTypography-caption {
+.dark-theme button, .dark-theme a, .dark-theme p, .dark-theme q, .dark-theme tspan, .dark-theme li, .dark-theme tbody, .dark-theme tfoot, .dark-theme thead, .dark-theme th, .dark-theme td, .dark-theme canvas, .dark-theme ::placeholder, .dark-theme abbr, .dark-theme address, .dark-theme blockquote, .dark-theme caption, .dark-theme cite, .dark-theme code, .dark-theme dd, .dark-theme dl, .dark-theme mark, .dark-theme option, .dark-theme pre, .dark-theme time, .dark-theme del, .dark-theme .MuiTypography-p, .dark-theme .MuiDataGrid-cellContent, .dark-theme .MuiTabPanel-root, .dark-theme .MuiTypography-body1, .dark-theme .MuiTypography-body2, .dark-theme .MuiStepLabel-label, .dark-theme .MuiTypography-caption {
   color: var(--darkBodyColor);
-}
-
-/* Button styles for dark theme - more specific */
-.dark-theme button:not(.MuiButton-contained) {
-  color: var(--darkBodyColor);
-}
-
-/* ALL Sidebar menu items should be white in dark mode (both active and inactive) */
-.dark-theme .sidemenu-link {
-  color: #ffffff !important;
-}
-
-/* Sidebar menu text - both active and inactive */
-.dark-theme .sidemenu-link .menu-text {
-  color: #ffffff !important;
-}
-
-/* Sidebar menu icons - both active and inactive */
-.dark-theme .sidemenu-link .menu-icon {
-  color: #ffffff !important;
-}
-
-/* Quick action buttons should be white in dark mode */
-.dark-theme .MuiButton-outlined {
-  color: #ffffff !important;
 }
 .dark-theme .dark-border {
   border-color: 1px solid var(--darkBorder) !important;
