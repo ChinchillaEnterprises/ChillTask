@@ -31,20 +31,20 @@ interface CustomPaletteOptions extends PaletteOptions {
 const theme = createTheme({
   palette: {
     background: {
-      default: "#FAFAF8"  // Off-white, softer than pure white
+      default: "#ffffff"  // Clean white background
     },
     text:{
       primary: "#3A3A3A"  // Darker, more readable
     },
     primary: {
-      main: "#2C5F2D",  // Deep forest green - stability, growth
-      50: "#E8F5E9",
-      100: "#C8E6C9",
-      400: "#4A7C4E",
-      500: "#2C5F2D",
-      600: "#1B5E20",
-      700: "#134E13",
-      800: "#0D3E0D",
+      main: "#9333ea",  // Purple - modern, creative
+      50: "#faf5ff",
+      100: "#f3e8ff",
+      400: "#a855f7",
+      500: "#9333ea",
+      600: "#7e22ce",
+      700: "#6b21a8",
+      800: "#581c87",
     },
     secondary: {
       main: "#D4A574",  // Warm clay - approachable, grounded
