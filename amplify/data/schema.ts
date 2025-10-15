@@ -2,6 +2,7 @@ import { type ClientSchema, a } from '@aws-amplify/backend';
 import { getSlackChannels } from '../functions/get-slack-channels/resource';
 import { getGitHubRepos } from '../functions/get-github-repos/resource';
 import { getGitHubBranches } from '../functions/get-github-branches/resource';
+import { getWebhookHistory } from '../functions/get-webhook-history/resource';
 import { syncSlackHistory } from '../functions/sync-slack-history/resource';
 import { syncSlackToGitHub } from '../functions/sync-slack-to-github/resource';
 
@@ -23,6 +24,9 @@ export const schema = a.schema({
     })
     .authorization((allow) => [
       allow.publicApiKey(),
+    ])
+    .secondaryIndexes((index) => [
+      index('slackChannelId').queryField('listMappingsBySlackChannel'),
     ]),
 
   // Temporary storage for raw Slack events (10 min TTL)
@@ -41,6 +45,9 @@ export const schema = a.schema({
     })
     .authorization((allow) => [
       allow.publicApiKey(),
+    ])
+    .secondaryIndexes((index) => [
+      index('eventType').sortKeys(['timestamp']).queryField('listSlackEventsByEventType'),
     ]),
 
   // GitHub webhook event history
@@ -63,6 +70,9 @@ export const schema = a.schema({
     })
     .authorization((allow) => [
       allow.publicApiKey(),
+    ])
+    .secondaryIndexes((index) => [
+      index('eventType').sortKeys(['timestamp']).queryField('listWebhookEventsByEventType'),
     ]),
 
   // Custom Types for API responses
@@ -83,6 +93,33 @@ export const schema = a.schema({
     name: a.string().required(),
     commitSha: a.string().required(),
     isProtected: a.boolean().required(),
+  }),
+
+  WebhookEventSummary: a.customType({
+    id: a.string().required(),
+    requestId: a.string().required(),
+    eventType: a.string().required(),
+    repoName: a.string(),
+    branch: a.string(),
+    commitMessage: a.string(),
+    pusher: a.string(),
+    success: a.boolean().required(),
+    errorMessage: a.string(),
+    processingTimeMs: a.integer(),
+    timestamp: a.string().required(),
+  }),
+
+  WebhookHistoryStats: a.customType({
+    total: a.integer().required(),
+    successRate: a.integer().required(),
+    avgProcessingTime: a.integer().required(),
+    lastWebhook: a.string().required(),
+  }),
+
+  WebhookHistoryResponse: a.customType({
+    events: a.ref('WebhookEventSummary').array().required(),
+    stats: a.ref('WebhookHistoryStats').required(),
+    status: a.string().required(),
   }),
 
   // Custom Queries - Fetch dropdown data on-demand
@@ -107,6 +144,12 @@ export const schema = a.schema({
     .handler(a.handler.function(getGitHubBranches))
     .authorization((allow) => [allow.publicApiKey()]),
 
+  getWebhookHistory: a
+    .query()
+    .returns(a.ref('WebhookHistoryResponse'))
+    .handler(a.handler.function(getWebhookHistory))
+    .authorization((allow) => [allow.publicApiKey()]),
+
   // Custom Mutations - User-triggered actions
   syncSlackHistory: a
     .mutation()
@@ -117,6 +160,7 @@ export const schema = a.schema({
 }).authorization((allow) => [
   // Schema-level authorization: Required for Lambda functions to access Amplify Data
   // This injects AMPLIFY_DATA_GRAPHQL_ENDPOINT environment variable into the Lambda
+  allow.resource(getWebhookHistory),  // GraphQL query for webhook history
   allow.resource(syncSlackHistory),
   allow.resource(syncSlackToGitHub),  // CRITICAL: Enables scheduled Lambda to access DynamoDB
 ]);

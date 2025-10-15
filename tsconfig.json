@@ -22,9 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/amplify/*": ["./amplify/*"],
-      "@amplify/*": ["./amplify/*"],
-      "@/amplify_outputs.json": ["./amplify_outputs.json"]
+      "@root/*": ["./*"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

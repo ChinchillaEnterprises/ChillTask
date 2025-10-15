@@ -156,7 +156,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { payload } = data;
 
       console.log('[Auth] Hub Event Received:', payload.event);
-      console.log('[Auth] Hub Event Data:', payload.data);
+      console.log('[Auth] Hub Event Data:', (payload as any).data);
 
       switch (payload.event) {
         case 'signedIn':
@@ -202,7 +202,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           break;
 
         default:
-          console.log('[Auth] Unknown Hub event:', payload.event);
+          console.log('[Auth] Unknown Hub event:', (payload as any).event);
           break;
       }
     });

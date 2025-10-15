@@ -17,8 +17,8 @@
 
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
-import outputs from '@/amplify_outputs.json';
-import type { Schema } from '@/amplify/data/schema';
+import outputs from '@root/amplify_outputs.json';
+import type { Schema } from '@root/amplify/data/schema';
 
 /**
  * Configure Amplify with outputs from amplify_outputs.json

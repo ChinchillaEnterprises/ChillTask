@@ -53,8 +53,8 @@ export default function WebhookMonitorPage() {
 
       // Events come as array from GraphQL (no parsing needed)
       setData({
-        events: result.events,
-        stats: result.stats,
+        events: result.events as any,
+        stats: result.stats as any,
         status: result.status,
       });
       setError(null);

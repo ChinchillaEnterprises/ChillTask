@@ -19,7 +19,7 @@ import {
   Alert,
 } from "@mui/material";
 import { client } from "@/lib/amplify-client";
-import type { Schema } from "@/amplify/data/schema";
+import type { Schema } from "@root/amplify/data/schema";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/providers/AuthProvider";
 

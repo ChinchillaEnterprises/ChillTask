@@ -4,7 +4,8 @@ import "../../styles/globals.css";
 import * as React from "react";
 import type { Metadata } from "next";
 import ThemeRegistry from "@/theme/ThemeRegistry";
-import AmplifyConfigProvider from "@/components/AmplifyConfigProvider";
+import ConfigureAmplifyClientSide from "@/components/ConfigureAmplifyClientSide";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -28,11 +29,14 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body style={{ margin: 0 }}>
         {/* New MUI v7 Theme System */}
         <ThemeRegistry>
-          {/* Configure Amplify on client side */}
-          <AmplifyConfigProvider />
+          {/* Configure Amplify for client-side - runs before auth checks */}
+          <ConfigureAmplifyClientSide />
 
-          {/* Pages use DashboardLayout wrapper for new design */}
-          {props.children}
+          {/* AuthProvider wraps entire app - provides auth context to all components */}
+          <AuthProvider>
+            {/* Pages use DashboardLayout wrapper for new design */}
+            {props.children}
+          </AuthProvider>
         </ThemeRegistry>
       </body>
     </html>

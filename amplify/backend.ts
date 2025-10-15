@@ -1,6 +1,5 @@
 import { defineBackend } from '@aws-amplify/backend';
-// AUTH REMOVED - Authentication disabled for public access
-// import { auth } from './auth/resource.js';
+import { auth } from './auth/resource.js';
 import { data } from './data/resource.js';
 import { getSlackChannels } from './functions/get-slack-channels/resource.js';
 import { getGitHubRepos } from './functions/get-github-repos/resource.js';
@@ -16,7 +15,7 @@ import { Duration } from 'aws-cdk-lib';
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
 const backend = defineBackend({
-  // auth, // REMOVED - No authentication required
+  auth, // ✅ Authentication enabled with Google OAuth
   data,
   getSlackChannels,
   getGitHubRepos,

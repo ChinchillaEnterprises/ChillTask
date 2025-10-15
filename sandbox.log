@@ -1,0 +1,1157 @@
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+6:58:55 PM Synthesizing backend...
+6:58:56 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:56 PM   use `logGroup` instead
+6:58:56 PM   This API will be removed in the next major release.
+6:58:56 PM 
+6:58:56 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:56 PM   use `logGroup` instead
+6:58:56 PM   This API will be removed in the next major release.
+6:58:56 PM 
+6:58:56 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:56 PM   use `logGroup` instead
+6:58:56 PM   This API will be removed in the next major release.
+6:58:56 PM 
+6:58:56 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:56 PM   use `logGroup` instead
+6:58:56 PM   This API will be removed in the next major release.
+6:58:56 PM 
+6:58:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:57 PM   use `logGroup` instead
+6:58:57 PM   This API will be removed in the next major release.
+6:58:57 PM 
+6:58:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:57 PM   use `logGroup` instead
+6:58:57 PM   This API will be removed in the next major release.
+6:58:57 PM 
+6:58:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:57 PM   use `logGroup` instead
+6:58:57 PM   This API will be removed in the next major release.
+6:58:57 PM 
+6:58:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:57 PM   use `logGroup` instead
+6:58:57 PM   This API will be removed in the next major release.
+6:58:57 PM 
+6:58:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:58 PM   use `logGroup` instead
+6:58:58 PM   This API will be removed in the next major release.
+6:58:58 PM 
+6:58:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:58 PM   use `logGroup` instead
+6:58:58 PM   This API will be removed in the next major release.
+6:58:58 PM 
+6:58:59 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+6:58:59 PM 
+6:58:59 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+6:58:59 PM 
+6:58:59 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+6:58:59 PM 
+6:58:59 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+6:58:59 PM 
+6:58:59 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+6:58:59 PM 
+6:58:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:59 PM   use `logGroup` instead
+6:58:59 PM   This API will be removed in the next major release.
+6:58:59 PM 
+6:58:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+6:58:59 PM   use `logGroup` instead
+6:58:59 PM   This API will be removed in the next major release.
+6:58:59 PM 
+6:59:00 PM ✔ Backend synthesized in 4.94 seconds
+6:59:00 PM Running type checks...
+6:59:07 PM ✔ Type checks completed in 7.61 seconds
+6:59:07 PM Building and publishing assets...
+6:59:29 PM ✔ Built and published assets
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:00:01 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:00:05 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   1 | 7:00:05 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   1 | 7:00:06 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data.NestedStack/data.NestedStackResource (data7552DF31)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:07 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:12 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | data/get-webhook-history-lambda/ServiceRole (getwebhookhistorylambdaServiceRole1722FCE7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | UPDATE_IN_PROGRESS | Custom::CDKBucketDeployment | data/modelIntrospectionSchemaBucketDeployment/CustomResource-1536MiB/Default (modelIntrospectionSchemaBucketDeploymentCustomResource1536MiB104B97EC)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data/amplifyData/AmplifyTableManager.NestedStack/AmplifyTableManager.NestedStackResource (amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | UPDATE_IN_PROGRESS | AWS::AppSync::ApiKey | data/amplifyData/GraphQLAPI/DefaultApiKey (amplifyDataGraphQLAPIDefaultApiKey1C8ED374)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | UPDATE_IN_PROGRESS | AWS::AppSync::GraphQLSchema | data/amplifyData/GraphQLAPI/TransformerSchema (amplifyDataGraphQLAPITransformerSchemaFF50A789)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | UPDATE_IN_PROGRESS | Custom::CDKBucketDeployment | data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/CustomResource-1536MiB/Default (amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB21775929)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   1 | 7:00:13 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | data/get-webhook-history-lambda/ServiceRole (getwebhookhistorylambdaServiceRole1722FCE7) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   2 | 7:00:14 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/AmplifyTableManager.NestedStack/AmplifyTableManager.NestedStackResource (amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   2 | 7:00:14 PM | UPDATE_IN_PROGRESS | AWS::IAM::Policy | data/GraphqlAccessPolicy2 (GraphqlAccessPolicy2990D371F)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   3 | 7:00:14 PM | UPDATE_COMPLETE | AWS::AppSync::ApiKey | data/amplifyData/GraphQLAPI/DefaultApiKey (amplifyDataGraphQLAPIDefaultApiKey1C8ED374)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   4 | 7:00:19 PM | UPDATE_COMPLETE | Custom::CDKBucketDeployment | data/modelIntrospectionSchemaBucketDeployment/CustomResource-1536MiB/Default (modelIntrospectionSchemaBucketDeploymentCustomResource1536MiB104B97EC)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   5 | 7:00:19 PM | UPDATE_COMPLETE | Custom::CDKBucketDeployment | data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/CustomResource-1536MiB/Default (amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB21775929)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   5 | 7:00:20 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/GraphqlAccessPolicy3 (GraphqlAccessPolicy3BD16E2F4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   5 | 7:00:21 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/GraphqlAccessPolicy3 (GraphqlAccessPolicy3BD16E2F4) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   6 | 7:00:25 PM | UPDATE_COMPLETE | AWS::AppSync::GraphQLSchema | data/amplifyData/GraphQLAPI/TransformerSchema (amplifyDataGraphQLAPITransformerSchemaFF50A789)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   6 | 7:00:26 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data/amplifyData/ChannelMapping.NestedStack/ChannelMapping.NestedStackResource (amplifyDataChannelMappingNestedStackChannelMappingNestedStackResource32C09480)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   6 | 7:00:26 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data/amplifyData/SlackEvent.NestedStack/SlackEvent.NestedStackResource (amplifyDataSlackEventNestedStackSlackEventNestedStackResource9E43F66F)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   6 | 7:00:27 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data/amplifyData/WebhookEvent.NestedStack/WebhookEvent.NestedStackResource (amplifyDataWebhookEventNestedStackWebhookEventNestedStackResource7E5528E4)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   6 | 7:00:27 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   6 | 7:00:27 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |   6 | 7:00:28 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   7 | 7:00:30 PM | CREATE_COMPLETE | AWS::IAM::Role | data/get-webhook-history-lambda/ServiceRole (getwebhookhistorylambdaServiceRole1722FCE7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:30 PM | UPDATE_COMPLETE | AWS::IAM::Policy | data/GraphqlAccessPolicy2 (GraphqlAccessPolicy2990D371F)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:31 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/get-webhook-history-lambda/ServiceRole/DefaultPolicy (getwebhookhistorylambdaServiceRoleDefaultPolicyC4670763)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:31 PM | UPDATE_IN_PROGRESS | AWS::IAM::Policy | data/GraphqlAccessPolicy1 (GraphqlAccessPolicy11EF5618C)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:31 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | data/get-webhook-history-lambda (getwebhookhistorylambdaE8F12D3E)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:32 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/get-webhook-history-lambda/ServiceRole/DefaultPolicy (getwebhookhistorylambdaServiceRoleDefaultPolicyC4670763) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   8 | 7:00:33 PM | UPDATE_IN_PROGRESS | Custom::AmplifyDynamoDBTable | data/amplifyData/SlackEvent/SlackEventTable/Default/Default (SlackEventTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   8 | 7:00:33 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypeauth0Function/QuerylistSlackEventsByEventTypeauth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypeauth0FunctionQuerylistSlackEventsByEventTypeauth0FunctionAppSyncFunction832165E4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |   8 | 7:00:33 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | data/get-webhook-history-lambda (getwebhookhistorylambdaE8F12D3E) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   8 | 7:00:33 PM | UPDATE_IN_PROGRESS | Custom::AmplifyDynamoDBTable | data/amplifyData/ChannelMapping/ChannelMappingTable/Default/Default (ChannelMappingTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   8 | 7:00:33 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelauth0Function/QuerylistMappingsBySlackChannelauth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelauth0FunctionQuerylistMappingsBySlackChannelauth0FunctionAppSyncFunction36686C3A)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   8 | 7:00:33 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypepostAuth0Function/QuerylistSlackEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypepostAuth0FunctionQuerylistSlackEventsByEventTypepostAuth0FunctionAppSyncFunction56A90905)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   8 | 7:00:34 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelpostAuth0Function/QuerylistMappingsBySlackChannelpostAuth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelpostAuth0FunctionQuerylistMappingsBySlackChannelpostAuth0FunctionAppSyncFunctionC1EB044C)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   8 | 7:00:34 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypeauth0Function/QuerylistSlackEventsByEventTypeauth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypeauth0FunctionQuerylistSlackEventsByEventTypeauth0FunctionAppSyncFunction832165E4) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   8 | 7:00:34 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypepostAuth0Function/QuerylistSlackEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypepostAuth0FunctionQuerylistSlackEventsByEventTypepostAuth0FunctionAppSyncFunction56A90905) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   8 | 7:00:34 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelauth0Function/QuerylistMappingsBySlackChannelauth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelauth0FunctionQuerylistMappingsBySlackChannelauth0FunctionAppSyncFunction36686C3A) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |   9 | 7:00:35 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypepostAuth0Function/QuerylistSlackEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypepostAuth0FunctionQuerylistSlackEventsByEventTypepostAuth0FunctionAppSyncFunction56A90905)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |   9 | 7:00:35 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelpostAuth0Function/QuerylistMappingsBySlackChannelpostAuth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelpostAuth0FunctionQuerylistMappingsBySlackChannelpostAuth0FunctionAppSyncFunctionC1EB044C) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  10 | 7:00:35 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QuerylistSlackEventsByEventTypeauth0Function/QuerylistSlackEventsByEventTypeauth0Function.AppSyncFunction (QuerylistSlackEventsByEventTypeauth0FunctionQuerylistSlackEventsByEventTypeauth0FunctionAppSyncFunction832165E4)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  11 | 7:00:36 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelauth0Function/QuerylistMappingsBySlackChannelauth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelauth0FunctionQuerylistMappingsBySlackChannelauth0FunctionAppSyncFunction36686C3A)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  12 | 7:00:37 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QuerylistMappingsBySlackChannelpostAuth0Function/QuerylistMappingsBySlackChannelpostAuth0Function.AppSyncFunction (QuerylistMappingsBySlackChannelpostAuth0FunctionQuerylistMappingsBySlackChannelpostAuth0FunctionAppSyncFunctionC1EB044C)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  13 | 7:00:36 PM | CREATE_COMPLETE | AWS::IAM::Policy | data/GraphqlAccessPolicy3 (GraphqlAccessPolicy3BD16E2F4)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  13 | 7:00:37 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypepostAuth0Function/QuerylistWebhookEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypepostAuth0FunctionQuerylistWebhookEventsByEventTypepostAuth0FunctionAppSyncFunction8D3594A1)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  13 | 7:00:37 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypeauth0Function/QuerylistWebhookEventsByEventTypeauth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypeauth0FunctionQuerylistWebhookEventsByEventTypeauth0FunctionAppSyncFunctionC55C1BDE)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  13 | 7:00:37 PM | UPDATE_IN_PROGRESS | Custom::AmplifyDynamoDBTable | data/amplifyData/WebhookEvent/WebhookEventTable/Default/Default (WebhookEventTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  13 | 7:00:38 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypepostAuth0Function/QuerylistWebhookEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypepostAuth0FunctionQuerylistWebhookEventsByEventTypepostAuth0FunctionAppSyncFunction8D3594A1) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  13 | 7:00:38 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypeauth0Function/QuerylistWebhookEventsByEventTypeauth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypeauth0FunctionQuerylistWebhookEventsByEventTypeauth0FunctionAppSyncFunctionC55C1BDE) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  14 | 7:00:38 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypepostAuth0Function/QuerylistWebhookEventsByEventTypepostAuth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypepostAuth0FunctionQuerylistWebhookEventsByEventTypepostAuth0FunctionAppSyncFunction8D3594A1)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  15 | 7:00:40 PM | CREATE_COMPLETE | AWS::Lambda::Function | data/get-webhook-history-lambda (getwebhookhistorylambdaE8F12D3E)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  16 | 7:00:40 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QuerylistWebhookEventsByEventTypeauth0Function/QuerylistWebhookEventsByEventTypeauth0Function.AppSyncFunction (QuerylistWebhookEventsByEventTypeauth0FunctionQuerylistWebhookEventsByEventTypeauth0FunctionAppSyncFunctionC55C1BDE)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  16 | 7:00:42 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | data/amplifyData/FunctionDirectiveStack.NestedStack/FunctionDirectiveStack.NestedStackResource (amplifyDataFunctionDirectiveStackNestedStackFunctionDirectiveStackNestedStackResource1246A302)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  16 | 7:00:43 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  17 | 7:00:47 PM | CREATE_COMPLETE | AWS::IAM::Policy | data/get-webhook-history-lambda/ServiceRole/DefaultPolicy (getwebhookhistorylambdaServiceRoleDefaultPolicyC4670763)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  18 | 7:00:47 PM | UPDATE_COMPLETE | AWS::IAM::Policy | data/GraphqlAccessPolicy1 (GraphqlAccessPolicy11EF5618C)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  18 | 7:00:50 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole (FnGetWebhookHistoryLambdaDataSourceServiceRoleB71601FA)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  18 | 7:00:50 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/QueryGetWebhookHistoryAuthFN/QueryGetWebhookHistoryAuthFN.AppSyncFunction (QueryGetWebhookHistoryAuthFNQueryGetWebhookHistoryAuthFNAppSyncFunctionBD40AB0F)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  18 | 7:00:51 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/QueryGetWebhookHistoryAuthFN/QueryGetWebhookHistoryAuthFN.AppSyncFunction (QueryGetWebhookHistoryAuthFNQueryGetWebhookHistoryAuthFNAppSyncFunctionBD40AB0F) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  19 | 7:00:53 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/QueryGetWebhookHistoryAuthFN/QueryGetWebhookHistoryAuthFN.AppSyncFunction (QueryGetWebhookHistoryAuthFNQueryGetWebhookHistoryAuthFNAppSyncFunctionBD40AB0F)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  19 | 7:00:55 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole (FnGetWebhookHistoryLambdaDataSourceServiceRoleB71601FA) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  20 | 7:01:18 PM | UPDATE_COMPLETE | Custom::AmplifyDynamoDBTable | data/amplifyData/WebhookEvent/WebhookEventTable/Default/Default (WebhookEventTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  21 | 7:01:18 PM | UPDATE_COMPLETE | Custom::AmplifyDynamoDBTable | data/amplifyData/SlackEvent/SlackEventTable/Default/Default (SlackEventTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  21 | 7:01:21 PM | UPDATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/MutationCreateWebhookEventDataResolverFn/MutationCreateWebhookEventDataResolverFn.AppSyncFunction (MutationCreateWebhookEventDataResolverFnMutationCreateWebhookEventDataResolverFnAppSyncFunction76116383)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  22 | 7:01:22 PM | CREATE_COMPLETE | AWS::IAM::Role | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole (FnGetWebhookHistoryLambdaDataSourceServiceRoleB71601FA)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  22 | 7:01:23 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole/DefaultPolicy (FnGetWebhookHistoryLambdaDataSourceServiceRoleDefaultPolicy651FDB68)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  22 | 7:01:23 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QueryListWebhookEventsByEventTypeDataResolverFn/QueryListWebhookEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListWebhookEventsByEventTypeDataResolverFnQueryListWebhookEventsByEventTypeDataResolverFnAppSyncFunction371D6D5E)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  23 | 7:01:24 PM | UPDATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/MutationCreateWebhookEventDataResolverFn/MutationCreateWebhookEventDataResolverFn.AppSyncFunction (MutationCreateWebhookEventDataResolverFnMutationCreateWebhookEventDataResolverFnAppSyncFunction76116383)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  23 | 7:01:24 PM | CREATE_IN_PROGRESS | AWS::AppSync::DataSource | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource (FnGetWebhookHistoryLambdaDataSource)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  23 | 7:01:24 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole/DefaultPolicy (FnGetWebhookHistoryLambdaDataSourceServiceRoleDefaultPolicy651FDB68) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  23 | 7:01:24 PM | UPDATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/MutationCreateSlackEventDataResolverFn/MutationCreateSlackEventDataResolverFn.AppSyncFunction (MutationCreateSlackEventDataResolverFnMutationCreateSlackEventDataResolverFnAppSyncFunction6A7964DB)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  23 | 7:01:24 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QueryListSlackEventsByEventTypeDataResolverFn/QueryListSlackEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListSlackEventsByEventTypeDataResolverFnQueryListSlackEventsByEventTypeDataResolverFnAppSyncFunction875BDAF0)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  23 | 7:01:25 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QueryListWebhookEventsByEventTypeDataResolverFn/QueryListWebhookEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListWebhookEventsByEventTypeDataResolverFnQueryListWebhookEventsByEventTypeDataResolverFnAppSyncFunction371D6D5E) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  23 | 7:01:25 PM | CREATE_IN_PROGRESS | AWS::AppSync::DataSource | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource (FnGetWebhookHistoryLambdaDataSource) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  23 | 7:01:25 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QueryListSlackEventsByEventTypeDataResolverFn/QueryListSlackEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListSlackEventsByEventTypeDataResolverFnQueryListSlackEventsByEventTypeDataResolverFnAppSyncFunction875BDAF0) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  24 | 7:01:26 PM | CREATE_COMPLETE | AWS::AppSync::DataSource | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource (FnGetWebhookHistoryLambdaDataSource)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  25 | 7:01:27 PM | UPDATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/MutationCreateSlackEventDataResolverFn/MutationCreateSlackEventDataResolverFn.AppSyncFunction (MutationCreateSlackEventDataResolverFnMutationCreateSlackEventDataResolverFnAppSyncFunction6A7964DB)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  26 | 7:01:27 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/WebhookEvent/QueryListWebhookEventsByEventTypeDataResolverFn/QueryListWebhookEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListWebhookEventsByEventTypeDataResolverFnQueryListWebhookEventsByEventTypeDataResolverFnAppSyncFunction371D6D5E)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  26 | 7:01:28 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/InvokeFnGetWebhookHistoryLambdaDataSource/InvokeFnGetWebhookHistoryLambdaDataSource.AppSyncFunction (InvokeFnGetWebhookHistoryLambdaDataSourceInvokeFnGetWebhookHistoryLambdaDataSourceAppSyncFunction62FA7339)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  27 | 7:01:29 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/SlackEvent/QueryListSlackEventsByEventTypeDataResolverFn/QueryListSlackEventsByEventTypeDataResolverFn.AppSyncFunction (QueryListSlackEventsByEventTypeDataResolverFnQueryListSlackEventsByEventTypeDataResolverFnAppSyncFunction875BDAF0)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  27 | 7:01:29 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/InvokeFnGetWebhookHistoryLambdaDataSource/InvokeFnGetWebhookHistoryLambdaDataSource.AppSyncFunction (InvokeFnGetWebhookHistoryLambdaDataSourceInvokeFnGetWebhookHistoryLambdaDataSourceAppSyncFunction62FA7339) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  27 | 7:01:29 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/WebhookEvent/queryListWebhookEventsByEventTypeResolver (QuerylistWebhookEventsByEventTypeResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  27 | 7:01:30 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/WebhookEvent/queryListWebhookEventsByEventTypeResolver (QuerylistWebhookEventsByEventTypeResolver) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  28 | 7:01:31 PM | UPDATE_COMPLETE | Custom::AmplifyDynamoDBTable | data/amplifyData/ChannelMapping/ChannelMappingTable/Default/Default (ChannelMappingTable)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  29 | 7:01:32 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/FunctionDirectiveStack/InvokeFnGetWebhookHistoryLambdaDataSource/InvokeFnGetWebhookHistoryLambdaDataSource.AppSyncFunction (InvokeFnGetWebhookHistoryLambdaDataSourceInvokeFnGetWebhookHistoryLambdaDataSourceAppSyncFunction62FA7339)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  30 | 7:01:33 PM | CREATE_COMPLETE | AWS::AppSync::Resolver | data/amplifyData/WebhookEvent/queryListWebhookEventsByEventTypeResolver (QuerylistWebhookEventsByEventTypeResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  30 | 7:01:34 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/FunctionDirectiveStack/queryGetWebhookHistoryResolver (QuerygetWebhookHistoryResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  31 | 7:01:35 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  31 | 7:01:35 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/FunctionDirectiveStack/queryGetWebhookHistoryResolver (QuerygetWebhookHistoryResolver) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  31 | 7:01:36 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/SlackEvent/queryListSlackEventsByEventTypeResolver (QuerylistSlackEventsByEventTypeResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  31 | 7:01:36 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QueryListMappingsBySlackChannelDataResolverFn/QueryListMappingsBySlackChannelDataResolverFn.AppSyncFunction (QueryListMappingsBySlackChannelDataResolverFnQueryListMappingsBySlackChannelDataResolverFnAppSyncFunction07B2C4E0)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  31 | 7:01:37 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/SlackEvent/queryListSlackEventsByEventTypeResolver (QuerylistSlackEventsByEventTypeResolver) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  31 | 7:01:37 PM | CREATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QueryListMappingsBySlackChannelDataResolverFn/QueryListMappingsBySlackChannelDataResolverFn.AppSyncFunction (QueryListMappingsBySlackChannelDataResolverFnQueryListMappingsBySlackChannelDataResolverFnAppSyncFunction07B2C4E0) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  31 | 7:01:38 PM | UPDATE_IN_PROGRESS | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/MutationCreateChannelMappingDataResolverFn/MutationCreateChannelMappingDataResolverFn.AppSyncFunction (MutationCreateChannelMappingDataResolverFnMutationCreateChannelMappingDataResolverFnAppSyncFunctionC6F1E28D)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  32 | 7:01:39 PM | CREATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/QueryListMappingsBySlackChannelDataResolverFn/QueryListMappingsBySlackChannelDataResolverFn.AppSyncFunction (QueryListMappingsBySlackChannelDataResolverFnQueryListMappingsBySlackChannelDataResolverFnAppSyncFunction07B2C4E0)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  33 | 7:01:39 PM | CREATE_COMPLETE | AWS::AppSync::Resolver | data/amplifyData/FunctionDirectiveStack/queryGetWebhookHistoryResolver (QuerygetWebhookHistoryResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  34 | 7:01:40 PM | CREATE_COMPLETE | AWS::IAM::Policy | data/amplifyData/FunctionDirectiveStack/FnGetWebhookHistoryLambdaDataSource/ServiceRole/DefaultPolicy (FnGetWebhookHistoryLambdaDataSourceServiceRoleDefaultPolicy651FDB68)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  35 | 7:01:40 PM | UPDATE_COMPLETE | AWS::AppSync::FunctionConfiguration | data/amplifyData/ChannelMapping/MutationCreateChannelMappingDataResolverFn/MutationCreateChannelMappingDataResolverFn.AppSyncFunction (MutationCreateChannelMappingDataResolverFnMutationCreateChannelMappingDataResolverFnAppSyncFunctionC6F1E28D)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  36 | 7:01:41 PM | CREATE_COMPLETE | AWS::AppSync::Resolver | data/amplifyData/SlackEvent/queryListSlackEventsByEventTypeResolver (QuerylistSlackEventsByEventTypeResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  37 | 7:01:41 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  38 | 7:01:43 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  38 | 7:01:44 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/ChannelMapping/queryListMappingsBySlackChannelResolver (QuerylistMappingsBySlackChannelResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  38 | 7:01:45 PM | CREATE_IN_PROGRESS | AWS::AppSync::Resolver | data/amplifyData/ChannelMapping/queryListMappingsBySlackChannelResolver (QuerylistMappingsBySlackChannelResolver) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  39 | 7:01:44 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/FunctionDirectiveStack.NestedStack/FunctionDirectiveStack.NestedStackResource (amplifyDataFunctionDirectiveStackNestedStackFunctionDirectiveStackNestedStackResource1246A302)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  40 | 7:01:45 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/SlackEvent.NestedStack/SlackEvent.NestedStackResource (amplifyDataSlackEventNestedStackSlackEventNestedStackResource9E43F66F)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  41 | 7:01:45 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/WebhookEvent.NestedStack/WebhookEvent.NestedStackResource (amplifyDataWebhookEventNestedStackWebhookEventNestedStackResource7E5528E4)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  42 | 7:01:50 PM | CREATE_COMPLETE | AWS::AppSync::Resolver | data/amplifyData/ChannelMapping/queryListMappingsBySlackChannelResolver (QuerylistMappingsBySlackChannelResolver)
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  43 | 7:01:52 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  44 | 7:02:01 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/ChannelMapping.NestedStack/ChannelMapping.NestedStackResource (amplifyDataChannelMappingNestedStackChannelMappingNestedStackResource32C09480)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  45 | 7:02:04 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  46 | 7:02:21 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data.NestedStack/data.NestedStackResource (data7552DF31)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  47 | 7:02:22 PM | UPDATE_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB |  48 | 7:02:26 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataChannelMappingNestedStackChanne-1HKFD12R90CCB
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W |  49 | 7:02:27 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataSlackEventNestedStackSlackEvent-1TPYGL3XCEU2W
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW |  50 | 7:02:27 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataFunctionDirectiveStackNestedSta-L3LNQTN64EWW
+amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT |  51 | 7:02:27 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10c-amplifyDataWebhookEventNestedStackWebhookE-1FGAB0KYRYCMT
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  50 | 7:02:36 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/ChannelMapping.NestedStack/ChannelMapping.NestedStackResource (amplifyDataChannelMappingNestedStackChannelMappingNestedStackResource32C09480)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  49 | 7:02:36 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/SlackEvent.NestedStack/SlackEvent.NestedStackResource (amplifyDataSlackEventNestedStackSlackEventNestedStackResource9E43F66F)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  48 | 7:02:36 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/FunctionDirectiveStack.NestedStack/FunctionDirectiveStack.NestedStackResource (amplifyDataFunctionDirectiveStackNestedStackFunctionDirectiveStackNestedStackResource1246A302)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  47 | 7:02:36 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/WebhookEvent.NestedStack/WebhookEvent.NestedStackResource (amplifyDataWebhookEventNestedStackWebhookEventNestedStackResource7E5528E4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  46 | 7:02:37 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data/amplifyData/AmplifyTableManager.NestedStack/AmplifyTableManager.NestedStackResource (amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q |  47 | 7:02:37 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-data7552DF31-18ZQR4UE9AE6Q
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  46 | 7:02:45 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | data.NestedStack/data.NestedStackResource (data7552DF31)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  45 | 7:02:46 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  46 | 7:02:46 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca
+7:02:49 PM ✔ Deployment completed in 199.134 seconds
+7:02:49 PM AppSync API endpoint = https://lqi7d7gmmjdhbhtdv23xfoxgtu.appsync-api.us-east-1.amazonaws.com/graphql
+7:02:49 PM [Sandbox] Watching for file changes...
+7:02:53 PM File written: amplify_outputs.json
+7:02:03 PM [get-slack-channels] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:02:03 PM [get-slack-channels] START RequestId: 7f854fa9-76f2-4db5-ab99-e8aff10af4a9 Version: $LATEST
+7:02:03 PM [get-slack-channels] 2025-10-15T00:02:03.526Z	7f854fa9-76f2-4db5-ab99-e8aff10af4a9	ERROR	Error fetching Slack channels: ResourceNotFoundException: Secrets Manager can't find the specified secret.
+    at P$ (file:///var/task/index.mjs:54:21873)
+    at _e (file:///var/task/index.mjs:54:19849)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///var/task/index.mjs:3:500
+    at async file:///var/task/index.mjs:4:1947
+    at async file:///var/task/index.mjs:40:49278
+    at async file:///var/task/index.mjs:2:7033
+    at async Runtime.B8 [as handler] (file:///var/task/index.mjs:54:36813) {
+  '$fault': 'client',
+  '$response': Id {
+    statusCode: 400,
+    reason: 'Bad Request',
+    headers: {
+      'x-amzn-requestid': 'dcf7e151-6778-495d-b3d3-a346003dc03c',
+      'content-type': 'application/x-amz-json-1.1',
+      'content-length': '99',
+      date: 'Wed, 15 Oct 2025 00:02:03 GMT',
+      connection: 'close'
+    },
+    body: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [ClientRequest],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kHeaders)]: [Object],
+      [Symbol(kHeadersCount)]: 10,
+      [Symbol(kTrailers)]: null,
+      [Symbol(kTrailersCount)]: 0
+    }
+  },
+  '$retryable': undefined,
+  '$metadata': {
+    httpStatusCode: 400,
+    requestId: 'dcf7e151-6778-495d-b3d3-a346003dc03c',
+    extendedRequestId: undefined,
+    cfId: undefined,
+    attempts: 1,
+    totalRetryDelay: 0
+  },
+  __type: 'ResourceNotFoundException'
+}
+7:02:03 PM [get-slack-channels] 2025-10-15T00:02:03.548Z	7f854fa9-76f2-4db5-ab99-e8aff10af4a9	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","stack":["Error: Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","    at Runtime.B8 [as handler] (file:///var/task/index.mjs:54:37451)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"]}
+7:02:03 PM [get-slack-channels] END RequestId: 7f854fa9-76f2-4db5-ab99-e8aff10af4a9
+7:02:03 PM [get-slack-channels] REPORT RequestId: 7f854fa9-76f2-4db5-ab99-e8aff10af4a9	Duration: 250.24 ms	Billed Duration: 520 ms	Memory Size: 512 MB	Max Memory Used: 78 MB	Init Duration: 268.77 ms
+7:02:06 PM [get-slack-channels] START RequestId: 23bba559-af3e-4eb5-880f-32345c812049 Version: $LATEST
+7:02:06 PM [get-slack-channels] 2025-10-15T00:02:06.629Z	23bba559-af3e-4eb5-880f-32345c812049	ERROR	Error fetching Slack channels: ResourceNotFoundException: Secrets Manager can't find the specified secret.
+    at P$ (file:///var/task/index.mjs:54:21873)
+    at _e (file:///var/task/index.mjs:54:19849)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///var/task/index.mjs:3:500
+    at async file:///var/task/index.mjs:4:1947
+    at async file:///var/task/index.mjs:40:49278
+    at async file:///var/task/index.mjs:2:7033
+    at async Runtime.B8 [as handler] (file:///var/task/index.mjs:54:36813) {
+  '$fault': 'client',
+  '$response': Id {
+    statusCode: 400,
+    reason: 'Bad Request',
+    headers: {
+      'x-amzn-requestid': '66c589b8-23a4-4e12-8e3d-9d2c2b78cbda',
+      'content-type': 'application/x-amz-json-1.1',
+      'content-length': '99',
+      date: 'Wed, 15 Oct 2025 00:02:06 GMT',
+      connection: 'close'
+    },
+    body: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [ClientRequest],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kHeaders)]: [Object],
+      [Symbol(kHeadersCount)]: 10,
+      [Symbol(kTrailers)]: null,
+      [Symbol(kTrailersCount)]: 0
+    }
+  },
+  '$retryable': undefined,
+  '$metadata': {
+    httpStatusCode: 400,
+    requestId: '66c589b8-23a4-4e12-8e3d-9d2c2b78cbda',
+    extendedRequestId: undefined,
+    cfId: undefined,
+    attempts: 1,
+    totalRetryDelay: 0
+  },
+  __type: 'ResourceNotFoundException'
+}
+7:02:06 PM [get-slack-channels] 2025-10-15T00:02:06.629Z	23bba559-af3e-4eb5-880f-32345c812049	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","stack":["Error: Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","    at Runtime.B8 [as handler] (file:///var/task/index.mjs:54:37451)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"]}
+7:02:06 PM [get-slack-channels] END RequestId: 23bba559-af3e-4eb5-880f-32345c812049
+7:02:06 PM [get-slack-channels] REPORT RequestId: 23bba559-af3e-4eb5-880f-32345c812049	Duration: 47.98 ms	Billed Duration: 48 ms	Memory Size: 512 MB	Max Memory Used: 79 MB
+7:02:12 PM [get-slack-channels] START RequestId: acd35793-0d35-423f-8fbe-537ece998499 Version: $LATEST
+7:02:13 PM [get-slack-channels] 2025-10-15T00:02:13.071Z	acd35793-0d35-423f-8fbe-537ece998499	ERROR	Error fetching Slack channels: ResourceNotFoundException: Secrets Manager can't find the specified secret.
+    at P$ (file:///var/task/index.mjs:54:21873)
+    at _e (file:///var/task/index.mjs:54:19849)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///var/task/index.mjs:3:500
+    at async file:///var/task/index.mjs:4:1947
+    at async file:///var/task/index.mjs:40:49278
+    at async file:///var/task/index.mjs:2:7033
+    at async Runtime.B8 [as handler] (file:///var/task/index.mjs:54:36813) {
+  '$fault': 'client',
+  '$response': Id {
+    statusCode: 400,
+    reason: 'Bad Request',
+    headers: {
+      'x-amzn-requestid': 'd57d9a52-ebe0-4483-8761-5672530d7a9c',
+      'content-type': 'application/x-amz-json-1.1',
+      'content-length': '99',
+      date: 'Wed, 15 Oct 2025 00:02:13 GMT',
+      connection: 'close'
+    },
+    body: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [ClientRequest],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kHeaders)]: [Object],
+      [Symbol(kHeadersCount)]: 10,
+      [Symbol(kTrailers)]: null,
+      [Symbol(kTrailersCount)]: 0
+    }
+  },
+  '$retryable': undefined,
+  '$metadata': {
+    httpStatusCode: 400,
+    requestId: 'd57d9a52-ebe0-4483-8761-5672530d7a9c',
+    extendedRequestId: undefined,
+    cfId: undefined,
+    attempts: 1,
+    totalRetryDelay: 0
+  },
+  __type: 'ResourceNotFoundException'
+}
+7:02:13 PM [get-slack-channels] 2025-10-15T00:02:13.072Z	acd35793-0d35-423f-8fbe-537ece998499	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","stack":["Error: Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","    at Runtime.B8 [as handler] (file:///var/task/index.mjs:54:37451)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"]}
+7:02:13 PM [get-slack-channels] END RequestId: acd35793-0d35-423f-8fbe-537ece998499
+7:02:13 PM [get-slack-channels] REPORT RequestId: acd35793-0d35-423f-8fbe-537ece998499	Duration: 129.06 ms	Billed Duration: 130 ms	Memory Size: 512 MB	Max Memory Used: 79 MB
+7:02:02 PM [get-github-repos] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:02:02 PM [get-github-repos] START RequestId: 94d630cf-fb14-42dd-a0f5-adc982c5427c Version: $LATEST
+7:02:05 PM [get-github-repos] END RequestId: 94d630cf-fb14-42dd-a0f5-adc982c5427c
+7:02:05 PM [get-github-repos] REPORT RequestId: 94d630cf-fb14-42dd-a0f5-adc982c5427c	Duration: 2508.07 ms	Billed Duration: 2725 ms	Memory Size: 512 MB	Max Memory Used: 98 MB	Init Duration: 216.53 ms
+7:02:06 PM [get-github-repos] START RequestId: faf44107-a73e-4751-a24a-c6c328c641a8 Version: $LATEST
+7:02:07 PM [get-github-repos] END RequestId: faf44107-a73e-4751-a24a-c6c328c641a8
+7:02:07 PM [get-github-repos] REPORT RequestId: faf44107-a73e-4751-a24a-c6c328c641a8	Duration: 654.85 ms	Billed Duration: 655 ms	Memory Size: 512 MB	Max Memory Used: 119 MB
+7:02:12 PM [get-github-repos] START RequestId: facae417-1718-444d-b1aa-34be099a087b Version: $LATEST
+7:02:13 PM [get-github-repos] END RequestId: facae417-1718-444d-b1aa-34be099a087b
+7:02:13 PM [get-github-repos] REPORT RequestId: facae417-1718-444d-b1aa-34be099a087b	Duration: 1002.93 ms	Billed Duration: 1003 ms	Memory Size: 512 MB	Max Memory Used: 119 MB
+7:02:16 PM [get-github-branches] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:02:16 PM [get-github-branches] START RequestId: 0b5f3651-0ed9-4f6c-b6ef-e07caa9bfc70 Version: $LATEST
+7:02:17 PM [get-github-branches] END RequestId: 0b5f3651-0ed9-4f6c-b6ef-e07caa9bfc70
+7:02:17 PM [get-github-branches] REPORT RequestId: 0b5f3651-0ed9-4f6c-b6ef-e07caa9bfc70	Duration: 630.79 ms	Billed Duration: 887 ms	Memory Size: 512 MB	Max Memory Used: 90 MB	Init Duration: 255.92 ms
+7:02:23 PM [get-github-branches] START RequestId: 46cbe255-a454-4f6c-94c5-1f896492b9fc Version: $LATEST
+7:02:23 PM [get-github-branches] END RequestId: 46cbe255-a454-4f6c-94c5-1f896492b9fc
+7:02:23 PM [get-github-branches] REPORT RequestId: 46cbe255-a454-4f6c-94c5-1f896492b9fc	Duration: 284.79 ms	Billed Duration: 285 ms	Memory Size: 512 MB	Max Memory Used: 99 MB
+6:59:09 PM [sync-slack-to-github] START RequestId: 3bd72463-a765-4432-94bf-911407383bb8 Version: $LATEST
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.034Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	=== Sync Slack to GitHub Started ===
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.034Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	🕒 Event Time: 2025-10-14T23:58:38Z
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.034Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	🔍 Environment: dev
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.034Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	🔧 Initializing Amplify client...
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.090Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	✅ Amplify client initialized
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.090Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	🔑 Fetching GitHub and Slack tokens...
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.192Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	✅ Tokens retrieved
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.192Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	📬 Querying unprocessed Slack messages...
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.379Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	📊 Found 0 unprocessed messages
+6:59:09 PM [sync-slack-to-github] 2025-10-14T23:59:09.380Z	3bd72463-a765-4432-94bf-911407383bb8	INFO	✅ No messages to process
+6:59:09 PM [sync-slack-to-github] END RequestId: 3bd72463-a765-4432-94bf-911407383bb8
+6:59:09 PM [sync-slack-to-github] REPORT RequestId: 3bd72463-a765-4432-94bf-911407383bb8	Duration: 367.68 ms	Billed Duration: 368 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:04:09 PM [sync-slack-to-github] START RequestId: 34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3 Version: $LATEST
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.218Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	=== Sync Slack to GitHub Started ===
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.218Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	🕒 Event Time: 2025-10-15T00:03:38Z
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.218Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	🔍 Environment: dev
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.218Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	🔧 Initializing Amplify client...
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.298Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	✅ Amplify client initialized
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.298Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	🔑 Fetching GitHub and Slack tokens...
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.409Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	✅ Tokens retrieved
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.410Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	📬 Querying unprocessed Slack messages...
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.650Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	📊 Found 0 unprocessed messages
+7:04:09 PM [sync-slack-to-github] 2025-10-15T00:04:09.650Z	34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	INFO	✅ No messages to process
+7:04:09 PM [sync-slack-to-github] END RequestId: 34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3
+7:04:09 PM [sync-slack-to-github] REPORT RequestId: 34be5d0f-6e8d-4c84-b589-0f8dfba4e1f3	Duration: 436.44 ms	Billed Duration: 437 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:05:01 PM [get-github-branches] START RequestId: a25b8eeb-5dad-4edc-89ef-316259effd55 Version: $LATEST
+7:05:01 PM [get-github-branches] END RequestId: a25b8eeb-5dad-4edc-89ef-316259effd55
+7:05:01 PM [get-github-branches] REPORT RequestId: a25b8eeb-5dad-4edc-89ef-316259effd55	Duration: 421.44 ms	Billed Duration: 422 ms	Memory Size: 512 MB	Max Memory Used: 115 MB
+7:05:03 PM [get-github-branches] START RequestId: 96a1cb4d-4db6-4582-a5de-b99a50c3fcc5 Version: $LATEST
+7:05:04 PM [get-github-branches] END RequestId: 96a1cb4d-4db6-4582-a5de-b99a50c3fcc5
+7:05:04 PM [get-github-branches] REPORT RequestId: 96a1cb4d-4db6-4582-a5de-b99a50c3fcc5	Duration: 174.25 ms	Billed Duration: 175 ms	Memory Size: 512 MB	Max Memory Used: 115 MB
+7:07:00 PM [get-webhook-history] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:07:01 PM [get-webhook-history] START RequestId: b255f4a8-fa38-42b3-9eff-754943f612a3 Version: $LATEST
+7:07:02 PM [get-webhook-history] END RequestId: b255f4a8-fa38-42b3-9eff-754943f612a3
+7:07:02 PM [get-webhook-history] REPORT RequestId: b255f4a8-fa38-42b3-9eff-754943f612a3	Duration: 1372.27 ms	Billed Duration: 2025 ms	Memory Size: 512 MB	Max Memory Used: 137 MB	Init Duration: 652.53 ms
+7:07:26 PM [get-webhook-history] START RequestId: 215f87f0-fbdc-49d9-88eb-5a6435a4c85b Version: $LATEST
+7:07:26 PM [get-webhook-history] END RequestId: 215f87f0-fbdc-49d9-88eb-5a6435a4c85b
+7:07:26 PM [get-webhook-history] REPORT RequestId: 215f87f0-fbdc-49d9-88eb-5a6435a4c85b	Duration: 375.37 ms	Billed Duration: 376 ms	Memory Size: 512 MB	Max Memory Used: 138 MB
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+7:07:41 PM [Sandbox] Triggered due to a file create event: amplify/functions/get-webhook-history/handler.ts
+7:07:41 PM [Sandbox] Triggered due to a file delete event: amplify/functions/get-webhook-history/handler.ts.tmp.6498.1760486861658
+7:07:42 PM Synthesizing backend...
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:43 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:43 PM   use `logGroup` instead
+7:07:43 PM   This API will be removed in the next major release.
+7:07:43 PM 
+7:07:44 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:44 PM   use `logGroup` instead
+7:07:44 PM   This API will be removed in the next major release.
+7:07:44 PM 
+7:07:44 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:44 PM   use `logGroup` instead
+7:07:44 PM   This API will be removed in the next major release.
+7:07:44 PM 
+7:07:44 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:44 PM   use `logGroup` instead
+7:07:44 PM   This API will be removed in the next major release.
+7:07:44 PM 
+7:07:44 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:44 PM   use `logGroup` instead
+7:07:44 PM   This API will be removed in the next major release.
+7:07:44 PM 
+7:07:45 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:07:45 PM 
+7:07:45 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:07:45 PM 
+7:07:45 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:07:45 PM 
+7:07:45 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:07:45 PM 
+7:07:45 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:07:45 PM 
+7:07:45 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:45 PM   use `logGroup` instead
+7:07:45 PM   This API will be removed in the next major release.
+7:07:45 PM 
+7:07:45 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:07:45 PM   use `logGroup` instead
+7:07:45 PM   This API will be removed in the next major release.
+7:07:45 PM 
+7:07:45 PM ✔ Backend synthesized in 3.07 seconds
+7:07:45 PM Running type checks...
+7:07:51 PM ✔ Type checks completed in 5.95 seconds
+7:07:51 PM Building and publishing assets...
+7:07:52 PM [Sandbox] Triggered due to a file create event: amplify/functions/get-webhook-history/handler.ts.tmp.6498.1760486872675
+7:07:52 PM [Sandbox] Previous deployment is still in progress. Will queue for another deployment after this one finishes
+7:07:52 PM [Sandbox] Triggered due to a file create event: amplify/functions/get-webhook-history/handler.ts
+7:07:52 PM [Sandbox] Triggered due to a file delete event: amplify/functions/get-webhook-history/handler.ts.tmp.6498.1760486872675
+7:07:52 PM [Sandbox] Previous deployment is still in progress. Will queue for another deployment after this one finishes
+7:08:15 PM ✔ Built and published assets
+7:08:50 PM ✔ Updated AWS::AppSync::ApiKey data/amplifyData/GraphQLAPI/DefaultApiKey
+7:08:55 PM ✔ Updated AWS::Lambda::Function data/get-webhook-history-lambda
+7:08:55 PM ✔ Deployment completed in 40.289 seconds
+7:08:55 PM AppSync API endpoint = https://lqi7d7gmmjdhbhtdv23xfoxgtu.appsync-api.us-east-1.amazonaws.com/graphql
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+7:08:55 PM [Sandbox] Detected file changes while previous deployment was in progress. Invoking 'sandbox' again
+7:08:56 PM Synthesizing backend...
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:57 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:57 PM   use `logGroup` instead
+7:08:57 PM   This API will be removed in the next major release.
+7:08:57 PM 
+7:08:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:58 PM   use `logGroup` instead
+7:08:58 PM   This API will be removed in the next major release.
+7:08:58 PM 
+7:08:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:58 PM   use `logGroup` instead
+7:08:58 PM   This API will be removed in the next major release.
+7:08:58 PM 
+7:08:58 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:08:58 PM 
+7:08:58 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:08:58 PM 
+7:08:58 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:08:58 PM 
+7:08:58 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:08:58 PM 
+7:08:58 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:08:58 PM 
+7:08:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:58 PM   use `logGroup` instead
+7:08:58 PM   This API will be removed in the next major release.
+7:08:58 PM 
+7:08:58 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:08:58 PM   use `logGroup` instead
+7:08:58 PM   This API will be removed in the next major release.
+7:08:58 PM 
+7:08:59 PM ✔ Backend synthesized in 2.68 seconds
+7:08:59 PM Running type checks...
+7:09:00 PM File written: amplify_outputs.json
+7:09:05 PM ✔ Type checks completed in 5.82 seconds
+7:09:05 PM Building and publishing assets...
+7:09:32 PM ✔ Built and published assets
+7:10:02 PM ✔ Updated AWS::AppSync::ApiKey data/amplifyData/GraphQLAPI/DefaultApiKey
+7:10:08 PM ✔ Updated AWS::Lambda::Function data/get-webhook-history-lambda
+7:10:08 PM ✔ Deployment completed in 36.158 seconds
+7:10:08 PM AppSync API endpoint = https://lqi7d7gmmjdhbhtdv23xfoxgtu.appsync-api.us-east-1.amazonaws.com/graphql
+7:10:08 PM [Sandbox] Watching for file changes...
+7:10:10 PM File written: amplify_outputs.json
+7:09:09 PM [sync-slack-to-github] START RequestId: 6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b Version: $LATEST
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.219Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	=== Sync Slack to GitHub Started ===
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.219Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	🕒 Event Time: 2025-10-15T00:08:38Z
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.219Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	🔍 Environment: dev
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.219Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	🔧 Initializing Amplify client...
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.301Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	✅ Amplify client initialized
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.302Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	🔑 Fetching GitHub and Slack tokens...
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.388Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	✅ Tokens retrieved
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.388Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	📬 Querying unprocessed Slack messages...
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.642Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	📊 Found 0 unprocessed messages
+7:09:09 PM [sync-slack-to-github] 2025-10-15T00:09:09.642Z	6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	INFO	✅ No messages to process
+7:09:09 PM [sync-slack-to-github] END RequestId: 6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b
+7:09:09 PM [sync-slack-to-github] REPORT RequestId: 6dbe5f8a-4c7c-4ef5-b495-030f7aa63b9b	Duration: 442.59 ms	Billed Duration: 443 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:10:36 PM [get-webhook-history] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:10:37 PM [get-webhook-history] START RequestId: 4cd4a8cb-13e4-4951-9602-27aeee1f1c85 Version: $LATEST
+7:10:38 PM [get-webhook-history] END RequestId: 4cd4a8cb-13e4-4951-9602-27aeee1f1c85
+7:10:38 PM [get-webhook-history] REPORT RequestId: 4cd4a8cb-13e4-4951-9602-27aeee1f1c85	Duration: 1431.26 ms	Billed Duration: 2152 ms	Memory Size: 512 MB	Max Memory Used: 138 MB	Init Duration: 720.71 ms
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+7:11:01 PM [Sandbox] Triggered due to a file create event: amplify/data/schema.ts
+7:11:01 PM [Sandbox] Triggered due to a file delete event: amplify/data/schema.ts.tmp.6498.1760487061502
+7:11:03 PM Synthesizing backend...
+7:11:04 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:04 PM   use `logGroup` instead
+7:11:04 PM   This API will be removed in the next major release.
+7:11:04 PM 
+7:11:04 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:04 PM   use `logGroup` instead
+7:11:04 PM   This API will be removed in the next major release.
+7:11:04 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:08 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:08 PM   use `logGroup` instead
+7:11:08 PM   This API will be removed in the next major release.
+7:11:08 PM 
+7:11:11 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:11 PM   use `logGroup` instead
+7:11:11 PM   This API will be removed in the next major release.
+7:11:11 PM 
+7:11:11 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:11 PM   use `logGroup` instead
+7:11:11 PM   This API will be removed in the next major release.
+7:11:11 PM 
+7:11:12 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:11:12 PM 
+7:11:12 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:11:12 PM 
+7:11:12 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:11:12 PM 
+7:11:12 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:11:12 PM 
+7:11:12 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:11:12 PM 
+7:11:12 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:12 PM   use `logGroup` instead
+7:11:12 PM   This API will be removed in the next major release.
+7:11:12 PM 
+7:11:12 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:11:12 PM   use `logGroup` instead
+7:11:12 PM   This API will be removed in the next major release.
+7:11:12 PM 
+7:11:13 PM ✔ Backend synthesized in 9.52 seconds
+7:11:13 PM Running type checks...
+7:11:20 PM ✔ Type checks completed in 6.87 seconds
+7:11:20 PM Building and publishing assets...
+7:11:43 PM ✔ Built and published assets
+7:12:15 PM ✔ Updated AWS::AppSync::ApiKey data/amplifyData/GraphQLAPI/DefaultApiKey
+7:12:19 PM ✔ Updated AWS::AppSync::GraphQLSchema data/amplifyData/GraphQLAPI/TransformerSchema
+7:12:19 PM ✔ Updated AWS::Lambda::Function data/get-webhook-history-lambda
+7:12:19 PM ✔ Updated Custom::CDKBucketDeployment data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/CustomResource-1536MiB/Default
+7:12:20 PM ✔ Updated Custom::CDKBucketDeployment data/modelIntrospectionSchemaBucketDeployment/CustomResource-1536MiB/Default
+7:12:20 PM ✔ Deployment completed in 36.372 seconds
+7:12:20 PM AppSync API endpoint = https://lqi7d7gmmjdhbhtdv23xfoxgtu.appsync-api.us-east-1.amazonaws.com/graphql
+7:12:20 PM [Sandbox] Watching for file changes...
+7:12:22 PM File written: amplify_outputs.json
+7:12:40 PM [get-webhook-history] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:12:41 PM [get-webhook-history] START RequestId: b6082ea1-a56b-4721-8487-6ddaa28f07fd Version: $LATEST
+7:12:42 PM [get-webhook-history] END RequestId: b6082ea1-a56b-4721-8487-6ddaa28f07fd
+7:12:42 PM [get-webhook-history] REPORT RequestId: b6082ea1-a56b-4721-8487-6ddaa28f07fd	Duration: 1380.89 ms	Billed Duration: 2102 ms	Memory Size: 512 MB	Max Memory Used: 132 MB	Init Duration: 721.00 ms
+7:14:09 PM [sync-slack-to-github] START RequestId: 8500ba74-227c-4f15-86bf-422490432f2e Version: $LATEST
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.180Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	=== Sync Slack to GitHub Started ===
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.180Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	🕒 Event Time: 2025-10-15T00:13:38Z
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.180Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	🔍 Environment: dev
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.180Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	🔧 Initializing Amplify client...
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.223Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	✅ Amplify client initialized
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.223Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	🔑 Fetching GitHub and Slack tokens...
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.312Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	✅ Tokens retrieved
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.312Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	📬 Querying unprocessed Slack messages...
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.456Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	📊 Found 0 unprocessed messages
+7:14:09 PM [sync-slack-to-github] 2025-10-15T00:14:09.456Z	8500ba74-227c-4f15-86bf-422490432f2e	INFO	✅ No messages to process
+7:14:09 PM [sync-slack-to-github] END RequestId: 8500ba74-227c-4f15-86bf-422490432f2e
+7:14:09 PM [sync-slack-to-github] REPORT RequestId: 8500ba74-227c-4f15-86bf-422490432f2e	Duration: 296.94 ms	Billed Duration: 297 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:14:15 PM [get-slack-channels] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:14:15 PM [get-slack-channels] START RequestId: 3d5c3817-dbc4-41b8-8d1a-7b038dceb377 Version: $LATEST
+7:14:16 PM [get-slack-channels] 2025-10-15T00:14:16.007Z	3d5c3817-dbc4-41b8-8d1a-7b038dceb377	ERROR	Error fetching Slack channels: ResourceNotFoundException: Secrets Manager can't find the specified secret.
+    at P$ (file:///var/task/index.mjs:54:21873)
+    at _e (file:///var/task/index.mjs:54:19849)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///var/task/index.mjs:3:500
+    at async file:///var/task/index.mjs:4:1947
+    at async file:///var/task/index.mjs:40:49278
+    at async file:///var/task/index.mjs:2:7033
+    at async Runtime.B8 [as handler] (file:///var/task/index.mjs:54:36813) {
+  '$fault': 'client',
+  '$response': Id {
+    statusCode: 400,
+    reason: 'Bad Request',
+    headers: {
+      'x-amzn-requestid': 'a9e5e8cf-4843-4d85-b075-d2d2112be356',
+      'content-type': 'application/x-amz-json-1.1',
+      'content-length': '99',
+      date: 'Wed, 15 Oct 2025 00:14:15 GMT',
+      connection: 'close'
+    },
+    body: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [ClientRequest],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kHeaders)]: [Object],
+      [Symbol(kHeadersCount)]: 10,
+      [Symbol(kTrailers)]: null,
+      [Symbol(kTrailersCount)]: 0
+    }
+  },
+  '$retryable': undefined,
+  '$metadata': {
+    httpStatusCode: 400,
+    requestId: 'a9e5e8cf-4843-4d85-b075-d2d2112be356',
+    extendedRequestId: undefined,
+    cfId: undefined,
+    attempts: 1,
+    totalRetryDelay: 0
+  },
+  __type: 'ResourceNotFoundException'
+}
+7:14:16 PM [get-slack-channels] 2025-10-15T00:14:16.012Z	3d5c3817-dbc4-41b8-8d1a-7b038dceb377	ERROR	Invoke Error 	{"errorType":"Error","errorMessage":"Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","stack":["Error: Failed to fetch Slack channels: Secrets Manager can't find the specified secret.","    at Runtime.B8 [as handler] (file:///var/task/index.mjs:54:37451)","    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"]}
+7:14:16 PM [get-slack-channels] END RequestId: 3d5c3817-dbc4-41b8-8d1a-7b038dceb377
+7:14:16 PM [get-slack-channels] REPORT RequestId: 3d5c3817-dbc4-41b8-8d1a-7b038dceb377	Duration: 250.13 ms	Billed Duration: 496 ms	Memory Size: 512 MB	Max Memory Used: 78 MB	Init Duration: 245.23 ms
+7:14:15 PM [get-github-repos] INIT_START Runtime Version: nodejs:20.v82	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:dd206d5c0479b082438417cc6b87731a870d3c7d4c6f2375bbacade0b935398d
+7:14:15 PM [get-github-repos] START RequestId: 4a924186-c8aa-43c1-8573-e7fd2d43ca61 Version: $LATEST
+7:14:17 PM [get-github-repos] END RequestId: 4a924186-c8aa-43c1-8573-e7fd2d43ca61
+7:14:17 PM [get-github-repos] REPORT RequestId: 4a924186-c8aa-43c1-8573-e7fd2d43ca61	Duration: 1375.01 ms	Billed Duration: 1655 ms	Memory Size: 512 MB	Max Memory Used: 98 MB	Init Duration: 279.02 ms
+7:19:08 PM [sync-slack-to-github] START RequestId: 9880df40-4df2-44b3-b4e0-2b811ea9e027 Version: $LATEST
+7:19:08 PM [sync-slack-to-github] 2025-10-15T00:19:08.963Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	=== Sync Slack to GitHub Started ===
+7:19:08 PM [sync-slack-to-github] 2025-10-15T00:19:08.963Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	🕒 Event Time: 2025-10-15T00:18:38Z
+7:19:08 PM [sync-slack-to-github] 2025-10-15T00:19:08.963Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	🔍 Environment: dev
+7:19:08 PM [sync-slack-to-github] 2025-10-15T00:19:08.963Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	🔧 Initializing Amplify client...
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.038Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	✅ Amplify client initialized
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.039Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	🔑 Fetching GitHub and Slack tokens...
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.190Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	✅ Tokens retrieved
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.190Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	📬 Querying unprocessed Slack messages...
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.395Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	📊 Found 0 unprocessed messages
+7:19:09 PM [sync-slack-to-github] 2025-10-15T00:19:09.395Z	9880df40-4df2-44b3-b4e0-2b811ea9e027	INFO	✅ No messages to process
+7:19:09 PM [sync-slack-to-github] END RequestId: 9880df40-4df2-44b3-b4e0-2b811ea9e027
+7:19:09 PM [sync-slack-to-github] REPORT RequestId: 9880df40-4df2-44b3-b4e0-2b811ea9e027	Duration: 445.13 ms	Billed Duration: 446 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:24:08 PM [sync-slack-to-github] START RequestId: 8ac5518c-62c6-446a-9a9f-92094cfe451c Version: $LATEST
+7:24:08 PM [sync-slack-to-github] 2025-10-15T00:24:08.970Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	=== Sync Slack to GitHub Started ===
+7:24:08 PM [sync-slack-to-github] 2025-10-15T00:24:08.970Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	🕒 Event Time: 2025-10-15T00:23:38Z
+7:24:08 PM [sync-slack-to-github] 2025-10-15T00:24:08.970Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	🔍 Environment: dev
+7:24:08 PM [sync-slack-to-github] 2025-10-15T00:24:08.970Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	🔧 Initializing Amplify client...
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.045Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	✅ Amplify client initialized
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.045Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	🔑 Fetching GitHub and Slack tokens...
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.177Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	✅ Tokens retrieved
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.177Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	📬 Querying unprocessed Slack messages...
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.387Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	📊 Found 0 unprocessed messages
+7:24:09 PM [sync-slack-to-github] 2025-10-15T00:24:09.387Z	8ac5518c-62c6-446a-9a9f-92094cfe451c	INFO	✅ No messages to process
+7:24:09 PM [sync-slack-to-github] END RequestId: 8ac5518c-62c6-446a-9a9f-92094cfe451c
+7:24:09 PM [sync-slack-to-github] REPORT RequestId: 8ac5518c-62c6-446a-9a9f-92094cfe451c	Duration: 434.60 ms	Billed Duration: 435 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:29:09 PM [sync-slack-to-github] START RequestId: c8d2d78b-7997-457e-8193-07a0c75e8469 Version: $LATEST
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.122Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	=== Sync Slack to GitHub Started ===
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.122Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	🕒 Event Time: 2025-10-15T00:28:38Z
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.123Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	🔍 Environment: dev
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.123Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	🔧 Initializing Amplify client...
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.178Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	✅ Amplify client initialized
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.178Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	🔑 Fetching GitHub and Slack tokens...
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.264Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	✅ Tokens retrieved
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.264Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	📬 Querying unprocessed Slack messages...
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.513Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	📊 Found 0 unprocessed messages
+7:29:09 PM [sync-slack-to-github] 2025-10-15T00:29:09.513Z	c8d2d78b-7997-457e-8193-07a0c75e8469	INFO	✅ No messages to process
+7:29:09 PM [sync-slack-to-github] END RequestId: c8d2d78b-7997-457e-8193-07a0c75e8469
+7:29:09 PM [sync-slack-to-github] REPORT RequestId: c8d2d78b-7997-457e-8193-07a0c75e8469	Duration: 398.45 ms	Billed Duration: 399 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:34:09 PM [sync-slack-to-github] START RequestId: fe1a5c42-9324-4864-9d91-d763f049a519 Version: $LATEST
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.103Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	=== Sync Slack to GitHub Started ===
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.103Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	🕒 Event Time: 2025-10-15T00:33:38Z
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.103Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	🔍 Environment: dev
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.103Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	🔧 Initializing Amplify client...
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.151Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	✅ Amplify client initialized
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.151Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	🔑 Fetching GitHub and Slack tokens...
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.248Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	✅ Tokens retrieved
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.248Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	📬 Querying unprocessed Slack messages...
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.449Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	📊 Found 0 unprocessed messages
+7:34:09 PM [sync-slack-to-github] 2025-10-15T00:34:09.449Z	fe1a5c42-9324-4864-9d91-d763f049a519	INFO	✅ No messages to process
+7:34:09 PM [sync-slack-to-github] END RequestId: fe1a5c42-9324-4864-9d91-d763f049a519
+7:34:09 PM [sync-slack-to-github] REPORT RequestId: fe1a5c42-9324-4864-9d91-d763f049a519	Duration: 367.37 ms	Billed Duration: 368 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+7:39:09 PM [sync-slack-to-github] START RequestId: 2c330cff-2188-4a08-93d9-2757337eafc4 Version: $LATEST
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.024Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	=== Sync Slack to GitHub Started ===
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.024Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	🕒 Event Time: 2025-10-15T00:38:38Z
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.024Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	🔍 Environment: dev
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.024Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	🔧 Initializing Amplify client...
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.094Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	✅ Amplify client initialized
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.094Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	🔑 Fetching GitHub and Slack tokens...
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.176Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	✅ Tokens retrieved
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.176Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	📬 Querying unprocessed Slack messages...
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.363Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	📊 Found 0 unprocessed messages
+7:39:09 PM [sync-slack-to-github] 2025-10-15T00:39:09.363Z	2c330cff-2188-4a08-93d9-2757337eafc4	INFO	✅ No messages to process
+7:39:09 PM [sync-slack-to-github] END RequestId: 2c330cff-2188-4a08-93d9-2757337eafc4
+7:39:09 PM [sync-slack-to-github] REPORT RequestId: 2c330cff-2188-4a08-93d9-2757337eafc4	Duration: 355.26 ms	Billed Duration: 356 ms	Memory Size: 1024 MB	Max Memory Used: 143 MB
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+7:40:57 PM [Sandbox] Triggered due to a file create event: amplify/auth
+7:40:57 PM [Sandbox] Triggered due to a file create event: amplify/auth/resource.ts
+7:40:57 PM [Sandbox] Previous deployment is still in progress. Will queue for another deployment after this one finishes
+7:40:57 PM [Sandbox] Triggered due to a file create event: amplify/backend.ts
+7:40:57 PM [Sandbox] Previous deployment is still in progress. Will queue for another deployment after this one finishes
+7:40:57 PM [Sandbox] Triggered due to a file create event: amplify/backend.ts
+7:40:57 PM [Sandbox] Previous deployment is still in progress. Will queue for another deployment after this one finishes
+7:40:58 PM Synthesizing backend...
+
+  ...a6ed07f7f43d2080b6acc8d1371840d110ced40268ba3e-building/index.js  715.1kb
+
+⚡ Done in 70ms
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:40:59 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:40:59 PM   use `logGroup` instead
+7:40:59 PM   This API will be removed in the next major release.
+7:40:59 PM 
+7:41:00 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:00 PM   use `logGroup` instead
+7:41:00 PM   This API will be removed in the next major release.
+7:41:00 PM 
+7:41:00 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:00 PM   use `logGroup` instead
+7:41:00 PM   This API will be removed in the next major release.
+7:41:00 PM 
+7:41:00 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:00 PM   use `logGroup` instead
+7:41:00 PM   This API will be removed in the next major release.
+7:41:00 PM 
+7:41:00 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:00 PM   use `logGroup` instead
+7:41:00 PM   This API will be removed in the next major release.
+7:41:00 PM 
+7:41:01 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:41:01 PM 
+7:41:01 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:41:01 PM 
+7:41:01 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:41:01 PM 
+7:41:01 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:41:01 PM 
+7:41:01 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:41:01 PM 
+7:41:01 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:01 PM   use `logGroup` instead
+7:41:01 PM   This API will be removed in the next major release.
+7:41:01 PM 
+7:41:01 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:41:01 PM   use `logGroup` instead
+7:41:01 PM   This API will be removed in the next major release.
+7:41:01 PM 
+7:41:02 PM ✔ Backend synthesized in 3.71 seconds
+7:41:02 PM Running type checks...
+7:41:08 PM ✔ Type checks completed in 6.12 seconds
+7:41:08 PM Building and publishing assets...
+7:41:33 PM ✔ Built and published assets
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:41:58 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:42:01 PM | CREATE_IN_PROGRESS | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:42:01 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:42:02 PM | CREATE_IN_PROGRESS | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   1 | 7:42:02 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:05 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:05 PM | CREATE_IN_PROGRESS | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:05 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:05 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:06 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:06 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:42:06 PM | CREATE_IN_PROGRESS | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   2 | 7:42:06 PM | CREATE_COMPLETE | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   2 | 7:42:08 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   3 | 7:42:09 PM | CREATE_COMPLETE | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   3 | 7:42:10 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolDomain | auth/amplifyAuth/UserPool/UserPoolDomain (amplifyAuthUserPoolUserPoolDomain1F688B5B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   3 | 7:42:11 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolDomain | auth/amplifyAuth/UserPool/UserPoolDomain (amplifyAuthUserPoolUserPoolDomain1F688B5B) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   4 | 7:42:12 PM | CREATE_COMPLETE | AWS::Cognito::UserPoolDomain | auth/amplifyAuth/UserPool/UserPoolDomain (amplifyAuthUserPoolUserPoolDomain1F688B5B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   5 | 7:42:22 PM | CREATE_COMPLETE | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   6 | 7:42:23 PM | CREATE_COMPLETE | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   6 | 7:42:23 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderLambdaServiceRoleDefaultPolicy080657DD)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   6 | 7:42:24 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderLambdaServiceRoleDefaultPolicy080657DD) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   7 | 7:42:39 PM | CREATE_COMPLETE | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderLambdaServiceRoleDefaultPolicy080657DD)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   7 | 7:42:40 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProviderLambda (AmplifySecretFetcherResourceProviderLambda27823B35)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   7 | 7:42:42 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProviderLambda (AmplifySecretFetcherResourceProviderLambda27823B35) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   8 | 7:42:48 PM | CREATE_COMPLETE | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProviderLambda (AmplifySecretFetcherResourceProviderLambda27823B35)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   8 | 7:42:49 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy749EBE05)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   8 | 7:42:50 PM | CREATE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy749EBE05) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:43:06 PM | CREATE_COMPLETE | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy749EBE05)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:43:07 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProvider/framework-onEvent (AmplifySecretFetcherResourceProviderframeworkonEventA62AE3A8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:43:09 PM | CREATE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProvider/framework-onEvent (AmplifySecretFetcherResourceProviderframeworkonEventA62AE3A8) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:43:15 PM | CREATE_COMPLETE | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProvider/framework-onEvent (AmplifySecretFetcherResourceProviderframeworkonEventA62AE3A8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:43:15 PM | CREATE_IN_PROGRESS | Custom::AmplifySecretFetcherResource | auth/AmplifySecretFetcherResource/Default (AmplifySecretFetcherResource)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:43:21 PM | CREATE_IN_PROGRESS | Custom::AmplifySecretFetcherResource | auth/AmplifySecretFetcherResource/Default (AmplifySecretFetcherResource) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:43:21 PM | CREATE_COMPLETE | Custom::AmplifySecretFetcherResource | auth/AmplifySecretFetcherResource/Default (AmplifySecretFetcherResource)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:43:22 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolIdentityProvider | auth/amplifyAuth/GoogleIdP (amplifyAuthGoogleIdPA9736819)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:43:23 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolIdentityProvider | auth/amplifyAuth/GoogleIdP (amplifyAuthGoogleIdPA9736819) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:24 PM | CREATE_COMPLETE | AWS::Cognito::UserPoolIdentityProvider | auth/amplifyAuth/GoogleIdP (amplifyAuthGoogleIdPA9736819)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:24 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolClient | auth/amplifyAuth/UserPoolAppClient (amplifyAuthUserPoolAppClient2626C6F8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:25 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPoolClient | auth/amplifyAuth/UserPoolAppClient (amplifyAuthUserPoolAppClient2626C6F8) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  13 | 7:43:26 PM | CREATE_COMPLETE | AWS::Cognito::UserPoolClient | auth/amplifyAuth/UserPoolAppClient (amplifyAuthUserPoolAppClient2626C6F8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  13 | 7:43:27 PM | CREATE_IN_PROGRESS | AWS::Cognito::IdentityPool | auth/amplifyAuth/IdentityPool (amplifyAuthIdentityPool3FDE84CC)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  13 | 7:43:27 PM | CREATE_FAILED | AWS::Cognito::IdentityPool | auth/amplifyAuth/IdentityPool (amplifyAuthIdentityPool3FDE84CC) Resource handler returned message: "1 validation error detected: Value '{accounts.google.com=246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com246315665826-uog5rjah32b5kog4q792i685m6uguo3t.ap246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com}' at 'supportedLoginProviders' failed to satisfy constraint: Map value must satisfy constraint: [Member must have length less than or equal to 128, Member must have length greater than or equal to 1, Member must satisfy regular expression pattern: [\w.;_/-]+] (Service: CognitoIdentity, Status Code: 400, Request ID: 479bb122-2643-429b-b27e-d2d7fbc76bf7) (SDK Attempt Count: 1)" (RequestToken: a004b34e-72cd-9ca7-5518-a43f28909f0f, HandlerErrorCode: InvalidRequest)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  13 | 7:43:28 PM | CREATE_FAILED | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 The following resource(s) failed to create: [amplifyAuthIdentityPool3FDE84CC].
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  13 | 7:43:36 PM | CREATE_FAILED | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7) Embedded stack arn:aws:cloudformation:us-east-1:755956835466:stack/amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4/c3c61010-a95f-11f0-a3b1-12fc7bc33a4d was not successfully created: The following resource(s) failed to create: [amplifyAuthIdentityPool3FDE84CC].
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  13 | 7:43:36 PM | UPDATE_ROLLBACK_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca The following resource(s) failed to create: [auth179371D7].
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  13 | 7:43:39 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  12 | 7:43:39 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  13 | 7:43:39 PM | UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  12 | 7:43:40 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |  12 | 7:43:40 PM | DELETE_IN_PROGRESS | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:41 PM | DELETE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:43 PM | DELETE_IN_PROGRESS | AWS::Cognito::UserPoolDomain | auth/amplifyAuth/UserPool/UserPoolDomain (amplifyAuthUserPoolUserPoolDomain1F688B5B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  12 | 7:43:43 PM | DELETE_IN_PROGRESS | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:43:44 PM | DELETE_COMPLETE | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:44:04 PM | DELETE_COMPLETE | AWS::Cognito::UserPoolDomain | auth/amplifyAuth/UserPool/UserPoolDomain (amplifyAuthUserPoolUserPoolDomain1F688B5B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:46:09 PM | DELETE_COMPLETE | AWS::Cognito::IdentityPool | auth/amplifyAuth/IdentityPool (amplifyAuthIdentityPool3FDE84CC)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  11 | 7:46:10 PM | DELETE_IN_PROGRESS | AWS::Cognito::UserPoolClient | auth/amplifyAuth/UserPoolAppClient (amplifyAuthUserPoolAppClient2626C6F8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:46:11 PM | DELETE_COMPLETE | AWS::Cognito::UserPoolClient | auth/amplifyAuth/UserPoolAppClient (amplifyAuthUserPoolAppClient2626C6F8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |  10 | 7:46:11 PM | DELETE_IN_PROGRESS | AWS::Cognito::UserPoolIdentityProvider | auth/amplifyAuth/GoogleIdP (amplifyAuthGoogleIdPA9736819)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:46:32 PM | DELETE_COMPLETE | AWS::Cognito::UserPoolIdentityProvider | auth/amplifyAuth/GoogleIdP (amplifyAuthGoogleIdPA9736819)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:46:33 PM | DELETE_IN_PROGRESS | Custom::AmplifySecretFetcherResource | auth/AmplifySecretFetcherResource/Default (AmplifySecretFetcherResource)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   9 | 7:46:33 PM | DELETE_IN_PROGRESS | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   8 | 7:46:34 PM | DELETE_COMPLETE | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   7 | 7:46:35 PM | DELETE_COMPLETE | Custom::AmplifySecretFetcherResource | auth/AmplifySecretFetcherResource/Default (AmplifySecretFetcherResource)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   7 | 7:46:35 PM | DELETE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProvider/framework-onEvent (AmplifySecretFetcherResourceProviderframeworkonEventA62AE3A8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   6 | 7:46:39 PM | DELETE_COMPLETE | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProvider/framework-onEvent (AmplifySecretFetcherResourceProviderframeworkonEventA62AE3A8)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   6 | 7:46:39 PM | DELETE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy749EBE05)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   5 | 7:46:40 PM | DELETE_COMPLETE | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy749EBE05)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   5 | 7:46:41 PM | DELETE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   5 | 7:46:41 PM | DELETE_IN_PROGRESS | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProviderLambda (AmplifySecretFetcherResourceProviderLambda27823B35)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   4 | 7:46:45 PM | DELETE_COMPLETE | AWS::Lambda::Function | auth/AmplifySecretFetcherResourceProviderLambda (AmplifySecretFetcherResourceProviderLambda27823B35)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   4 | 7:46:45 PM | DELETE_IN_PROGRESS | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderLambdaServiceRoleDefaultPolicy080657DD)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   3 | 7:46:46 PM | DELETE_COMPLETE | AWS::IAM::Policy | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy (AmplifySecretFetcherResourceProviderLambdaServiceRoleDefaultPolicy080657DD)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   3 | 7:46:46 PM | DELETE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   2 | 7:46:52 PM | DELETE_COMPLETE | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   1 | 7:46:57 PM | DELETE_COMPLETE | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4 |   2 | 7:46:57 PM | DELETE_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   3 | 7:47:11 PM | DELETE_COMPLETE | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   4 | 7:47:11 PM | UPDATE_ROLLBACK_COMPLETE | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca
+7:47:18 PM [ERROR] [CloudFormationDeploymentError] The CloudFormation deployment has failed.
+  ∟ Caused by: [ToolkitError] The stack named amplify-chilltask-ricardo-sandbox-a52aee10ca failed to deploy: UPDATE_ROLLBACK_COMPLETE: Resource handler returned message: "1 validation error detected: Value '{accounts.google.com=246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com246315665826-uog5rjah32b5kog4q792i685m6uguo3t.ap246315665826-uog5rjah32b5kog4q792i685m6uguo3t.apps.googleusercontent.com}' at 'supportedLoginProviders' failed to satisfy constraint: Map value must satisfy constraint: [Member must have length less than or equal to 128, Member must have length greater than or equal to 1, Member must satisfy regular expression pattern: [\w.;_/-]+] (Service: CognitoIdentity, Status Code: 400, Request ID: 479bb122-2643-429b-b27e-d2d7fbc76bf7) (SDK Attempt Count: 1)" (RequestToken: a004b34e-72cd-9ca7-5518-a43f28909f0f, HandlerErrorCode: InvalidRequest), Embedded stack arn:aws:cloudformation:us-east-1:755956835466:stack/amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1R4GTLFM9ZSO4/c3c61010-a95f-11f0-a3b1-12fc7bc33a4d was not successfully created: The following resource(s) failed to create: [amplifyAuthIdentityPool3FDE84CC]. 
+Resolution: Find more information in the CloudFormation AWS Console for this stack.
+  
+  Amplify Sandbox
+  
+  Identifier: 	ricardo
+  Stack: 	amplify-chilltask-ricardo-sandbox-a52aee10ca
+  Region: 	us-east-1
+  
+  To specify a different sandbox identifier, use --identifier
+
+7:47:18 PM [Sandbox] Detected file changes while previous deployment was in progress. Invoking 'sandbox' again
+7:47:19 PM Synthesizing backend...
+
+  ...a6ed07f7f43d2080b6acc8d1371840d110ced40268ba3e-building/index.js  715.1kb
+
+⚡ Done in 30ms
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:20 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:20 PM   use `logGroup` instead
+7:47:20 PM   This API will be removed in the next major release.
+7:47:20 PM 
+7:47:21 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:21 PM   use `logGroup` instead
+7:47:21 PM   This API will be removed in the next major release.
+7:47:21 PM 
+7:47:21 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:21 PM   use `logGroup` instead
+7:47:21 PM   This API will be removed in the next major release.
+7:47:21 PM 
+7:47:21 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:47:21 PM 
+7:47:21 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:47:21 PM 
+7:47:21 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:47:21 PM 
+7:47:21 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:47:21 PM 
+7:47:21 PM Be careful when using @auth directives on a field in a root type. @auth directives on field definitions use the source object to perform authorization logic and the source will be an empty object for fields on root types. Static group authorization should perform as expected.
+7:47:21 PM 
+7:47:21 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:21 PM   use `logGroup` instead
+7:47:21 PM   This API will be removed in the next major release.
+7:47:21 PM 
+7:47:21 PM [WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+7:47:21 PM   use `logGroup` instead
+7:47:21 PM   This API will be removed in the next major release.
+7:47:21 PM 
+7:47:22 PM ✔ Backend synthesized in 2.89 seconds
+7:47:22 PM Running type checks...
+7:47:22 PM Building and publishing assets...
+7:47:53 PM ✔ Built and published assets
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:48:18 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | amplify-chilltask-ricardo-sandbox-a52aee10ca User Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:48:21 PM | CREATE_IN_PROGRESS | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:48:21 PM | UPDATE_IN_PROGRESS | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   0 | 7:48:22 PM | CREATE_IN_PROGRESS | AWS::CloudFormation::Stack | auth.NestedStack/auth.NestedStackResource (auth179371D7) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca |   1 | 7:48:22 PM | UPDATE_COMPLETE | AWS::CloudFormation::Stack | function.NestedStack/function.NestedStackResource (function1351588B)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:24 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:24 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:24 PM | CREATE_IN_PROGRESS | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:24 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:25 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProviderLambda/ServiceRole (AmplifySecretFetcherResourceProviderLambdaServiceRole3F02FB0D) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:25 PM | CREATE_IN_PROGRESS | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   1 | 7:48:26 PM | CREATE_IN_PROGRESS | AWS::IAM::Role | auth/AmplifySecretFetcherResourceProvider/framework-onEvent/ServiceRole (AmplifySecretFetcherResourceProviderframeworkonEventServiceRole0941C6B4) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   2 | 7:48:26 PM | CREATE_COMPLETE | AWS::CDK::Metadata | auth/CDKMetadata/Default (CDKMetadata)
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   2 | 7:48:26 PM | CREATE_IN_PROGRESS | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805) Resource creation Initiated
+amplify-chilltask-ricardo-sandbox-a52aee10ca-auth179371D7-1BDTWE2FDIEBX |   3 | 7:48:27 PM | CREATE_COMPLETE | AWS::Cognito::UserPool | auth/amplifyAuth/UserPool (amplifyAuthUserPool4BA7F805)

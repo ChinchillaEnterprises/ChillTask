@@ -12,7 +12,7 @@
  */
 
 import { generateClient } from 'aws-amplify/data';
-import type { Schema } from '@/amplify/data/schema';
+import type { Schema } from '@root/amplify/data/schema';
 
 // Default client with API Key auth (for public access)
 // This matches your current authorization setup (allow.publicApiKey())

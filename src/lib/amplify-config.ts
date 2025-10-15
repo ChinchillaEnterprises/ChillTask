@@ -1,25 +1,23 @@
-'use client';
+"use client";
 
-/**
- * Centralized Amplify Configuration
- *
- * This module provides a single point of configuration for AWS Amplify.
- * Following the latest Amplify Gen 2 best practices (2025).
- *
- * Usage: Import and call configureAmplify() once at the root layout level.
- */
-
-import { Amplify, ResourcesConfig } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import outputs from '../../amplify_outputs.json';
 
-let configured = false;
-
+/**
+ * Configure Amplify with the generated outputs
+ *
+ * This should be imported and called at the root of your application
+ * (typically in app/layout.tsx or a provider component)
+ *
+ * @see resources/handbook/frontend/README.md
+ */
 export function configureAmplify() {
-  if (typeof window !== 'undefined' && !configured) {
-    Amplify.configure(outputs as ResourcesConfig, {
-      ssr: true,
-    });
-    configured = true;
-    console.log('✅ Amplify configured');
-  }
+  Amplify.configure(outputs, {
+    ssr: true, // Enable SSR support for Next.js
+  });
+}
+
+// Auto-configure on import (useful for client components)
+if (typeof window !== 'undefined') {
+  configureAmplify();
 }
