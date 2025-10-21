@@ -85,44 +85,96 @@ export const handler: Handler = async (event, context) => {
       };
     }
 
-    // Group messages by thread
-    const threadGroups = groupMessagesByThread(messages);
-    console.log(`📝 Organized into ${threadGroups.size} thread groups`);
+    // Group messages by date instead of thread
+    const messagesByDate = groupMessagesByDate(messages);
+    console.log(`📝 Organized into ${messagesByDate.size} date groups`);
 
     let syncedCount = 0;
     let errorCount = 0;
 
-    // Process each thread group
-    for (const [threadTs, threadMessages] of threadGroups.entries()) {
+    // Fetch all unique user IDs upfront
+    const allUserIds = [...new Set(messages.map(msg => msg.user))];
+    const userNames = await fetchUserNames(secrets.slackToken, allUserIds);
+    console.log(`👥 Fetched ${userNames.size} user names`);
+
+    // Extract owner/repo from githubUrl
+    const repoFullName = mapping.githubUrl.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+
+    // Process each date group
+    for (const [dateStr, dateMessages] of messagesByDate.entries()) {
       try {
-        // Fetch user names for all users in the thread
-        const userIds = [...new Set(threadMessages.map(msg => msg.user))];
-        const userNames = await fetchUserNames(secrets.slackToken, userIds);
+        console.log(`\n📅 Processing ${dateStr} (${dateMessages.length} messages)`);
 
-        // Format thread as Markdown
-        const markdown = formatThreadAsMarkdown(threadMessages, userNames);
+        // Sort messages by timestamp
+        dateMessages.sort((a, b) => parseFloat(a.ts) - parseFloat(b.ts));
 
-        // Generate filename for the thread
-        const fileName = generateFileName(threadMessages[0], mapping.contextFolder);
+        // Build file path: {contextFolder}/{date}/messages/messages.md
+        const cleanFolder = mapping.contextFolder.replace(/^\/+/, '').replace(/\/+$/, '');
+        const filePath = `${cleanFolder}/${dateStr}/messages/messages.md`;
+        console.log(`📄 File path: ${filePath}`);
+
+        // Check if file already exists
+        const existingFile = await getGitHubFile(
+          secrets.githubToken,
+          repoFullName,
+          mapping.githubBranch,
+          filePath
+        );
+
+        let content: string;
+        let sha: string | undefined;
+
+        if (existingFile) {
+          console.log(`📝 Appending to existing file`);
+          content = Buffer.from(existingFile.content, 'base64').toString('utf-8');
+          sha = existingFile.sha;
+        } else {
+          console.log(`✨ Creating new file for ${dateStr}`);
+          content = `# ${dateStr} - ${mapping.slackChannel}\n\n`;
+        }
+
+        // Append all messages for this date
+        for (const msg of dateMessages) {
+          const timeStr = formatTime(msg.ts);
+          const userName = userNames.get(msg.user) || msg.user || 'Unknown User';
+
+          content += `### ${timeStr} - @${userName}\n${msg.text || '(no text)'}\n\n`;
+
+          // Add file attachments if any
+          if (msg.files) {
+            try {
+              const files = JSON.parse(msg.files);
+              if (Array.isArray(files) && files.length > 0) {
+                content += '**Attachments:**\n';
+                for (const file of files) {
+                  content += `- [${file.name}](../attachments/${file.name}) (${file.filetype}, ${Math.round(file.size / 1024)}KB)\n`;
+                }
+                content += '\n';
+              }
+            } catch (e) {
+              // Ignore parse errors
+            }
+          }
+
+          content += '---\n\n';
+        }
 
         // Commit to GitHub
-        // Extract owner/repo from githubUrl if it contains github.com
-        const repoFullName = mapping.githubUrl.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
-        console.log(`📤 Committing to GitHub repo: ${repoFullName}`);
-
+        console.log(`📤 Committing ${dateMessages.length} messages to GitHub`);
         await commitToGitHub({
           githubToken: secrets.githubToken,
           repoFullName,
           branch: mapping.githubBranch,
-          filePath: fileName,
-          content: markdown,
-          commitMessage: `Sync Slack history: ${mapping.slackChannel}`,
+          filePath,
+          content,
+          commitMessage: `Sync Slack history for ${mapping.slackChannel} on ${dateStr}`,
+          sha,
         });
 
-        syncedCount += threadMessages.length;
-        console.log(`✅ Synced thread ${threadTs} (${threadMessages.length} messages)`);
+        syncedCount += dateMessages.length;
+        console.log(`✅ Synced ${dateMessages.length} messages for ${dateStr}`);
       } catch (error: any) {
-        console.error(`❌ Failed to sync thread ${threadTs}:`, error);
+        console.error(`❌ Failed to sync date ${dateStr}:`, error);
         errorCount++;
       }
     }
@@ -171,9 +223,9 @@ export const handler: Handler = async (event, context) => {
       success: true,
       messagesSynced: syncedCount,
       huddlesSynced,
-      threadsProcessed: threadGroups.size - errorCount,
+      datesProcessed: messagesByDate.size - errorCount,
       errors: errorCount,
-      message: `Successfully synced ${syncedCount} messages in ${threadGroups.size - errorCount} threads and ${huddlesSynced} huddles`,
+      message: `Successfully synced ${syncedCount} messages across ${messagesByDate.size - errorCount} dates and ${huddlesSynced} huddles`,
       timestamp: new Date().toISOString()
     };
 
@@ -195,6 +247,13 @@ export const handler: Handler = async (event, context) => {
     };
   }
 };
+
+function formatTime(timestamp: string): string {
+  const date = new Date(parseFloat(timestamp) * 1000);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
 
 async function getSecrets() {
   const slackSecretResponse = await secretsClient.send(
@@ -271,6 +330,23 @@ async function fetchUserNames(token: string, userIds: string[]): Promise<Map<str
   return userNames;
 }
 
+function groupMessagesByDate(messages: any[]): Map<string, any[]> {
+  const dateGroups = new Map<string, any[]>();
+
+  for (const message of messages) {
+    const date = new Date(parseFloat(message.ts) * 1000);
+    const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
+
+    if (!dateGroups.has(dateStr)) {
+      dateGroups.set(dateStr, []);
+    }
+
+    dateGroups.get(dateStr)!.push(message);
+  }
+
+  return dateGroups;
+}
+
 function groupMessagesByThread(messages: any[]): Map<string, any[]> {
   const threads = new Map<string, any[]>();
 
@@ -340,7 +416,10 @@ function generateFileName(message: any, contextFolder: string): string {
     .join('-');
 
   const threadId = message.thread_ts || message.ts;
-  const cleanFolder = contextFolder.endsWith('/') ? contextFolder : `${contextFolder}/`;
+
+  // Remove leading slash and ensure trailing slash
+  let cleanFolder = contextFolder.replace(/^\/+/, ''); // Remove leading slashes
+  cleanFolder = cleanFolder.endsWith('/') ? cleanFolder : `${cleanFolder}/`;
 
   return `${cleanFolder}${dateStr}-${slug}-${threadId}.md`;
 }
@@ -352,22 +431,11 @@ async function commitToGitHub(params: {
   filePath: string;
   content: string;
   commitMessage: string;
+  sha?: string; // Optional SHA for updates
 }) {
-  const { githubToken, repoFullName, branch, filePath, content, commitMessage } = params;
+  const { githubToken, repoFullName, branch, filePath, content, commitMessage, sha } = params;
 
-  // Check if file exists
-  const existingFile = await getGitHubFile(githubToken, repoFullName, branch, filePath);
-
-  let newContent = content;
-  let sha: string | undefined;
-
-  if (existingFile) {
-    // File exists, use existing content (don't duplicate)
-    console.log(`ℹ️ File already exists: ${filePath}, skipping`);
-    return;
-  }
-
-  // Create new file
+  // Create or update file
   const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}`;
   const response = await fetch(url, {
     method: 'PUT',
@@ -378,7 +446,7 @@ async function commitToGitHub(params: {
     },
     body: JSON.stringify({
       message: commitMessage,
-      content: Buffer.from(newContent).toString('base64'),
+      content: Buffer.from(content).toString('base64'),
       branch,
       ...(sha && { sha }),
     }),
@@ -394,7 +462,12 @@ async function commitToGitHub(params: {
   return await response.json();
 }
 
-async function getGitHubFile(token: string, repoFullName: string, branch: string, filePath: string) {
+async function getGitHubFile(
+  token: string,
+  repoFullName: string,
+  branch: string,
+  filePath: string
+): Promise<{ sha: string; content: string } | null> {
   const url = `https://api.github.com/repos/${repoFullName}/contents/${filePath}?ref=${branch}`;
 
   const response = await fetch(url, {
@@ -579,7 +652,9 @@ function generateHuddleFileName(huddle: any, contextFolder: string): string {
   const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
   const timeStr = date.toISOString().split('T')[1].split('.')[0].replace(/:/g, '-'); // HH-MM-SS
 
-  const cleanFolder = contextFolder.endsWith('/') ? contextFolder : `${contextFolder}/`;
+  // Remove leading slash and ensure trailing slash
+  let cleanFolder = contextFolder.replace(/^\/+/, ''); // Remove leading slashes
+  cleanFolder = cleanFolder.endsWith('/') ? cleanFolder : `${cleanFolder}/`;
 
   return `${cleanFolder}huddle-${dateStr}-${timeStr}-${huddle.callId}.md`;
 }
