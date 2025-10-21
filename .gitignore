@@ -1,21 +1,19 @@
 # amplify
 node_modules
 .amplify
-# amplify_outputs* - Now ignored for security
-# Generated file containing environment-specific configuration
 amplify_outputs*
 amplifyconfiguration*
 .next
 
-# Environment variables - never commit secrets!
+# environment variables (contains secrets)
 .env.local
 .env*.local
 
 logs/
 
-# Dev logger outputs
+# dev logger runtime files
 resources/appserver/
 resources/sandbox/
 
-# TypeScript build cache
-*.tsbuildinfo
+# macOS
+.DS_Store
