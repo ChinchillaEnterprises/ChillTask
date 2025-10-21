@@ -106,9 +106,13 @@ export const handler: Handler = async (event, context) => {
         const fileName = generateFileName(threadMessages[0], mapping.contextFolder);
 
         // Commit to GitHub
+        // Extract owner/repo from githubUrl if it contains github.com
+        const repoFullName = mapping.githubUrl.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+        console.log(`📤 Committing to GitHub repo: ${repoFullName}`);
+
         await commitToGitHub({
           githubToken: secrets.githubToken,
-          repoFullName: mapping.githubUrl,
+          repoFullName,
           branch: mapping.githubBranch,
           filePath: fileName,
           content: markdown,
@@ -134,9 +138,12 @@ export const handler: Handler = async (event, context) => {
         const fileName = generateHuddleFileName(huddle, mapping.contextFolder);
 
         // Commit to GitHub
+        // Extract owner/repo from githubUrl if it contains github.com
+        const repoFullName = mapping.githubUrl.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+
         await commitToGitHub({
           githubToken: secrets.githubToken,
-          repoFullName: mapping.githubUrl,
+          repoFullName,
           branch: mapping.githubBranch,
           filePath: fileName,
           content: markdown,
@@ -175,12 +182,15 @@ export const handler: Handler = async (event, context) => {
 
   } catch (error: any) {
     console.error('❌ Error in sync handler:', error);
+    console.error('Error stack:', error.stack);
+    console.error('Error details:', JSON.stringify(error, null, 2));
     return {
       success: false,
       messagesSynced: 0,
       threadsProcessed: 0,
       errors: 1,
       message: error.message || 'Failed to sync Slack history',
+      errorDetails: error.stack || error.toString(),
       timestamp: new Date().toISOString()
     };
   }
