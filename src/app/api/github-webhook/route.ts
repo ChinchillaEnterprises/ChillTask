@@ -3,8 +3,8 @@ import { WebClient } from '@slack/web-api';
 import crypto from 'crypto';
 import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/data';
 import { cookies } from 'next/headers';
-import type { Schema } from '@/amplify/data/resource';
-import outputs from '@/amplify_outputs.json';
+import type { Schema } from '@root/amplify/data/resource';
+import outputs from '../../../../amplify_outputs.json';
 
 // Configuration from environment variables
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN!;

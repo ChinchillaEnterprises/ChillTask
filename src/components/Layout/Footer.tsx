@@ -5,28 +5,35 @@ import { Box, Typography } from "@mui/material";
 
 const Footer: React.FC = () => {
   return (
-    <>
+    <Box
+      component="footer"
+      sx={{
+        borderTop: '1px solid #e0e0e0',
+        backgroundColor: '#fafafa',
+        py: 4,
+        mt: 'auto',
+      }}
+    >
       <Box
-        className="footer-area"
         sx={{
-          textAlign: "center",
-          background: "#1e293b",
-          borderTop: "1px solid #334155",
-          padding: "20px 25px",
-          position: "relative",
+          maxWidth: '900px',
+          mx: 'auto',
+          px: { xs: 2, sm: 3 },
+          textAlign: 'center',
         }}
       >
         <Typography
+          variant="body2"
           sx={{
-            color: "#94a3b8",
-            fontWeight: 500,
-            fontSize: "14px",
+            color: '#999',
+            fontSize: '13px',
+            fontWeight: 400,
           }}
         >
-          © 2025 <span style={{ fontWeight: 600, color: "#e2e8f0" }}>Chinchilla AI</span> • Building Tomorrow's Intelligence
+          © {new Date().getFullYear()} Chill App. Built with Next.js and AWS Amplify.
         </Typography>
       </Box>
-    </>
+    </Box>
   );
 };
 

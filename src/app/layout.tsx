@@ -16,20 +16,21 @@ import "../../styles/globals.css";
 
 // globals dark Mode CSS
 import "../../styles/dark.css";
+// globals RTL Mode CSS
+import "../../styles/rtl.css";
 
 import * as React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
+import { AuthProvider } from "@/providers/AuthProvider";
 import LayoutProvider from "@/providers/LayoutProvider";
-// AUTH REMOVED - Authentication disabled for public access
-// import { AuthProvider } from "@/providers/AuthProvider";
-import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
+import ConfigureAmplifyClientSide from "@/components/ConfigureAmplifyClientSide";
 
 export const metadata = {
   title: "ChillTask - Slack to GitHub Context Archiver",
-  description: "Automated Slack message archiving to GitHub context folders for AI-powered development workflows",
+  description: "Automated Slack message archiving to GitHub repositories for AI-powered development workflows",
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -46,12 +47,14 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            
-            {/* Configure Amplify on client side */}
+
+            {/* Configure Amplify for client-side - runs before auth checks */}
             <ConfigureAmplifyClientSide />
 
-            {/* AUTH REMOVED - No authentication wrapper needed */}
-            <LayoutProvider>{props.children}</LayoutProvider>
+            {/* AUTH DISABLED - Stub provider for compatibility, ChillTask uses API key auth */}
+            <AuthProvider>
+              <LayoutProvider>{props.children}</LayoutProvider>
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

@@ -1,236 +1,234 @@
-"use client";
-
 import * as React from "react";
-import { Box, Typography, Button, Card, CardContent } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { Box, Typography, Button } from "@mui/material";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
-
-  const features = [
-    {
-      icon: "sync",
-      title: "Automated Slack Archiving",
-      description: "Automatically sync Slack channel conversations to GitHub context folders for AI-powered development workflows"
-    },
-    {
-      icon: "link",
-      title: "Channel Mapping",
-      description: "Connect Slack channels to GitHub repositories with flexible context folder organization"
-    },
-    {
-      icon: "webhook",
-      title: "GitHub Webhooks",
-      description: "Real-time notifications and monitoring for GitHub push events with comprehensive logging"
-    },
-    {
-      icon: "history",
-      title: "Message History",
-      description: "Sync historical Slack messages and track processing status with full file attachment support"
-    }
-  ];
-
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', p: 4 }}>
-      {/* Hero Section */}
-      <Box sx={{ textAlign: 'center', mb: 8, mt: 4 }}>
-        <Typography variant="h2" sx={{ fontWeight: 700, mb: 2 }}>
+    <>
+      {/* Welcome Section - ChillTask Style */}
+      <Box sx={{ mb: 6, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 600,
+            mb: 2,
+            fontSize: { xs: '28px', sm: '36px', md: '42px' },
+            letterSpacing: '-0.02em',
+            color: '#1a1a1a',
+          }}
+        >
           ChillTask
         </Typography>
-        <Typography variant="h5" sx={{ color: 'text.secondary', mb: 1, fontWeight: 400 }}>
-          Slack to GitHub Context Archiver
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#666',
+            fontWeight: 400,
+            fontSize: { xs: '16px', sm: '18px' },
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            mx: 'auto',
+          }}
+        >
+          Automated Slack-to-GitHub context archiving. Bridge your team communication with your codebase.
         </Typography>
-        <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 700, mx: 'auto', mb: 4 }}>
-          Bridge your team communication with your codebase. ChillTask automatically archives Slack conversations
-          to GitHub, creating rich context for AI assistants and documentation workflows.
-        </Typography>
+      </Box>
 
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => router.push('/channel-mappings')}
-            sx={{
-              backgroundColor: '#2563eb',
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: 600,
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              boxShadow: 'none',
-              '&:hover': {
-                backgroundColor: '#1d4ed8',
-                boxShadow: 'none',
-              }
-            }}
-          >
-            Channel Mappings
-          </Button>
+      {/* Quick Actions - Minimal */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          mb: 6,
+        }}
+      >
+        <Link href="/channel-mappings" style={{ textDecoration: 'none' }}>
           <Button
             variant="outlined"
             size="large"
-            onClick={() => router.push('/webhook-monitor')}
+            fullWidth
             sx={{
-              borderColor: '#2563eb',
-              color: '#2563eb',
-              borderRadius: '8px',
+              py: 2,
+              px: 3,
+              borderRadius: '12px',
+              border: '1px solid #e0e0e0',
+              backgroundColor: '#fff',
+              color: '#1a1a1a',
               textTransform: 'none',
-              fontWeight: 600,
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              boxShadow: 'none',
+              fontSize: '16px',
+              fontWeight: 500,
+              justifyContent: 'flex-start',
+              textAlign: 'left',
               '&:hover': {
-                borderColor: '#1d4ed8',
-                backgroundColor: 'rgba(37, 99, 235, 0.04)',
-                boxShadow: 'none',
-              }
+                backgroundColor: '#f9f9f9',
+                borderColor: '#d0d0d0',
+              },
             }}
           >
-            Webhook Monitor
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+              <Typography sx={{ fontSize: '24px' }}>🔗</Typography>
+              <Box sx={{ flex: 1 }}>
+                <Typography sx={{ fontWeight: 600, mb: 0.5 }}>
+                  Channel Mappings
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#666', fontSize: '14px' }}>
+                  Connect Slack channels to GitHub repositories
+                </Typography>
+              </Box>
+            </Box>
           </Button>
-        </Box>
+        </Link>
+
+        <Link href="/webhook-monitor" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="outlined"
+            size="large"
+            fullWidth
+            sx={{
+              py: 2,
+              px: 3,
+              borderRadius: '12px',
+              border: '1px solid #e0e0e0',
+              backgroundColor: '#fff',
+              color: '#1a1a1a',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontWeight: 500,
+              justifyContent: 'flex-start',
+              textAlign: 'left',
+              '&:hover': {
+                backgroundColor: '#f9f9f9',
+                borderColor: '#d0d0d0',
+              },
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+              <Typography sx={{ fontSize: '24px' }}>📊</Typography>
+              <Box sx={{ flex: 1 }}>
+                <Typography sx={{ fontWeight: 600, mb: 0.5 }}>
+                  Webhook Monitor
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#666', fontSize: '14px' }}>
+                  Monitor GitHub webhook events and sync status
+                </Typography>
+              </Box>
+            </Box>
+          </Button>
+        </Link>
       </Box>
 
-      {/* Features Grid */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 4, textAlign: 'center' }}>
-          Key Features
-        </Typography>
-        <Box sx={{
+      {/* Feature Cards */}
+      <Box
+        sx={{
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-          gap: 3
-        }}>
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              sx={{
-                boxShadow: 'none',
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2
-              }}
-            >
-              <CardContent sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                  <i
-                    className="material-symbols-outlined"
-                    style={{
-                      fontSize: '32px',
-                      color: '#2563eb'
-                    }}
-                  >
-                    {feature.icon}
-                  </i>
-                  <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      {feature.description}
-                    </Typography>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
+          gap: 2,
+          mb: 6,
+        }}
+      >
+        <Box
+          sx={{
+            p: 3,
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+          }}
+        >
+          <Typography sx={{ fontSize: '24px', mb: 1 }}>🔄</Typography>
+          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+            Automated Sync Pipeline
+          </Typography>
+          <Typography variant="body2" sx={{ color: '#666' }}>
+            Real-time webhook captures + scheduled Lambda sync every 5 minutes
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            p: 3,
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+          }}
+        >
+          <Typography sx={{ fontSize: '24px', mb: 1 }}>📝</Typography>
+          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+            Message History
+          </Typography>
+          <Typography variant="body2" sx={{ color: '#666' }}>
+            Sync historical Slack messages with full file attachment support
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            p: 3,
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+          }}
+        >
+          <Typography sx={{ fontSize: '24px', mb: 1 }}>🔒</Typography>
+          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+            Enterprise-Grade Security
+          </Typography>
+          <Typography variant="body2" sx={{ color: '#666' }}>
+            AWS Cognito authentication + API key authorization
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            p: 3,
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            backgroundColor: '#fff',
+          }}
+        >
+          <Typography sx={{ fontSize: '24px', mb: 1 }}>⚙️</Typography>
+          <Typography sx={{ fontWeight: 600, mb: 1 }}>
+            Flexible Routing
+          </Typography>
+          <Typography variant="body2" sx={{ color: '#666' }}>
+            Map multiple channels to repos with custom context folders
+          </Typography>
         </Box>
       </Box>
 
-      {/* How It Works */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 4, textAlign: 'center' }}>
-          How It Works
-        </Typography>
-        <Box sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-          gap: 3
-        }}>
-          <Box sx={{ textAlign: 'center' }}>
-            <Box sx={{
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(37, 99, 235, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2
-            }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: '#2563eb' }}>1</Typography>
-            </Box>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-              Configure Mappings
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Link Slack channels to GitHub repositories and specify context folder paths
-            </Typography>
-          </Box>
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Box sx={{
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(37, 99, 235, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2
-            }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: '#2563eb' }}>2</Typography>
-            </Box>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-              Messages Flow
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Slack webhook events capture new messages and file attachments in real-time
-            </Typography>
-          </Box>
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Box sx={{
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(37, 99, 235, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2
-            }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: '#2563eb' }}>3</Typography>
-            </Box>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-              Auto-Sync to GitHub
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Scheduled Lambda processes messages and commits them to designated context folders
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* Tech Stack */}
-      <Box sx={{
-        textAlign: 'center',
-        p: 4,
-        backgroundColor: 'rgba(37, 99, 235, 0.04)',
-        borderRadius: 2
-      }}>
-        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+      {/* Tech Stack Footer */}
+      <Box
+        sx={{
+          mt: 8,
+          pt: 4,
+          borderTop: '1px solid #e0e0e0',
+          textAlign: 'center',
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{
+            color: '#999',
+            fontSize: '14px',
+            fontWeight: 400,
+            lineHeight: 1.6,
+            mb: 1,
+          }}
+        >
           Built With
         </Typography>
-        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: '#666',
+            fontSize: '14px',
+            fontWeight: 400,
+            lineHeight: 1.6,
+          }}
+        >
           Next.js · AWS Amplify Gen 2 · DynamoDB · Lambda · AppSync · Slack API · GitHub API
         </Typography>
       </Box>
-    </Box>
+    </>
   );
 }
