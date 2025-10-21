@@ -370,16 +370,21 @@ export default function ChannelMappings() {
 
       if (errors) {
         console.error("Failed to sync Slack history:", errors);
-        setSyncMessage({ type: 'error', text: 'Failed to sync history' });
+        console.error("Error details:", JSON.stringify(errors, null, 2));
+        const errorMsg = errors[0]?.message || 'Failed to sync history';
+        setSyncMessage({ type: 'error', text: errorMsg });
       } else if (data) {
         const result = data as any;
+        console.log("Sync result:", result);
         if (result.success) {
           setSyncMessage({
             type: 'success',
             text: `Synced ${result.messagesSynced} messages in ${result.threadsProcessed} threads`
           });
         } else {
-          setSyncMessage({ type: 'error', text: result.message || 'Sync failed' });
+          const errorText = result.errorDetails || result.message || 'Sync failed';
+          console.error("Sync failed with details:", errorText);
+          setSyncMessage({ type: 'error', text: errorText });
         }
       }
     } catch (error) {
