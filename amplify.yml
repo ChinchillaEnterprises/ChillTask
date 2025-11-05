@@ -60,10 +60,16 @@ frontend:
         # These become available to your React components in the browser
         # The '|| true' prevents build failure if no variables exist
         - env | grep -E '^NEXT_PUBLIC_' >> .env.production || true
-        
+
         # Capture all AMPLIFY_* variables for internal Amplify use
         # These help your app connect to the backend resources
         - env | grep -E '^AMPLIFY_' >> .env.production || true
+
+        # 🔐 WEBHOOK ENVIRONMENT VARIABLES (Server-side only, NOT exposed to browser)
+        # These are needed for Next.js API routes to function properly
+        - echo "SLACK_BOT_TOKEN=$SLACK_BOT_TOKEN" >> .env.production
+        - echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.production
+        - echo "GITHUB_WEBHOOK_SECRET=$GITHUB_WEBHOOK_SECRET" >> .env.production
         
         # 🔑 CRITICAL COMMAND: Generate amplify_outputs.json
         # This file contains all the config your frontend needs:
