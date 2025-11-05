@@ -178,13 +178,14 @@ export async function POST(request: NextRequest) {
       event
     });
 
-    // Only handle push events
-    if (event !== 'push') {
+    // Handle supported event types
+    const supportedEvents = ['push', 'issues', 'issue_comment'];
+    if (!supportedEvents.includes(event || '')) {
       logger.warn('[Step 4/6] Unsupported event type received - ignoring', {
         requestId,
         deliveryId,
         event,
-        supportedEvents: ['push']
+        supportedEvents
       });
       return NextResponse.json({
         message: 'Event type not supported',
@@ -195,41 +196,84 @@ export async function POST(request: NextRequest) {
     // Initialize Slack client
     const slack = new WebClient(SLACK_BOT_TOKEN);
 
-    // Extract commit information
     const repoName = payload.repository.full_name;
-    const branch = payload.ref.replace('refs/heads/', '');
-    const pusher = payload.pusher.name;
-    const commits = payload.commits || [];
-    const compareUrl = payload.compare;
+    let message = '';
+    let eventData: any = {};
 
-    logger.info('[Step 4/6] Processing GitHub push event', {
-      requestId,
-      deliveryId,
-      repoName,
-      branch,
-      pusher,
-      commitCount: commits.length,
-      compareUrl
-    });
+    // STEP 5: Format message based on event type
+    if (event === 'push') {
+      const branch = payload.ref.replace('refs/heads/', '');
+      const pusher = payload.pusher.name;
+      const commits = payload.commits || [];
+      const compareUrl = payload.compare;
 
-    // Log commit details
-    if (commits.length > 0) {
-      logger.info('Commit details', {
+      logger.info('[Step 4/6] Processing GitHub push event', {
         requestId,
-        commits: commits.map((c: any) => ({
-          sha: c.id.substring(0, 7),
-          author: c.author.name,
-          message: c.message.split('\n')[0],
-          added: c.added?.length || 0,
-          modified: c.modified?.length || 0,
-          removed: c.removed?.length || 0
-        }))
+        deliveryId,
+        repoName,
+        branch,
+        pusher,
+        commitCount: commits.length,
+        compareUrl
       });
-    }
 
-    // STEP 5: Format message and send notification to Slack
-    const pusherEmoji = getUserEmoji(pusher);
-    const message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: ${pusherEmoji} *${pusher}*`;
+      const pusherEmoji = getUserEmoji(pusher);
+      message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: ${pusherEmoji} *${pusher}*`;
+
+      eventData = { branch, pusher, commitCount: commits.length };
+
+    } else if (event === 'issues') {
+      const action = payload.action;
+      const issue = payload.issue;
+      const sender = payload.sender.login;
+      const senderEmoji = getUserEmoji(sender);
+
+      logger.info('[Step 4/6] Processing GitHub issues event', {
+        requestId,
+        deliveryId,
+        repoName,
+        action,
+        issueNumber: issue.number,
+        issueTitle: issue.title,
+        sender
+      });
+
+      const actionEmoji = {
+        'opened': '🆕',
+        'closed': '✅',
+        'reopened': '🔄',
+        'edited': '✏️',
+        'deleted': '🗑️',
+        'assigned': '👤',
+        'unassigned': '👥',
+        'labeled': '🏷️',
+        'unlabeled': '🏷️'
+      }[action] || '📋';
+
+      message = `${actionEmoji} *Issue ${action} in \`${repoName}\`*\n#${issue.number}: ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${issue.html_url}`;
+
+      eventData = { action, issueNumber: issue.number, issueTitle: issue.title, sender };
+
+    } else if (event === 'issue_comment') {
+      const action = payload.action;
+      const issue = payload.issue;
+      const comment = payload.comment;
+      const sender = payload.sender.login;
+      const senderEmoji = getUserEmoji(sender);
+
+      logger.info('[Step 4/6] Processing GitHub issue comment event', {
+        requestId,
+        deliveryId,
+        repoName,
+        action,
+        issueNumber: issue.number,
+        sender
+      });
+
+      message = `💬 *Comment ${action} on issue #${issue.number} in \`${repoName}\`*\n${issue.title}\nBy: ${senderEmoji} *${sender}*\n${comment.html_url}`;
+
+      eventData = { action, issueNumber: issue.number, sender };
+    }
 
     logger.info('[Step 5/6] Sending notification to Slack', {
       requestId,
@@ -268,25 +312,20 @@ export async function POST(request: NextRequest) {
 
     // Save webhook event to DynamoDB for dashboard
     try {
-      const client = generateServerClientUsingCookies<Schema>({
-        config: outputs,
-        cookies,
-      });
-
-      await client.models.WebhookEvent.create({
+      await dataClient.models.WebhookEvent.create({
         requestId,
         deliveryId: deliveryId || '',
         eventType: event || 'push',
         repoName,
-        branch,
-        commitSha: commits[0]?.id || '',
-        commitMessage: commits[0]?.message.split('\n')[0] || '',
-        pusher,
+        branch: eventData.branch || '',
+        commitSha: eventData.commitCount ? '' : '',
+        commitMessage: eventData.issueTitle || '',
+        pusher: eventData.pusher || eventData.sender || '',
         success: true,
         processingTimeMs: totalDuration,
         slackMessageId: result.ts,
         timestamp: new Date().toISOString(),
-        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
+        ttl: calculateTTL(7 * 24 * 60), // 7 days
       });
     } catch (dbError) {
       // Don't fail webhook if DB save fails
