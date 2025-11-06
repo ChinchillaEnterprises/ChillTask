@@ -238,7 +238,7 @@ export async function POST(request: NextRequest) {
         sender
       });
 
-      const actionEmoji = {
+      const actionEmojiMap: Record<string, string> = {
         'opened': '🆕',
         'closed': '✅',
         'reopened': '🔄',
@@ -248,7 +248,8 @@ export async function POST(request: NextRequest) {
         'unassigned': '👥',
         'labeled': '🏷️',
         'unlabeled': '🏷️'
-      }[action] || '📋';
+      };
+      const actionEmoji = actionEmojiMap[action] || '📋';
 
       message = `${actionEmoji} *Issue ${action} in \`${repoName}\`*\n#${issue.number}: ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${issue.html_url}`;
 
@@ -312,7 +313,12 @@ export async function POST(request: NextRequest) {
 
     // Save webhook event to DynamoDB for dashboard
     try {
-      await dataClient.models.WebhookEvent.create({
+      const client = generateServerClientUsingCookies<Schema>({
+        config: outputs,
+        cookies,
+      });
+
+      await client.models.WebhookEvent.create({
         requestId,
         deliveryId: deliveryId || '',
         eventType: event || 'push',
@@ -325,7 +331,7 @@ export async function POST(request: NextRequest) {
         processingTimeMs: totalDuration,
         slackMessageId: result.ts,
         timestamp: new Date().toISOString(),
-        ttl: calculateTTL(7 * 24 * 60), // 7 days
+        ttl: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days
       });
     } catch (dbError) {
       // Don't fail webhook if DB save fails
