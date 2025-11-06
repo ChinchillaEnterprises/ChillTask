@@ -196,7 +196,8 @@ export async function POST(request: NextRequest) {
     // Initialize Slack client
     const slack = new WebClient(SLACK_BOT_TOKEN);
 
-    const repoName = payload.repository.full_name;
+    const repoFullName = payload.repository.full_name;
+    const repoShortName = payload.repository.name; // Just "ChillTask" instead of "ChinchillaEnterprises/ChillTask"
     let message = '';
     let eventData: any = {};
 
@@ -210,7 +211,7 @@ export async function POST(request: NextRequest) {
       logger.info('[Step 4/6] Processing GitHub push event', {
         requestId,
         deliveryId,
-        repoName,
+        repoName: repoFullName,
         branch,
         pusher,
         commitCount: commits.length,
@@ -218,7 +219,7 @@ export async function POST(request: NextRequest) {
       });
 
       const pusherEmoji = getUserEmoji(pusher);
-      message = `🔔 *New push to \`${repoName}\`*\nBranch: \`${branch}\` | By: ${pusherEmoji} *${pusher}*`;
+      message = `🚀 *${repoShortName}*\nPush to \`${branch}\` by ${pusherEmoji} *${pusher}*`;
 
       eventData = { branch, pusher, commitCount: commits.length };
 
@@ -231,27 +232,14 @@ export async function POST(request: NextRequest) {
       logger.info('[Step 4/6] Processing GitHub issues event', {
         requestId,
         deliveryId,
-        repoName,
+        repoName: repoFullName,
         action,
         issueNumber: issue.number,
         issueTitle: issue.title,
         sender
       });
 
-      const actionEmojiMap: Record<string, string> = {
-        'opened': '🆕',
-        'closed': '✅',
-        'reopened': '🔄',
-        'edited': '✏️',
-        'deleted': '🗑️',
-        'assigned': '👤',
-        'unassigned': '👥',
-        'labeled': '🏷️',
-        'unlabeled': '🏷️'
-      };
-      const actionEmoji = actionEmojiMap[action] || '📋';
-
-      message = `${actionEmoji} *Issue ${action} in \`${repoName}\`*\n#${issue.number}: ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${issue.html_url}`;
+      message = `🎫 *${repoShortName}*\nIssue ${action}: #${issue.number} ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${issue.html_url}`;
 
       eventData = { action, issueNumber: issue.number, issueTitle: issue.title, sender };
 
@@ -265,13 +253,13 @@ export async function POST(request: NextRequest) {
       logger.info('[Step 4/6] Processing GitHub issue comment event', {
         requestId,
         deliveryId,
-        repoName,
+        repoName: repoFullName,
         action,
         issueNumber: issue.number,
         sender
       });
 
-      message = `💬 *Comment ${action} on issue #${issue.number} in \`${repoName}\`*\n${issue.title}\nBy: ${senderEmoji} *${sender}*\n${comment.html_url}`;
+      message = `🎫 *${repoShortName}*\nComment on issue #${issue.number}: ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${comment.html_url}`;
 
       eventData = { action, issueNumber: issue.number, sender };
     }
@@ -322,7 +310,7 @@ export async function POST(request: NextRequest) {
         requestId,
         deliveryId: deliveryId || '',
         eventType: event || 'push',
-        repoName,
+        repoName: repoFullName,
         branch: eventData.branch || '',
         commitSha: eventData.commitCount ? '' : '',
         commitMessage: eventData.issueTitle || '',
