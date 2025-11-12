@@ -179,17 +179,19 @@ export async function POST(request: NextRequest) {
     });
 
     // Handle supported event types
-    const supportedEvents = ['push', 'issues', 'issue_comment'];
+    // NOTE: issues and issue_comment are now handled by scheduled Lambda summary
+    const supportedEvents = ['push'];
     if (!supportedEvents.includes(event || '')) {
-      logger.warn('[Step 4/6] Unsupported event type received - ignoring', {
+      logger.info('[Step 4/6] Event type not actively monitored - acknowledgement only', {
         requestId,
         deliveryId,
         event,
-        supportedEvents
+        note: 'Issue events are summarized every 6 hours by scheduled Lambda'
       });
       return NextResponse.json({
-        message: 'Event type not supported',
-        event
+        message: 'Event acknowledged but not actively monitored',
+        event,
+        note: 'Issue summaries are sent every 6 hours during business hours'
       });
     }
 
@@ -198,71 +200,26 @@ export async function POST(request: NextRequest) {
 
     const repoFullName = payload.repository.full_name;
     const repoShortName = payload.repository.name; // Just "ChillTask" instead of "ChinchillaEnterprises/ChillTask"
-    let message = '';
-    let eventData: any = {};
 
-    // STEP 5: Format message based on event type
-    if (event === 'push') {
-      const branch = payload.ref.replace('refs/heads/', '');
-      const pusher = payload.pusher.name;
-      const commits = payload.commits || [];
-      const compareUrl = payload.compare;
+    // STEP 5: Format message for push event
+    const branch = payload.ref.replace('refs/heads/', '');
+    const pusher = payload.pusher.name;
+    const commits = payload.commits || [];
+    const compareUrl = payload.compare;
 
-      logger.info('[Step 4/6] Processing GitHub push event', {
-        requestId,
-        deliveryId,
-        repoName: repoFullName,
-        branch,
-        pusher,
-        commitCount: commits.length,
-        compareUrl
-      });
+    logger.info('[Step 4/6] Processing GitHub push event', {
+      requestId,
+      deliveryId,
+      repoName: repoFullName,
+      branch,
+      pusher,
+      commitCount: commits.length,
+      compareUrl
+    });
 
-      const pusherEmoji = getUserEmoji(pusher);
-      message = `🚀 *${repoShortName}*\nPush to \`${branch}\` by ${pusherEmoji} *${pusher}*`;
-
-      eventData = { branch, pusher, commitCount: commits.length };
-
-    } else if (event === 'issues') {
-      const action = payload.action;
-      const issue = payload.issue;
-      const sender = payload.sender.login;
-      const senderEmoji = getUserEmoji(sender);
-
-      logger.info('[Step 4/6] Processing GitHub issues event', {
-        requestId,
-        deliveryId,
-        repoName: repoFullName,
-        action,
-        issueNumber: issue.number,
-        issueTitle: issue.title,
-        sender
-      });
-
-      message = `🎫 *${repoShortName}*\nIssue ${action}: #${issue.number} ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${issue.html_url}`;
-
-      eventData = { action, issueNumber: issue.number, issueTitle: issue.title, sender };
-
-    } else if (event === 'issue_comment') {
-      const action = payload.action;
-      const issue = payload.issue;
-      const comment = payload.comment;
-      const sender = payload.sender.login;
-      const senderEmoji = getUserEmoji(sender);
-
-      logger.info('[Step 4/6] Processing GitHub issue comment event', {
-        requestId,
-        deliveryId,
-        repoName: repoFullName,
-        action,
-        issueNumber: issue.number,
-        sender
-      });
-
-      message = `🎫 *${repoShortName}*\nComment on issue #${issue.number}: ${issue.title}\nBy: ${senderEmoji} *${sender}*\n${comment.html_url}`;
-
-      eventData = { action, issueNumber: issue.number, sender };
-    }
+    const pusherEmoji = getUserEmoji(pusher);
+    const message = `🚀 *${repoShortName}*\nPush to \`${branch}\` by ${pusherEmoji} *${pusher}*`;
+    const eventData = { branch, pusher, commitCount: commits.length };
 
     logger.info('[Step 5/6] Sending notification to Slack', {
       requestId,

@@ -1,0 +1,16 @@
+{
+  "name": "github-issue-summary",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@slack/web-api": "^7.0.0",
+    "@aws-sdk/client-secrets-manager": "^3.0.0",
+    "aws-amplify": "^6.0.0",
+    "@aws-amplify/backend": "^1.0.0",
+    "@aws-amplify/backend-function": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.115",
+    "@types/node": "^20.0.0"
+  }
+}

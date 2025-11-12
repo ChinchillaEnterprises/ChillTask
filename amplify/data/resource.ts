@@ -4,6 +4,7 @@ import { getGitHubRepos } from '../functions/get-github-repos/resource';
 import { getGitHubBranches } from '../functions/get-github-branches/resource';
 import { syncSlackHistory } from '../functions/sync-slack-history/resource';
 import { syncSlackToGitHub } from '../functions/sync-slack-to-github/resource';
+import { githubIssueSummary } from '../functions/github-issue-summary/resource';
 
 // ChillTask Data Schema - Slack to GitHub Channel Mappings
 const schema = a.schema({
@@ -65,6 +66,33 @@ const schema = a.schema({
       allow.publicApiKey(),
     ]),
 
+  // GitHub Issue Snapshots - For 6-hour summary reports
+  GitHubIssueSnapshot: a
+    .model({
+      timestamp: a.datetime().required(),    // When snapshot was taken
+      repoName: a.string().required(),       // "ChinchillaEnterprises/ChillTask"
+      repoOwner: a.string().required(),      // "ChinchillaEnterprises"
+
+      // Issue counts by label
+      readyForTestingCount: a.integer().default(0),
+      inProgressCount: a.integer().default(0),
+      blockedCount: a.integer().default(0),
+      backlogCount: a.integer().default(0),
+      totalCount: a.integer().required(),
+
+      // Detailed issue lists (stored as JSON arrays of {number, title, url, labels})
+      readyForTesting: a.json(),
+      inProgress: a.json(),
+      blocked: a.json(),
+      backlog: a.json(),
+
+      // TTL for auto-cleanup (keep for 30 days)
+      ttl: a.integer(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey(),  // Allow public access for now
+    ]),
+
   // Custom Types for API responses
   SlackChannel: a.customType({
     id: a.string().required(),
@@ -119,6 +147,7 @@ const schema = a.schema({
   // This injects AMPLIFY_DATA_GRAPHQL_ENDPOINT environment variable into the Lambda
   allow.resource(syncSlackHistory),
   allow.resource(syncSlackToGitHub),  // CRITICAL: Enables scheduled Lambda to access DynamoDB
+  allow.resource(githubIssueSummary), // GitHub issue summary Lambda
 ]);
 
 export type Schema = ClientSchema<typeof schema>;
