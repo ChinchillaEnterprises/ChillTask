@@ -1,0 +1,7 @@
+# Local test data - don't commit
+github-issue-snapshot.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo

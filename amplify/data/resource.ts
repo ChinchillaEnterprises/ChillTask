@@ -90,7 +90,7 @@ const schema = a.schema({
       ttl: a.integer(),
     })
     .authorization((allow) => [
-      allow.publicApiKey(),  // Allow public access for now
+      allow.publicApiKey(),
     ]),
 
   // Custom Types for API responses

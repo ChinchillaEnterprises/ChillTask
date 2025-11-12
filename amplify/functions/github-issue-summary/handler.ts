@@ -358,10 +358,10 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
     });
 
     const previousSnapshot = snapshots && snapshots.length > 0 ? {
-      readyForTesting: (snapshots[0].readyForTesting as IssueCategory[]) || [],
-      inProgress: (snapshots[0].inProgress as IssueCategory[]) || [],
-      blocked: (snapshots[0].blocked as IssueCategory[]) || [],
-      backlog: (snapshots[0].backlog as IssueCategory[]) || [],
+      readyForTesting: JSON.parse(snapshots[0].readyForTesting as string) as IssueCategory[] || [],
+      inProgress: JSON.parse(snapshots[0].inProgress as string) as IssueCategory[] || [],
+      blocked: JSON.parse(snapshots[0].blocked as string) as IssueCategory[] || [],
+      backlog: JSON.parse(snapshots[0].backlog as string) as IssueCategory[] || [],
       readyForTestingCount: snapshots[0].readyForTestingCount || 0,
       inProgressCount: snapshots[0].inProgressCount || 0,
       blockedCount: snapshots[0].blockedCount || 0,
@@ -418,7 +418,7 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
     // Save new snapshot
     const ttl = Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60); // 30 days
 
-    await client.models.GitHubIssueSnapshot.create({
+    const createResult = await client.models.GitHubIssueSnapshot.create({
       timestamp: new Date().toISOString(),
       repoName: `${owner}/${repo}`,
       repoOwner: owner,
@@ -427,14 +427,21 @@ export const handler = async (event: EventBridgeEvent<string, any>) => {
       blockedCount: currentSnapshot.blockedCount,
       backlogCount: currentSnapshot.backlogCount,
       totalCount: currentSnapshot.totalCount,
-      readyForTesting: currentSnapshot.readyForTesting as any,
-      inProgress: currentSnapshot.inProgress as any,
-      blocked: currentSnapshot.blocked as any,
-      backlog: currentSnapshot.backlog as any,
+      readyForTesting: JSON.stringify(currentSnapshot.readyForTesting),
+      inProgress: JSON.stringify(currentSnapshot.inProgress),
+      blocked: JSON.stringify(currentSnapshot.blocked),
+      backlog: JSON.stringify(currentSnapshot.backlog),
       ttl
     });
 
-    logger.info('[Step 7/7] New snapshot saved successfully');
+    if (createResult.errors) {
+      logger.error('[Step 7/7] Failed to save snapshot to DynamoDB', createResult.errors);
+      throw new Error(`DynamoDB write failed: ${JSON.stringify(createResult.errors)}`);
+    }
+
+    logger.info('[Step 7/7] New snapshot saved successfully', {
+      snapshotId: createResult.data?.id
+    });
 
     const duration = Date.now() - startTime;
 
